@@ -5,13 +5,16 @@ import {Login} from './pages';
 import Router from './router';
 
 import {enableLatestRenderer} from 'react-native-maps';
+import { Provider } from 'react-redux';
 
 const App = () => {
   enableLatestRenderer();
   return (
-    <NavigationContainer>
-      <Router />
-    </NavigationContainer>
+    // <Provider store={store}>
+      <NavigationContainer>
+        <Router />
+      </NavigationContainer>
+    // </Provider>
   );
 };
 

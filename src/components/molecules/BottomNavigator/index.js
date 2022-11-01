@@ -1,25 +1,15 @@
-import {
-  View,
-  Text,
-  Modal,
-  SafeAreaView,
-  StyleSheet,
-  Button,
-  TouchableOpacity,
-} from 'react-native';
+import {View, Modal, StyleSheet, TouchableOpacity} from 'react-native';
 import React, {useState, useEffect} from 'react';
 import Profile from '../Profile';
 import {
   HomeOn,
   HomeOff,
-  MapOff,
-  MapOn,
   ProfileOff,
-  SearchOff,
-  SearchOn,
-  TicketOff,
-  TicketOn,
   Close,
+  IcFavOn,
+  IcFavOff,
+  IcSettingOn,
+  IcSettingOff,
 } from '../../../assets';
 
 const Icon = ({label, focus}) => {
@@ -27,13 +17,11 @@ const Icon = ({label, focus}) => {
     case 'Home':
       return focus ? <HomeOn /> : <HomeOff />;
     case 'Search':
-      return focus ? <SearchOn /> : <SearchOff />;
-    case 'Map':
-      return focus ? <MapOn /> : <MapOff />;
-    case 'Ticket':
-      return focus ? <TicketOn /> : <TicketOff />;
+      return focus ? <IcFavOn /> : <IcFavOff />;
     case 'Profile':
       return <ProfileOff />;
+    case 'Setting':
+      return focus ? <IcSettingOn /> : <IcSettingOff />;
     default:
       return <HomeOff />;
   }
@@ -72,7 +60,6 @@ const BottomNavigator = ({state, descriptors, navigation}) => {
           });
 
           if (!isFocused && !event.defaultPrevented) {
-            // The `merge: true` option makes sure that the params inside the tab screen are preserved
             navigation.navigate({name: route.name, merge: true});
           }
         };
@@ -92,9 +79,7 @@ const BottomNavigator = ({state, descriptors, navigation}) => {
             accessibilityLabel={options.tabBarAccessibilityLabel}
             testID={options.tabBarTestID}
             onPress={onPress}
-            onLongPress={onLongPress}
-            // style={{flex: 1}}
-          >
+            onLongPress={onLongPress}>
             <Icon label={label} focus={isFocused} />
           </TouchableOpacity>
         );
@@ -111,7 +96,6 @@ const BottomNavigator = ({state, descriptors, navigation}) => {
           <View style={styles.modal}>
             <TouchableOpacity
               style={{
-                // backgroundColor: 'yellow',
                 flexDirection: 'row',
                 justifyContent: 'flex-end',
                 paddingTop: 30,
@@ -123,12 +107,6 @@ const BottomNavigator = ({state, descriptors, navigation}) => {
               <Close />
             </TouchableOpacity>
             <Profile navigation={navigation} />
-            {/* <Button
-              title={'click to close'}
-              onPress={() => {
-                setShowModal(!showModal);
-              }}
-            /> */}
           </View>
         </View>
       </Modal>

@@ -7,8 +7,29 @@ import {
   About,
   Calling,
   Shield,
+  IcSettingOff,
+  IcSettingDark,
 } from '../../../assets';
 import ListMenu from './../ListMenu/index';
+import { Gap } from '../../atoms';
+
+const dataMenu = [
+  {
+    id: 1,
+    name: 'Bookings',
+    total: 25,
+  },
+  {
+    id: 2,
+    name: 'Reviews',
+    total: 0,
+  },
+  {
+    id: 3,
+    name: 'Favorite',
+    total: 5,
+  },
+];
 
 const Profile = ({navigation}) => {
   return (
@@ -25,10 +46,11 @@ const Profile = ({navigation}) => {
             <Text style={styles.appName}>Rizki Darmawan</Text>
             <Text style={styles.desc}>Semarang, Indonesia</Text>
             <TouchableOpacity>
-              <Text style={styles.tampil}>Tampilkan profil</Text>
+              <Text style={styles.tampil}>Edit Profile</Text>
             </TouchableOpacity>
           </View>
         </View>
+
         <View style={{marginLeft: 75}}>
           <Text
             style={{
@@ -45,14 +67,27 @@ const Profile = ({navigation}) => {
         </View>
       </View>
 
-      <ListMenu text="Informasi Pribadi" icon={<ProfileDark />} onPress={() => navigation.navigate('InformationPribadi') } />
-      <ListMenu text="Tiket Saya" icon={<TicketDark />} />
+      <View style={styles.menuProfile}>
+        {dataMenu.map(item => {
+          return (
+            <TouchableOpacity key={item.id} style={styles.menu}>
+              <Text style={[styles.menuText, styles.title]}>{item.name}</Text>
+              <Gap height={5} />
+              <Text style={[styles.menuText, styles.desc]}>{item.total}</Text>
+            </TouchableOpacity>
+          );
+        })}
+      </View>
+
+      <ListMenu
+        text="Settings"
+        icon={<IcSettingDark />}
+        onPress={() => navigation.navigate('Setting')}
+      />
+      <ListMenu text="History Booking" icon={<TicketDark />} />
       <ListMenu text="Kontak dan Bantuan" icon={<Calling />} />
       <ListMenu text="Tentang Aplikasi" icon={<About />} />
       <ListMenu text="Kebijakan Privasi" icon={<Shield />} />
-      <TouchableOpacity>
-        <Text style={styles.logout}>Logout</Text>
-      </TouchableOpacity>
     </View>
   );
 };
@@ -86,5 +121,31 @@ const styles = StyleSheet.create({
     fontFamily: 'Raleway-SemiBold',
     color: '#020202',
     textDecorationLine: 'underline',
+  },
+  menuProfile: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginStart: 25,
+    marginEnd: 25,
+    backgroundColor: '#F2F2F2',
+    borderRadius: 10,
+  },
+  menu: {
+    alignItems: 'center',
+    padding: 15,
+  },
+  menuText: {
+    fontSize: 14,
+    color: '#020202',
+    letterSpacing: 0.5,
+    fontFamily: 'Popins-Regular',
+  },
+  title: {
+    fontWeight: 'bold',
+    color: '#8D92A3',
+  },
+  desc: {
+    fontSize: 14,
+    color: '#44CFCB',
   },
 });

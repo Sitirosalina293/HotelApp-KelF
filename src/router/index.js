@@ -6,13 +6,10 @@ import {
   Login,
   Home,
   Search,
-  Map,
-  Ticket,
-  Profile,
   TourDetail,
   Intro,
-  Pesan,
   TicketDetail,
+  SettingPages,
 } from '../pages';
 
 import {BottomNavigator} from '../components';
@@ -33,17 +30,11 @@ const MainApp = () => {
         component={Search}
         options={{headerShown: false}}
       />
-      <Tab.Screen name="Map" component={Map} options={{headerShown: false}} />
       <Tab.Screen
-        name="Ticket"
-        component={Ticket}
+        name="Setting"
+        component={SettingPages}
         options={{headerShown: false}}
       />
-      {/* <Tab.Screen
-        name="Profile"
-        component={Profile}
-        options={{headerShown: false}}
-      /> */}
     </Tab.Navigator>
   );
 };
@@ -102,9 +93,9 @@ const Router = () => {
         component={TicketDetail}
         options={{headerShown: false}}
       />
-      <Stack.Screen
-        name="InformationPribadi"
-        component={InformationPribadi}
+      <Tab.Screen
+        name="Setting"
+        component={SettingPages}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

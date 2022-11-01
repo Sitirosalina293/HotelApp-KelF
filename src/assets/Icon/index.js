@@ -4,10 +4,6 @@ import HomeOff from './HomeOff.svg';
 import MapOff from './MapOff.svg';
 import MapOn from './MapOn.svg';
 import ProfileOff from './ProfileOff.svg';
-import SearchOff from './SearchOff.svg';
-import SearchOn from './SearchOn.svg';
-import TicketOff from './TicketOff.svg';
-import TicketOn from './TicketOn.svg';
 import IcStar from './IcStar.svg';
 import Star from './Star.svg';
 import Search from './Search';
@@ -23,6 +19,7 @@ import IcLocation from './location.svg';
 import IcLove from './IcLove.svg';
 import IcBack from './IcBack.svg';
 import IcBack2 from './IcBack2.svg';
+import IcBack3 from './Back3.svg';
 import IcParkir from './IcParkir.svg';
 import IcMouseque from './IcMousque.svg';
 import IcToilet from './IcToilet.svg';
@@ -32,6 +29,11 @@ import PersonDetail from './personDetail.svg';
 import PinMap from './PinMap.svg';
 import IcSuccess from './success.svg';
 import LogoQR from './LogoQR.png';
+import IcFavOn from './favoriteOn.svg';
+import IcFavOff from './favoriteOff.svg';
+import IcSettingOn from './settingOn.svg';
+import IcSettingOff from './settingOff.svg';
+import IcSettingDark from './settingDark.svg';
 
 export {
   Google,
@@ -40,10 +42,6 @@ export {
   MapOff,
   MapOn,
   ProfileOff,
-  SearchOff,
-  SearchOn,
-  TicketOff,
-  TicketOn,
   IcStar,
   Star,
   Search,
@@ -59,6 +57,7 @@ export {
   IcLove,
   IcBack,
   IcBack2,
+  IcBack3,
   IcParkir,
   IcMouseque,
   IcToilet,
@@ -68,4 +67,10 @@ export {
   PinMap,
   IcSuccess,
   LogoQR,
+  IcFavOn,
+  IcFavOff,
+  IcSettingOn,
+  IcSettingOff,
+  IcSettingDark,
+
 };

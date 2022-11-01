@@ -6,9 +6,18 @@ import {MinLogo, Google} from '../../assets';
 const Login = ({navigation}) => {
   const [count, setCount] = useState(0);
   const onPress = () => setCount(prevCount => prevCount + 1);
+
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const onSubmit = () => {
+    console.log('username: ', username);
+    console.log('password: ', password);
+    navigation.navigate('MainApp');
+  };
+
   return (
     <View style={{backgroundColor: '#fff', flex: 1}}>
-      {/* <Text>Count: {count}</Text> */}
       <View style={styles.header}>
         <MinLogo />
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
@@ -16,15 +25,24 @@ const Login = ({navigation}) => {
             Masuk dan mulai{'\n'}berThamasya
           </Text>
           <Text
-            onPress={() => navigation.navigate('Register')}
             style={styles.daftar}>
             Daftar ?
           </Text>
         </View>
         <Gap height={60} />
-        <TextInput label="Email Address" placeholder="" />
+        <TextInput
+          label="Email Address"
+          placeholder=""
+          value={username}
+          onChangeText={value => setUsername(value)}
+        />
         <Gap height={30} />
-        <TextInput label="Password" placeholder="" />
+        <TextInput
+          label="Password"
+          placeholder=""
+          value={password}
+          onChangeText={value => setPassword(value)}
+        />
         <Text
           style={{
             fontFamily: 'Raleway-Regular',
@@ -36,7 +54,7 @@ const Login = ({navigation}) => {
           Forgot My Password
         </Text>
         <Gap height={24} />
-        <Button text="Masuk" onPress={() => navigation.navigate('MainApp')} />
+        <Button text="Sign In" onPress={onSubmit} />
         <Text
           style={{
             textAlign: 'center',
