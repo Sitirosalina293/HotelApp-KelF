@@ -10,6 +10,7 @@ import {
   Intro,
   TicketDetail,
   SettingPages,
+  History,
 } from '../pages';
 
 import {BottomNavigator} from '../components';
@@ -96,6 +97,11 @@ const Router = () => {
       <Tab.Screen
         name="Setting"
         component={SettingPages}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="History"
+        component={History}
         options={{headerShown: false}}
       />
     </Stack.Navigator>

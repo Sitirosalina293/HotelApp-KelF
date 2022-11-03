@@ -11,7 +11,7 @@ import {
   IcSettingDark,
 } from '../../../assets';
 import ListMenu from './../ListMenu/index';
-import { Gap } from '../../atoms';
+import {Gap} from '../../atoms';
 
 const dataMenu = [
   {
@@ -84,7 +84,11 @@ const Profile = ({navigation}) => {
         icon={<IcSettingDark />}
         onPress={() => navigation.navigate('Setting')}
       />
-      <ListMenu text="History Booking" icon={<TicketDark />} />
+      <ListMenu
+        text="History Booking"
+        icon={<TicketDark />}
+        onPress={() => navigation.navigate('History')}
+      />
       <ListMenu text="Kontak dan Bantuan" icon={<Calling />} />
       <ListMenu text="Tentang Aplikasi" icon={<About />} />
       <ListMenu text="Kebijakan Privasi" icon={<Shield />} />

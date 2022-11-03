@@ -10,7 +10,9 @@ const SettingPages = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity>
+        <TouchableOpacity 
+          onPress={() => navigation.goBack()}
+        >
           <IcBack2 />
         </TouchableOpacity>
         <Gap width={150} />

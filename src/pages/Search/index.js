@@ -8,7 +8,7 @@ import {
   ScrollView,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
-import {HeaderLogo, BigCardTour, SearchIcon} from '../../components';
+import {BigCardTour, SearchIcon, HeaderPrimary} from '../../components';
 import tour from './../../assets/data/tour';
 
 const Search = () => {
@@ -37,7 +37,7 @@ const Search = () => {
   return (
     <ScrollView>
       <View style={{backgroundColor: 'white', flex: 1}}>
-        <HeaderLogo />
+        <HeaderPrimary />
         <View style={{alignItems: 'center'}}>
           <Text
             style={{
