@@ -1,5 +1,6 @@
 import React from 'react';
-import {StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
+import Gap from '../Gap';
 
 const Button = ({
   text,
@@ -7,7 +8,25 @@ const Button = ({
   textColor = '#fff',
   onPress,
   icon = '',
+  type,
 }) => {
+  if (type === 'checkDate') {
+    return (
+      <TouchableOpacity style={styles.btnCheck} onPress={onPress}>
+        <Image source={{uri: icon}} style={styles.iconCheck} />
+        <Gap width={10} />
+        <Text>{text}</Text>
+      </TouchableOpacity>
+    );
+  }
+
+  if (type === 'CountGuest') {
+    return (
+      <TouchableOpacity style={styles.btnCount}>
+        <Text>{text}</Text>
+      </TouchableOpacity>
+    );
+  }
   return (
     <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
       <View style={styles.container(color)}>
@@ -33,4 +52,22 @@ const styles = StyleSheet.create({
     color: color,
     textAlign: 'center',
   }),
+  btnCheck: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    backgroundColor: '#fff',
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    borderRadius: 10,
+    alignItems: 'center',
+  },
+  iconCheck: {
+    width: 20,
+    height: 20,
+  },
+  btnCount: {
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    padding: 10,
+  },
 });

@@ -9,6 +9,7 @@ import PesanCheckOut from './Pesan';
 import TicketDetail from './TicketDetail';
 import InformationPribadi from './Information';
 import History from './History';
+import Favorite from './Favorite';
 
 export {
   SplashScreen,
@@ -22,4 +23,5 @@ export {
   TicketDetail,
   InformationPribadi,
   History,
+  Favorite,
 };

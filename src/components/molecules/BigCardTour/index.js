@@ -1,8 +1,9 @@
 import {TouchableOpacity, View, Text, Image} from 'react-native';
 import React from 'react';
-import {TourDummy, Star} from '../../../assets';
-import { useNavigation } from '@react-navigation/native';
-
+import {TourDummy, Star, IcLove} from '../../../assets';
+import {useNavigation} from '@react-navigation/native';
+import {ImageBackground} from 'react-native';
+import { StyleSheet } from 'react-native';
 
 const BigCardTour = ({tour}) => {
   const navigation = useNavigation();
@@ -21,10 +22,13 @@ const BigCardTour = ({tour}) => {
           marginBottom: 30,
         }}>
         <View>
-          <Image
+          <ImageBackground
             style={{width: 420, height: 350, borderRadius: 10}}
-            source={tour.image}
-          />
+            source={tour.image}>
+            <TouchableOpacity style={style.IcLove}>
+              <IcLove />
+            </TouchableOpacity>
+          </ImageBackground>
           <View
             style={{
               justifyContent: 'space-between',
@@ -76,3 +80,12 @@ const BigCardTour = ({tour}) => {
 };
 
 export default BigCardTour;
+
+const style = StyleSheet.create({
+  IcLove: {
+    position: 'absolute',
+    top: 10,
+    right: 10,
+  },
+
+})

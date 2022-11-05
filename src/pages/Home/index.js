@@ -1,46 +1,64 @@
 import {View, StyleSheet, ScrollView} from 'react-native';
 import React from 'react';
-import {Gap, HomeTabSection, HomeWelcome, TourCard} from '../../components';
-import {TourDummy1, TourDummy2, TourDummy3} from '../../assets';
-import SearchBarHome from '../../components/atoms/SearchIcon';
+import {CardSearch, Gap, HomeWelcome, TourCard} from '../../components';
 import TextHome2 from '../../components/atoms/TextHome2';
 import tour from './../../assets/data/tour';
 
 const Home = ({navigation}) => {
   return (
-    <ScrollView>
-      <View style={styles.page}>
-        <HomeWelcome />
-        <View style={{marginHorizontal: 12, marginVertical: 20}}>
-          <SearchBarHome placeholder="Cari destinasimu ?" />
-        </View>
-        <Gap width={100} />
-        <TextHome2 text="Paling Populer" />
-        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-          <View style={styles.TourCardContainer}>
-            <Gap width={5} />
+    <View style={styles.page}>
+      <HomeWelcome />
+      <ScrollView vertical showsVerticalScrollIndicator={false}>
+        <CardSearch />
+        <>
+          <TextHome2 text="Top Destinasi" />
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={styles.TourCardContainer}>
+              <Gap width={5} />
 
-            {tour.data.map((dataTour, index) => (
-              <TourCard
-                key={index}
-                images={dataTour.image}
-                onPress={() =>
-                  navigation.navigate('TourDetail', {
-                    data: dataTour,
-                  })
-                }
-                title={dataTour.name}
-              />
-            ))}
+              {tour.data.map((dataTour, index) => (
+                <TourCard
+                  key={index}
+                  images={dataTour.image}
+                  onPress={() =>
+                    navigation.navigate('TourDetail', {
+                      data: dataTour,
+                    })
+                  }
+                  title={dataTour.name}
+                />
+              ))}
 
-            <Gap width={5} />
-          </View>
-        </ScrollView>
-        <View style={styles.tabContainer}>
-          <HomeTabSection data={tour} />
-        </View>
-      </View>
-    </ScrollView>
+              <Gap width={5} />
+            </View>
+          </ScrollView>
+        </>
+        <>
+          <TextHome2 text="Paling Populer" />
+          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+            <View style={styles.TourCardContainer}>
+              <Gap width={5} />
+
+              {tour.data.map((dataTour, index) => (
+                <TourCard
+                  key={index}
+                  images={dataTour.image}
+                  onPress={() =>
+                    navigation.navigate('TourDetail', {
+                      data: dataTour,
+                    })
+                  }
+                  title={dataTour.name}
+                />
+              ))}
+
+              <Gap width={5} />
+            </View>
+          </ScrollView>
+        </>
+        <Gap height={20} />
+      </ScrollView>
+    </View>
   );
 };
 

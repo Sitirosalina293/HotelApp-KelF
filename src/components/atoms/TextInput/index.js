@@ -21,7 +21,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Raleway-Regular',
     color: '#7D8797',
-    marginBottom: 15,
+    // marginBottom: 15,
   },
   input: {
     borderWidth: 0.5,

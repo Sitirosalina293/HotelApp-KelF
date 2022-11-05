@@ -68,7 +68,7 @@ const PesanCheckOut = ({navigation}) => {
         <Button text={'Cek Ketersediaan'} />
       </View>
       <View style={styles.content3}>
-        <Button text={'Pesan sekarang'} onPress={() => navigation.navigate('Checkout')}  />
+        <Button text={'Pesan sekarang'} onPress={() => navigation.navigate('DataPemesan')}  />
       </View>
     </View>
   );

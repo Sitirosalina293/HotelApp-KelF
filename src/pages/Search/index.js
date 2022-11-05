@@ -8,8 +8,15 @@ import {
   ScrollView,
 } from 'react-native';
 import React, {useState, useEffect} from 'react';
-import {BigCardTour, SearchIcon, HeaderPrimary} from '../../components';
+import {
+  BigCardTour,
+  SearchIcon,
+  HeaderPrimary,
+  CardSearch,
+  Gap,
+} from '../../components';
 import tour from './../../assets/data/tour';
+import {SafeAreaView} from 'react-native';
 
 const Search = () => {
   const [kategori, setKategori] = useState([
@@ -35,33 +42,31 @@ const Search = () => {
   });
 
   return (
-    <ScrollView>
-      <View style={{backgroundColor: 'white', flex: 1}}>
-        <HeaderPrimary />
-        <View style={{alignItems: 'center'}}>
-          <Text
-            style={{
-              fontSize: 20,
-              fontFamily: 'Raleway-Bold',
-              color: '#1D2132',
-            }}>
-            Pilih Wisatamu
-          </Text>
-          <Text
-            style={{
-              textAlign: 'center',
-              marginTop: 10,
-              fontFamily: 'Raleway-Regular',
-              color: '#7C7C8C',
-              lineHeight: 24,
-            }}>
-            Berbagai wisata di kota Semarang {'\n'} dan kabupaten Semarang
-          </Text>
-        </View>
-
-        <View style={{marginHorizontal: 30, marginTop: 25}}>
-          <SearchIcon placeholder="Cari destinasimu ?" />
-        </View>
+    <SafeAreaView style={{backgroundColor: 'white', flex: 1}}>
+      <HeaderPrimary type="header-secondary" />
+      <View style={{alignItems: 'center'}}>
+        <Text
+          style={{
+            fontSize: 20,
+            fontFamily: 'Raleway-Bold',
+            color: '#1D2132',
+          }}>
+          Pilih Wisatamu
+        </Text>
+        <Text
+          style={{
+            textAlign: 'center',
+            marginTop: 10,
+            fontFamily: 'Raleway-Regular',
+            color: '#7C7C8C',
+            lineHeight: 24,
+          }}>
+          Berbagai wisata di kota Semarang {'\n'} dan kabupaten Semarang
+        </Text>
+      </View>
+      <Gap height={10} />
+      <ScrollView vertical showsVerticalScrollIndicator={false}>
+        <CardSearch />
 
         {/* Categori section */}
         <View style={{marginHorizontal: 30, marginVertical: 25}}>
@@ -92,11 +97,11 @@ const Search = () => {
             )}
           />
         </View>
-        {tour.data.map((dataTour,index) => (
+        {tour.data.map((dataTour, index) => (
           <BigCardTour key={index} tour={dataTour} />
         ))}
-      </View>
-    </ScrollView>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

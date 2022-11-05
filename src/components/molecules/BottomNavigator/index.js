@@ -16,7 +16,7 @@ const Icon = ({label, focus}) => {
   switch (label) {
     case 'Home':
       return focus ? <HomeOn /> : <HomeOff />;
-    case 'Search':
+    case 'Favorite':
       return focus ? <IcFavOn /> : <IcFavOff />;
     case 'Profile':
       return <ProfileOff />;

@@ -11,6 +11,7 @@ import {
   TicketDetail,
   SettingPages,
   History,
+  Favorite,
 } from '../pages';
 
 import {BottomNavigator} from '../components';
@@ -18,6 +19,7 @@ import PesanCheckOut from '../pages/Pesan';
 import Checkout from '../pages/Checkout';
 import Success from '../pages/Success';
 import InformationPribadi from '../pages/Information';
+import DataPemesan from '../pages/DataPemesan';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -27,8 +29,8 @@ const MainApp = () => {
     <Tab.Navigator tabBar={props => <BottomNavigator {...props} />}>
       <Tab.Screen name="Home" component={Home} options={{headerShown: false}} />
       <Tab.Screen
-        name="Search"
-        component={Search}
+        name="Favorite"
+        component={Favorite}
         options={{headerShown: false}}
       />
       <Tab.Screen
@@ -104,6 +106,22 @@ const Router = () => {
         component={History}
         options={{headerShown: false}}
       />
+      <Stack.Screen
+        name="Search"
+        component={Search}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="DataPemesan"
+        component={DataPemesan}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="InformationPribadi"
+        component={InformationPribadi}
+        options={{headerShown: false}}
+      />
+
     </Stack.Navigator>
   );
 };
