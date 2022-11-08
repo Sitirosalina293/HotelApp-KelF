@@ -1,20 +1,17 @@
 import React from 'react';
-import {View, Text} from 'react-native';
 import {NavigationContainer} from '@react-navigation/native';
-import {Login} from './pages';
 import Router from './router';
 
-import {enableLatestRenderer} from 'react-native-maps';
 import { Provider } from 'react-redux';
+import store from './redux/store';
 
 const App = () => {
-  enableLatestRenderer();
   return (
-    // <Provider store={store}>
+    <Provider store={store}>
       <NavigationContainer>
         <Router />
       </NavigationContainer>
-    // </Provider>
+    </Provider>
   );
 };
 

@@ -2,17 +2,17 @@ import React, {useState} from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import {TextInput, Gap, Button} from '../../components';
 import {MinLogo, Google} from '../../assets';
+import { useDispatch } from 'react-redux';
 
 const Login = ({navigation}) => {
-  const [count, setCount] = useState(0);
-  const onPress = () => setCount(prevCount => prevCount + 1);
-
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState(0);
+  const [password, setPassword] = useState(0);
 
   const onSubmit = () => {
-    console.log('username: ', username);
+    console.log('username: ', email);
     console.log('password: ', password);
+    dispatch(Login(email, password));
     navigation.navigate('MainApp');
   };
 
@@ -33,15 +33,15 @@ const Login = ({navigation}) => {
         <TextInput
           label="Email Address"
           placeholder=""
-          value={username}
-          onChangeText={value => setUsername(value)}
+          value={email}
+          onChangeText={(value) => setEmail(value)}
         />
         <Gap height={30} />
         <TextInput
           label="Password"
           placeholder=""
           value={password}
-          onChangeText={value => setPassword(value)}
+          onChangeText={(value) => setPassword(value)}
         />
         <Text
           style={{
