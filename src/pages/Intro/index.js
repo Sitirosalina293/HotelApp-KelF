@@ -67,7 +67,6 @@ const Intro = ({navigation}) => {
                     fontSize: 23,
                     fontFamily: 'Raleway-Bold',
                     color: '#003C41',
-                    // color: `${item.colorNameImage}`,
                     position: 'absolute',
                     bottom: 50,
                     left: 30,
@@ -89,7 +88,7 @@ const Intro = ({navigation}) => {
         renderNextButton={() => buttonLabel('Lanjut')}
         renderDoneButton={() => buttonLabel('Mulai')}
         // renderPrevButton={() => buttonLabel('Kembali')} / ora iso
-        onDone={() => navigation.replace('Login')}
+        onDone={() => navigation.replace('MainApp')}
       />
     );
   }

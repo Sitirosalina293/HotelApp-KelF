@@ -1,19 +1,30 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
+import {useDispatch} from 'react-redux';
 import {View, StyleSheet, Text} from 'react-native';
 import {TextInput, Gap, Button} from '../../components';
 import {MinLogo, Google} from '../../assets';
+import {login} from '../../actions/auth';
 
 const Login = ({navigation}) => {
-  const [count, setCount] = useState(0);
-  const onPress = () => setCount(prevCount => prevCount + 1);
+  const dispatch = useDispatch();
 
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-
-  const onSubmit = () => {
-    console.log('username: ', username);
-    console.log('password: ', password);
-    navigation.navigate('MainApp');
+  const [username, setUsername] = useState();
+  const [password, setPassword] = useState();
+  
+  const onLogin = () => {
+    let user = {
+      username: username,
+      password: password,
+    };
+    dispatch(login(user))
+      .then(response => {
+        if (response.status == 'success') {
+          navigation.replace('MainApp');
+        }
+      })
+      .catch(error => {
+        navigation.replace('LoginScreen');
+      });
   };
 
   return (
@@ -24,10 +35,7 @@ const Login = ({navigation}) => {
           <Text style={styles.titleHeader}>
             Masuk dan mulai{'\n'}berThamasya
           </Text>
-          <Text
-            style={styles.daftar}>
-            Daftar ?
-          </Text>
+          <Text style={styles.daftar}>Daftar ?</Text>
         </View>
         <Gap height={60} />
         <TextInput
@@ -54,7 +62,7 @@ const Login = ({navigation}) => {
           Forgot My Password
         </Text>
         <Gap height={24} />
-        <Button text="Sign In" onPress={onSubmit} />
+        <Button text="Sign In" onPress={() => onLogin()} />
         <Text
           style={{
             textAlign: 'center',

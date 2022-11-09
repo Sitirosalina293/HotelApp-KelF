@@ -1,10 +1,18 @@
 import {View, StyleSheet, ScrollView} from 'react-native';
 import React from 'react';
-import {CardSearch, Gap, HomeWelcome, TourCard} from '../../components';
+import {Button, CardSearch, Gap, HomeWelcome, TourCard} from '../../components';
 import TextHome2 from '../../components/atoms/TextHome2';
 import tour from './../../assets/data/tour';
+import { useDispatch } from 'react-redux';
+import { logout } from '../../redux/action/auth';
 
 const Home = ({navigation}) => {
+  const dispatch = useDispatch();
+
+  const handleLogOut = () => {
+    dispatch(logout());
+  };
+
   return (
     <View style={styles.page}>
       <HomeWelcome />
