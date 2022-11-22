@@ -17,7 +17,9 @@ const Favorite = () => {
     <ScrollView>
       <View style={{backgroundColor: 'white', flex: 1}}>
         <HeaderPrimary />
-        <View style={{alignItems: 'center'}}>
+        <View style={{alignItems: 'center',
+        justifyContent: 'center',
+      }}>
           <Text
             style={{
               fontSize: 20,
@@ -65,9 +67,16 @@ const Favorite = () => {
             )}
           />
         </View>
-        {tour.data.map((dataTour, index) => (
-          <BigCardTour key={index} tour={dataTour} />
-        ))}
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        >
+          {tour.data.map((dataTour, index) => (
+            <BigCardTour key={index} tour={dataTour} />
+          ))}
+        </View>
       </View>
     </ScrollView>
   );

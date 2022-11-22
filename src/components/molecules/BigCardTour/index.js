@@ -16,14 +16,10 @@ const BigCardTour = ({tour}) => {
       }
       activeOpacity={0.7}>
       <View
-        style={{
-          marginHorizontal: 30,
-          alignItems: 'center',
-          marginBottom: 30,
-        }}>
+        style={style.content}>
         <View>
           <ImageBackground
-            style={{width: 420, height: 350, borderRadius: 10}}
+            style={{width: 300, height: 280, borderRadius: 10}}
             source={tour.image}>
             <TouchableOpacity style={style.IcLove}>
               <IcLove />
@@ -87,5 +83,15 @@ const style = StyleSheet.create({
     top: 10,
     right: 10,
   },
+  content: {
+    marginHorizontal: 30,
+    alignItems: 'center',
+    marginBottom: 30,
+    width: '100%',
+    backgroundColor: 'white',
+    elevation: 3,
+    padding: 10,
+    borderRadius: 10,
+  }
 
 })

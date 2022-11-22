@@ -12,17 +12,19 @@ import { Lawangsewu1 } from '../../assets';
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
   const {hotel, isLoadingHotel} = useSelector(state => state.productReducer);
+  const user = useSelector(state => state.auth.user);
+  console.log('user :', user);
   // console.log('hotel :', hotel);
   const handleLogOut = () => {
     dispatch(logout());
   };
 
-  useEffect(() => {
-    dispatch(
-      getMetaDataHotel(),
-      // getMetaDataHotelV2(),
-    );
-  }, []);
+  // useEffect(() => {
+  //   dispatch(
+  //     getMetaDataHotel(),
+  //     // getMetaDataHotelV2(),
+  //   );
+  // }, []);
 
   return (
     <View style={styles.page}>
@@ -38,7 +40,7 @@ const Home = ({navigation}) => {
           <TextHome2 text="Top Destinasi" />
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View style={styles.TourCardContainer}>
-              <Gap width={5} />
+              {/* <Gap width={5} />
               {hotel.map((item, index) => {
                 return (
                   <TourCard
@@ -52,7 +54,7 @@ const Home = ({navigation}) => {
                   />
                 );
               })}
-              <Gap width={5} />
+              <Gap width={5} /> */}
             </View>
           </ScrollView>
         </>

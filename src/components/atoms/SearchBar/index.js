@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
   container: {
     borderWidth: 0.5,
     borderColor: '#DEDEDE',
-    borderRadius: 100,
+    borderRadius: 10,
     flexDirection: 'row',
     alignItems: 'center',
     width: '100%',

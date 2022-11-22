@@ -5,7 +5,7 @@ import {
   SplashScreen,
   Login,
   Home,
-  Search,
+  // Search,
   TourDetail,
   Intro,
   TicketDetail,
@@ -106,11 +106,11 @@ const Router = () => {
         component={History}
         options={{headerShown: false}}
       />
-      <Stack.Screen
+      {/* <Stack.Screen
         name="Search"
         component={Search}
         options={{headerShown: false}}
-      />
+      /> */}
       <Stack.Screen
         name="DataPemesan"
         component={DataPemesan}

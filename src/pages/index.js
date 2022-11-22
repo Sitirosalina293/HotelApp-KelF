@@ -1,7 +1,6 @@
 import SplashScreen from './SplashScreen';
 import Login from './Login';
 import Home from './Home';
-import Search from './Search';
 import SettingPages from './SettingPages';
 import TourDetail from './Detail';
 import Intro from './Intro';
@@ -15,7 +14,6 @@ export {
   SplashScreen,
   Login,
   Home,
-  Search,
   SettingPages,
   TourDetail,
   Intro,

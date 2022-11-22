@@ -14,12 +14,12 @@ const CardSearch = () => {
       <View style={styles.inputDate}>
         <Button
           type="checkDate"
-          text="Check In Date"
+          text="Check in date"
           icon="https://cdn-icons-png.flaticon.com/512/747/747479.png"
         />
         <Button
           type="checkDate"
-          text="Check Out Date"
+          text="Check out date"
           icon="https://cdn-icons-png.flaticon.com/512/747/747479.png"
         />
       </View>
@@ -38,7 +38,7 @@ const CardSearch = () => {
       </View>
       <Gap height={16} />
       <Button text="Search" 
-        onPress={() => navigation.navigate('Search')} />
+        onPress={() => navigation.navigate('Favorite')} />
       
     </View>
   );
@@ -67,8 +67,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: '#fff',
-    padding: 10,
+    paddingHorizontal: 10,
     borderRadius: 10,
+    height: 50,
   },
   coundDown: {
     flexDirection: 'row',

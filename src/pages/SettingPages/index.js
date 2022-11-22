@@ -15,8 +15,8 @@ const SettingPages = ({navigation}) => {
         >
           <IcBack2 />
         </TouchableOpacity>
-        <Gap width={150} />
         <Text style={styles.textHeader}>Setting</Text>
+        <View></View>
       </View>
       <ScrollView vertical showsVerticalScrollIndicator={false}>
         <View style={styles.content}>
@@ -96,6 +96,7 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: 'row',
+    justifyContent: 'space-between',
     alignItems: 'center',
     paddingHorizontal: 20,
     paddingTop: 20,

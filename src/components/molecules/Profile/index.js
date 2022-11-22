@@ -50,21 +50,7 @@ const Profile = ({navigation}) => {
             </TouchableOpacity>
           </View>
         </View>
-
-        <View style={{marginLeft: 75}}>
-          <Text
-            style={{
-              fontFamily: 'Raleway-Bold',
-              fontSize: 10,
-              backgroundColor: '#44CFCB',
-              paddingHorizontal: 23,
-              paddingVertical: 3,
-              borderRadius: 100,
-              color: '#fff',
-            }}>
-            Beginer
-          </Text>
-        </View>
+        <View></View>
       </View>
 
       <View style={styles.menuProfile}>

@@ -15,7 +15,11 @@ const Button = ({
       <TouchableOpacity style={styles.btnCheck} onPress={onPress}>
         <Image source={{uri: icon}} style={styles.iconCheck} />
         <Gap width={10} />
-        <Text>{text}</Text>
+        <Text
+          style={{
+            fontSize: 14,
+          }}
+        >{text}</Text>
       </TouchableOpacity>
     );
   }
@@ -56,7 +60,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     backgroundColor: '#fff',
-    paddingHorizontal: 20,
+    paddingHorizontal: 10,
     paddingVertical: 10,
     borderRadius: 10,
     alignItems: 'center',
