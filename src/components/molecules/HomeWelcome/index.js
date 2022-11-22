@@ -3,8 +3,9 @@ import React from 'react';
 import {ProfileDummy} from '../../../assets';
 import {useSelector} from 'react-redux';
 import {TouchableOpacity} from 'react-native';
-const HomeWelcome = () => {
+const HomeWelcome = ({navigation}) => {
   const {isLoggedIn} = useSelector(state => state.auth);
+  
   return (
     <View style={styles.profileContainer}>
       {isLoggedIn ? (

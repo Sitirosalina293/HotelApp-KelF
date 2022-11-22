@@ -19,6 +19,7 @@
     "babel-preset-react-native": "2.1.0",
     "react": "18.1.0",
     "react-native": "0.70.1",
+    "axios": "^0.27.2",
     "react-native-app-intro-slider": "^4.0.4",
     "react-native-dropdown-picker": "^5.4.2",
     "react-native-gesture-handler": "^2.6.1",

@@ -8,7 +8,9 @@ const TourCard = ({title = 'Kota lama', images, onPress}) => {
       <View style={styles.container}>
         <View style={styles.image}>
           <Image
-            source={images}
+            source={{
+              uri: images,
+            }}
             style={{resizeImage: 'cover', width: 120, height: 120,borderRadius:10}}
           />
         </View>

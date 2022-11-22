@@ -3,63 +3,55 @@ import React from 'react';
 import {Button, CardSearch, Gap, HomeWelcome, TourCard} from '../../components';
 import TextHome2 from '../../components/atoms/TextHome2';
 import tour from './../../assets/data/tour';
-import { useDispatch } from 'react-redux';
-import { logout } from '../../redux/action/auth';
+import {useDispatch, useSelector} from 'react-redux';
+import {logout} from '../../redux/action/auth';
+import {useEffect} from 'react';
+import {getMetaDataHotel, getMetaDataHotelV2} from '../../redux/action';
+import { Lawangsewu1 } from '../../assets';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
-
+  const {hotel, isLoadingHotel} = useSelector(state => state.productReducer);
+  // console.log('hotel :', hotel);
   const handleLogOut = () => {
     dispatch(logout());
   };
 
+  useEffect(() => {
+    dispatch(
+      getMetaDataHotel(),
+      // getMetaDataHotelV2(),
+    );
+  }, []);
+
   return (
     <View style={styles.page}>
-      <HomeWelcome />
+      <HomeWelcome navigation={navigation} />
       <ScrollView vertical showsVerticalScrollIndicator={false}>
         <CardSearch />
+        {/* <Button
+          text="Logout"
+          onPress={handleLogOut}
+        /> */}
+
         <>
           <TextHome2 text="Top Destinasi" />
           <ScrollView horizontal showsHorizontalScrollIndicator={false}>
             <View style={styles.TourCardContainer}>
               <Gap width={5} />
+              {hotel.map((item, index) => {
+                return (
+                  <TourCard
+                    key={index}
+                    images={
+                      'https://images.trvl-media.com/mobiata/mobile/apps/ExpediaBooking/TabletDestinations/images/par.jpg'
+                    }
+                    // title={item.name}
+                    title={item.name}
 
-              {tour.data.map((dataTour, index) => (
-                <TourCard
-                  key={index}
-                  images={dataTour.image}
-                  onPress={() =>
-                    navigation.navigate('TourDetail', {
-                      data: dataTour,
-                    })
-                  }
-                  title={dataTour.name}
-                />
-              ))}
-
-              <Gap width={5} />
-            </View>
-          </ScrollView>
-        </>
-        <>
-          <TextHome2 text="Paling Populer" />
-          <ScrollView horizontal showsHorizontalScrollIndicator={false}>
-            <View style={styles.TourCardContainer}>
-              <Gap width={5} />
-
-              {tour.data.map((dataTour, index) => (
-                <TourCard
-                  key={index}
-                  images={dataTour.image}
-                  onPress={() =>
-                    navigation.navigate('TourDetail', {
-                      data: dataTour,
-                    })
-                  }
-                  title={dataTour.name}
-                />
-              ))}
-
+                  />
+                );
+              })}
               <Gap width={5} />
             </View>
           </ScrollView>

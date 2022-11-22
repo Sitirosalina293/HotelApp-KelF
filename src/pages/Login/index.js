@@ -3,7 +3,7 @@ import {useDispatch} from 'react-redux';
 import {View, StyleSheet, Text} from 'react-native';
 import {TextInput, Gap, Button} from '../../components';
 import {MinLogo, Google} from '../../assets';
-import {login} from '../../actions/auth';
+import { login } from '../../redux/action/auth';
 
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const Login = ({navigation}) => {
         }
       })
       .catch(error => {
-        navigation.replace('LoginScreen');
+        console.log('Error: ', error);
       });
   };
 
