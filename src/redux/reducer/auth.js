@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { LOGIN_SUCCESS, LOGOUT } from '../action/index';
 const user = AsyncStorage.getItem('user');
 
-const initialState = user
+const initialState = typeof user === 'string' 
   ? {isLoggedIn: true, user}
   : {isLoggedIn: false, user: null};
 

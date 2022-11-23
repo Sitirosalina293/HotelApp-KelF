@@ -11,7 +11,8 @@ import {
   IcSettingDark,
 } from '../../../assets';
 import ListMenu from './../ListMenu/index';
-import {Gap} from '../../atoms';
+import {Button, Gap} from '../../atoms';
+import {useSelector} from 'react-redux';
 
 const dataMenu = [
   {
@@ -32,49 +33,67 @@ const dataMenu = [
 ];
 
 const Profile = ({navigation}) => {
+  const {isLoggedIn} = useSelector(state => state.auth);
   return (
     <View>
-      <View style={styles.profileContainer}>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'flex-start',
-            alignItems: 'center',
-          }}>
-          <Image source={ProfileDummy} style={styles.profile} />
-          <View style={{marginLeft: 10}}>
-            <Text style={styles.appName}>Rizki Darmawan</Text>
-            <Text style={styles.desc}>Semarang, Indonesia</Text>
-            <TouchableOpacity>
-              <Text style={styles.tampil}>Edit Profile</Text>
-            </TouchableOpacity>
+      {isLoggedIn ? (
+        <>
+          <View style={styles.profileContainer}>
+            <View
+              style={{
+                flexDirection: 'row',
+                justifyContent: 'flex-start',
+                alignItems: 'center',
+              }}>
+              <Image source={ProfileDummy} style={styles.profile} />
+              <View style={{marginLeft: 10}}>
+                <Text style={styles.appName}>Rizki Darmawan</Text>
+                <Text style={styles.desc}>Semarang, Indonesia</Text>
+                <TouchableOpacity
+                  onPress={() => navigation.navigate('EditProfile')}>
+                  <Text style={styles.tampil}>Edit Profile</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+            <View></View>
           </View>
-        </View>
-        <View></View>
-      </View>
+          <View style={styles.menuProfile}>
+            {dataMenu.map(item => {
+              return (
+                <TouchableOpacity key={item.id} style={styles.menu}>
+                  <Text style={[styles.menuText, styles.title]}>
+                    {item.name}
+                  </Text>
+                  <Gap height={5} />
+                  <Text style={[styles.menuText, styles.desc]}>
+                    {item.total}
+                  </Text>
+                </TouchableOpacity>
+              );
+            })}
+          </View>
 
-      <View style={styles.menuProfile}>
-        {dataMenu.map(item => {
-          return (
-            <TouchableOpacity key={item.id} style={styles.menu}>
-              <Text style={[styles.menuText, styles.title]}>{item.name}</Text>
-              <Gap height={5} />
-              <Text style={[styles.menuText, styles.desc]}>{item.total}</Text>
-            </TouchableOpacity>
-          );
-        })}
-      </View>
-
-      <ListMenu
-        text="Settings"
-        icon={<IcSettingDark />}
-        onPress={() => navigation.navigate('Setting')}
-      />
-      <ListMenu
-        text="History Booking"
-        icon={<TicketDark />}
-        onPress={() => navigation.navigate('History')}
-      />
+          <ListMenu
+            text="Settings"
+            icon={<IcSettingDark />}
+            onPress={() => navigation.navigate('Setting')}
+          />
+          <ListMenu
+            text="History Booking"
+            icon={<TicketDark />}
+            onPress={() => navigation.navigate('History')}
+          />
+        </>
+      ) : (
+        <>
+          <View style={styles.btn}>
+            <Button
+              text="Login"
+              onPress={() => navigation.navigate('Login')}
+            />
+          </View>
+        </>
+      )}
       <ListMenu text="Kontak dan Bantuan" icon={<Calling />} />
       <ListMenu text="Tentang Aplikasi" icon={<About />} />
       <ListMenu text="Kebijakan Privasi" icon={<Shield />} />
@@ -138,4 +157,9 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: '#44CFCB',
   },
+  btn: {
+    marginHorizontal: 25,
+    marginTop: 40,
+  },
+  
 });

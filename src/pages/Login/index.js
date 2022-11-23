@@ -4,18 +4,23 @@ import {View, StyleSheet, Text} from 'react-native';
 import {TextInput, Gap, Button} from '../../components';
 import {MinLogo, Google} from '../../assets';
 import { login } from '../../redux/action/auth';
+import { useForm } from '../../utils';
 
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
 
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
+
   
   const onLogin = () => {
+    // console.log('username', username);
+    // console.log('password', password);
     let user = {
       username: username,
       password: password,
     };
+    console.log('user pages login:', user);
     dispatch(login(user))
       .then(response => {
         if (response.status == 'success') {

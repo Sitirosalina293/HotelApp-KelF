@@ -12,6 +12,7 @@ import {
   SettingPages,
   History,
   Favorite,
+  EditProfile,
 } from '../pages';
 
 import {BottomNavigator} from '../components';
@@ -119,6 +120,11 @@ const Router = () => {
       <Stack.Screen
         name="InformationPribadi"
         component={InformationPribadi}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="EditProfile"
+        component={EditProfile}
         options={{headerShown: false}}
       />
 

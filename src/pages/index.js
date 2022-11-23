@@ -9,6 +9,7 @@ import TicketDetail from './TicketDetail';
 import InformationPribadi from './Information';
 import History from './History';
 import Favorite from './Favorite';
+import EditProfile from './EditProfile';
 
 export {
   SplashScreen,
@@ -22,4 +23,5 @@ export {
   InformationPribadi,
   History,
   Favorite,
+  EditProfile,
 };

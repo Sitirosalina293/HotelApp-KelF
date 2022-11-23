@@ -1,20 +1,30 @@
 import {View, Text, Image, StyleSheet} from 'react-native';
 import React from 'react';
-import {IcBack, ProfileDummy} from '../../../assets';
-import { TouchableOpacity } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
+import {IcBack, IcBack2, ProfileDummy} from '../../../assets';
+import {TouchableOpacity} from 'react-native';
+import {useNavigation} from '@react-navigation/native';
 
-const HeaderPrimary = ({type}) => {
+const HeaderPrimary = ({type, Title}) => {
   const navigation = useNavigation();
   if (type === 'header-secondary') {
     return (
       <View style={styles.second}>
-        <TouchableOpacity 
-          onPress={() => navigation.goBack()}
-        >
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <IcBack />
         </TouchableOpacity>
         <Image source={ProfileDummy} style={styles.profile} />
+      </View>
+    );
+  }
+
+  if (type === 'header-setting') {
+    return (
+      <View style={styles.header}>
+        <TouchableOpacity onPress={() => navigation.goBack()}>
+          <IcBack2 />
+        </TouchableOpacity>
+        <Text style={styles.textHeader}>{Title}</Text>
+        <View></View>
       </View>
     );
   }
@@ -44,5 +54,20 @@ const styles = StyleSheet.create({
   },
   profile: {
     width: 50,
+  },
+  header: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
+    backgroundColor: '#44CFCB',
+  },
+  textHeader: {
+    fontSize: 20,
+    fontFamily: 'Poppins-Medium',
+    color: '#fff',
+    letterSpacing: 1,
   },
 });

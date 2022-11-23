@@ -5,13 +5,13 @@ import {useSelector} from 'react-redux';
 import {TouchableOpacity} from 'react-native';
 const HomeWelcome = ({navigation}) => {
   const {isLoggedIn} = useSelector(state => state.auth);
-  
+  const state = useSelector((state) => state);  
   return (
     <View style={styles.profileContainer}>
       {isLoggedIn ? (
         <>
           <View>
-            <Text style={styles.desc}>Hi, Thamasyer</Text>
+            <Text style={styles.desc}>Hi, {state.auth.user}</Text>
             <Text style={styles.appName}>Mau kemana hari ini ?</Text>
           </View>
           <Image source={ProfileDummy} style={styles.profile} />

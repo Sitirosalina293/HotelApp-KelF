@@ -1,12 +1,51 @@
 import React from 'react';
-import {StyleSheet, Text, View, TextInput as TextInputRN} from 'react-native';
+import {
+  StyleSheet,
+  Text,
+  View,
+  TextInput as TextInputRN,
+  TouchableOpacity,
+} from 'react-native';
+import {IcBack3} from '../../../assets';
 
-const TextInput = ({label, placeholder, ...restProps}) => {
+const TextInput = ({type, Title, value, onChangeText, Desc, label, placeholder, ...restProps}) => {
+  if (type === 'setting-only') {
+    return (
+      <View style={styles.isiContent}>
+        <Text style={styles.textIsiContent}>{Title}</Text>
+        <Text style={styles.textIsiContent2}>{Desc}</Text>
+      </View>
+    );
+  }
+
+  if (type === 'setting-icon') {
+    return (
+      <View style={styles.isiContent}>
+        <Text style={styles.textIsiContent}>{Title}</Text>
+        <TouchableOpacity>
+          <IcBack3 />
+        </TouchableOpacity>
+      </View>
+    );
+  }
+
+  if (type === 'support') {
+    return (
+    <View style={styles.isiContent}>
+      <TouchableOpacity>
+        <Text style={styles.textIsiContent}>{Title}</Text>
+      </TouchableOpacity>
+    </View>
+    );
+  }
+
   return (
     <View>
       <Text style={styles.label}>{label}</Text>
       <TextInputRN
         style={styles.input}
+        value={value}
+        onChangeText={onChangeText}
         placeholder={placeholder}
         {...restProps}
       />
@@ -28,5 +67,23 @@ const styles = StyleSheet.create({
     borderColor: '#DEDEDE',
     borderRadius: 10,
     padding: 10,
+  },
+  // setting
+  isiContent: {
+    paddingTop: 20,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  textIsiContent: {
+    fontSize: 14,
+    fontFamily: 'Poppins-Regular',
+    color: '#000',
+    letterSpacing: 1,
+  },
+  textIsiContent2: {
+    fontSize: 14,
+    fontFamily: 'Poppins-Regular',
+    color: '#9A9A9A',
+    letterSpacing: 1,
   },
 });

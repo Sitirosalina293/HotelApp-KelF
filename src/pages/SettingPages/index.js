@@ -1,18 +1,28 @@
 import {View, Text, StyleSheet, ScrollView} from 'react-native';
 import React from 'react';
 
-import {Gap, Line} from '../../components';
+import {Button, Gap, Line, TextInput} from '../../components';
 import {SafeAreaView} from 'react-native';
 import {IcBack2, IcBack3} from '../../assets';
 import {TouchableOpacity} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
+import {logout} from '../../redux/action/auth';
 
 const SettingPages = ({navigation}) => {
+  const dispatch = useDispatch();
+  const onHandleLogOut = () => {
+    dispatch(logout()).then(response => {
+      if (response.status === 'success') {
+        navigation.replace('Login');
+      }
+    });
+  };
+
+  const state = useSelector(state => state);
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        <TouchableOpacity 
-          onPress={() => navigation.goBack()}
-        >
+        <TouchableOpacity onPress={() => navigation.goBack()}>
           <IcBack2 />
         </TouchableOpacity>
         <Text style={styles.textHeader}>Setting</Text>
@@ -22,65 +32,28 @@ const SettingPages = ({navigation}) => {
         <View style={styles.content}>
           <Text style={styles.textContent}>MY ACCOUNT</Text>
           <Gap height={10} />
-          <View style={styles.isiContent}>
-            <Text style={styles.textIsiContent}>First Name</Text>
-            <Text style={styles.textIsiContent2}>Lailatul</Text>
-          </View>
+          <TextInput type="setting-only" Title="Username" Desc={'Rizky'} />
           <Line />
-          <View style={styles.isiContent}>
-            <Text style={styles.textIsiContent}>Last Name</Text>
-            <Text style={styles.textIsiContent2}>Fitriyah</Text>
-          </View>
+          <TextInput type="setting-only" Title="Email" Desc={'-'} />
           <Line />
-          <View style={styles.isiContent}>
-            <Text style={styles.textIsiContent}>Email</Text>
-            <Text style={styles.textIsiContent2}>fitri@gmail.com</Text>
-          </View>
+          <TextInput type="setting-only" Title="Gender" Desc={'-'} />
           <Line />
-          <View style={styles.isiContent}>
-            <Text style={styles.textIsiContent}>Gender</Text>
-            <Text style={styles.textIsiContent2}>Perempuan</Text>
-          </View>
+          <TextInput type="setting-icon" Title="Language" />
           <Line />
-          <View style={styles.isiContent}>
-            <Text style={styles.textIsiContent}>Language</Text>
-            <TouchableOpacity>
-              <IcBack3 />
-            </TouchableOpacity>
-          </View>
+          <TextInput type="setting-icon" Title="Search History" />
           <Line />
-          <View style={styles.isiContent}>
-            <Text style={styles.textIsiContent}>Search History</Text>
-            <TouchableOpacity>
-              <IcBack3 />
-            </TouchableOpacity>
-          </View>
+          <TextInput type="setting-icon" Title="Report Problem" />
           <Line />
-          <View style={styles.isiContent}>
-            <Text style={styles.textIsiContent}>Report A Problem</Text>
-            <TouchableOpacity>
-              <IcBack3 />
-            </TouchableOpacity>
-          </View>
-          <Line />
+          <Gap height={20} />
         </View>
         <View style={styles.content}>
           <Text style={styles.textContent}>SUPPORT</Text>
           <Gap height={10} />
-          <View style={styles.isiContent}>
-            <TouchableOpacity>
-              <Text style={styles.textIsiContent}>Teams & Policy</Text>
-            </TouchableOpacity>
-          </View>
+          <TextInput type="support" Title="Teams & Policy" />
           <Line />
-          <View style={styles.isiContent}>
-            <TouchableOpacity>
-              <Text style={[styles.textIsiContent, styles.danger]}>
-                Log Out
-              </Text>
-            </TouchableOpacity>
-          </View>
-          <Line />
+          <Gap height={20} />
+          <Button text="Log Out" onPress={onHandleLogOut} />
+          <Gap height={20} />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -129,18 +102,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-  textIsiContent: {
-    fontSize: 14,
-    fontFamily: 'Poppins-Regular',
-    color: '#000',
-    letterSpacing: 1,
-  },
-  textIsiContent2: {
-    fontSize: 14,
-    fontFamily: 'Poppins-Regular',
-    color: '#9A9A9A',
-    letterSpacing: 1,
-  },
+  // textIsiContent: {
+  //   fontSize: 14,
+  //   fontFamily: 'Poppins-Regular',
+  //   color: '#000',
+  //   letterSpacing: 1,
+  // },
+  // textIsiContent2: {
+  //   fontSize: 14,
+  //   fontFamily: 'Poppins-Regular',
+  //   color: '#9A9A9A',
+  //   letterSpacing: 1,
+  // },
   danger: {
     color: '#FF0000',
   },
