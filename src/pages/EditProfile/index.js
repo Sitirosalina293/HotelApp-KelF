@@ -3,8 +3,10 @@ import React from 'react';
 import {SafeAreaView} from 'react-native';
 import {Button, Gap, HeaderPrimary, TextInput} from '../../components';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 
 const EditProfile = () => {
+  const state = useSelector((state) => state);
 
   return (
     <SafeAreaView style={styles.container}>
@@ -14,6 +16,7 @@ const EditProfile = () => {
         <TextInput
           label="Username"
           placeholder="Type your name"
+          value={state.auth.user}
           editable={false}
         />
         <Gap height={10} />
@@ -27,7 +30,7 @@ const EditProfile = () => {
         <Button
           text="Save Profile"
           type="btn-primary"
-          onPress={SaveData}
+          onPress={''}
         />
       </View>
     </SafeAreaView>

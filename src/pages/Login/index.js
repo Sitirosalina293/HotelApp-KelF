@@ -44,15 +44,16 @@ const Login = ({navigation}) => {
         </View>
         <Gap height={60} />
         <TextInput
-          label="Email Address"
-          placeholder=""
+          label="Username"
+          placeholder = "Masukkan Username"
           value={username}
           onChangeText={value => setUsername(value)}
         />
         <Gap height={30} />
         <TextInput
           label="Password"
-          placeholder=""
+          placeholder="Masukkan Password"
+          secureTextEntry = {true}
           value={password}
           onChangeText={value => setPassword(value)}
         />

@@ -7,6 +7,7 @@ import {
   TouchableOpacity,
 } from 'react-native';
 import {IcBack3} from '../../../assets';
+import Gap from '../Gap';
 
 const TextInput = ({type, Title, value, onChangeText, Desc, label, placeholder, ...restProps}) => {
   if (type === 'setting-only') {
@@ -42,6 +43,7 @@ const TextInput = ({type, Title, value, onChangeText, Desc, label, placeholder, 
   return (
     <View>
       <Text style={styles.label}>{label}</Text>
+      <Gap height={5} />
       <TextInputRN
         style={styles.input}
         value={value}
