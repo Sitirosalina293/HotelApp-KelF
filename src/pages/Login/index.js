@@ -49,7 +49,7 @@ const Login = ({navigation}) => {
           value={username}
           onChangeText={value => setUsername(value)}
         />
-        <Gap height={30} />
+        <Gap height={10} />
         <TextInput
           label="Password"
           placeholder="Masukkan Password"

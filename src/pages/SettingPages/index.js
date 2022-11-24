@@ -7,10 +7,14 @@ import {IcBack2, IcBack3} from '../../assets';
 import {TouchableOpacity} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import {logout} from '../../redux/action/auth';
+import { useEffect } from 'react';
+import { saveDataUser } from '../../redux/action';
 
 const SettingPages = ({navigation}) => {
   const dispatch = useDispatch();
   const {isLoggedIn} = useSelector(state => state.auth);
+  const {dataUser} = useSelector(state => state.profileReducer);
+  console.log('data user dari setting pages', dataUser);
 
   const onHandleLogOut = () => {
     dispatch(logout()).then(response => {
@@ -19,6 +23,12 @@ const SettingPages = ({navigation}) => {
       }
     });
   };
+
+  // const onHandleDataUser = () => {
+  //   let data = {
+  //     email: dataUser.email,
+      
+  //   };
 
   const state = useSelector(state => state);
   return (
@@ -36,9 +46,21 @@ const SettingPages = ({navigation}) => {
             <Gap height={10} />
             <TextInput type="setting-only" Title="Username" Desc={'Rizky'} />
             <Line />
-            <TextInput type="setting-only" Title="Email" Desc={'-'} />
+            <TextInput
+              type="setting-only"
+              Title="Email"
+              Desc={
+                dataUser ? 'Empty' : dataUser.email
+              }
+            />
             <Line />
-            <TextInput type="setting-only" Title="Gender" Desc={'-'} />
+            <TextInput
+              type="setting-only"
+              Title="Gender"
+              Desc={
+                dataUser ? 'Empty' : dataUser.gender
+              }
+            />
             <Line />
             <TextInput type="setting-icon" Title="Language" />
             <Line />
