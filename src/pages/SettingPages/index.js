@@ -50,7 +50,7 @@ const SettingPages = ({navigation}) => {
               type="setting-only"
               Title="Email"
               Desc={
-                dataUser ? 'Empty' : dataUser.email
+                dataUser && dataUser.email ? dataUser.email : 'Empty'
               }
             />
             <Line />
@@ -58,11 +58,13 @@ const SettingPages = ({navigation}) => {
               type="setting-only"
               Title="Gender"
               Desc={
-                dataUser ? 'Empty' : dataUser.gender
+                dataUser && dataUser.gender ? dataUser.gender : 'Empty'
               }
             />
             <Line />
-            <TextInput type="setting-icon" Title="Language" />
+            <TextInput type="setting-only" Title="FullName" Desc={
+                dataUser && dataUser.fullname ? dataUser.fullname : 'Empty'
+            }/>
             <Line />
             <TextInput type="setting-icon" Title="Search History" />
             <Line />

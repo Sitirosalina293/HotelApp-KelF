@@ -5,6 +5,7 @@ import {Button, Gap, HeaderPrimary, TextInput} from '../../components';
 import {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {saveDataUser} from '../../redux/action';
+import DropDownPicker from 'react-native-dropdown-picker';
 
 const EditProfile = ({navigation}) => {
   const dispatch = useDispatch();
@@ -14,18 +15,24 @@ const EditProfile = ({navigation}) => {
 
   const [email, setEmail] = useState();
   const [gender, setGender] = useState();
+  const [fullname, setFullname] = useState();
+
+  // const [open, setOpen] = useState(false);
+  // const [value, setValue] = useState(null);
 
   const onHandleSubmit = () => {
     let data = {
       email: email,
       gender: gender,
+      fullname: fullname,
     };
-    if (data.email === '' && data.gender === '') {
-      console.log('email dan gender kosong');
+    console.log('data yang dikirim', data);
+    if(!data.email && !data.gender && !data.fullname) {
+      console.log('data kosong');
     } else {
-      console.log('email dan gender terisi');
+      console.log('data tidak kosong');
       dispatch(saveDataUser(data));
-      navigation.replace('MainApp');
+      navigation.goBack();
     }
   };
 
@@ -53,6 +60,13 @@ const EditProfile = ({navigation}) => {
           placeholder="Type your gender"
           value={gender}
           onChangeText={value => setGender(value)}
+        />
+        <Gap height={10} />
+        <TextInput
+          label="Full Name"
+          placeholder="Type your full name"
+          value={fullname}
+          onChangeText={value => setFullname(value)}
         />
       </View>
       <View style={styles.content2}>
@@ -82,12 +96,49 @@ const styles = StyleSheet.create({
     color: '#020202',
     marginBottom: 10,
   },
-  //
   content2: {
     padding: 20,
     bottom: 0,
     width: '100%',
     justifyContent: 'flex-end',
     position: 'absolute',
+  },
+  Title: {
+    fontSize: 16,
+    fontFamily: 'Raleway-Regular',
+    color: '#020202',
+    marginBottom: 10,
+  },
+  dropdown: {
+    backgroundColor: '#F9F9F9',
+    borderRadius: 10,
+    width: '100%',
+    height: 50,
+    marginTop: 10,
+    paddingLeft: 16,
+    borderColor: '#F9F9F9',
+    borderWidth: 1,
+  },
+  dropdownStyle: {
+    backgroundColor: '#F9F9F9',
+    borderRadius: 10,
+    width: '100%',
+    height: 50,
+    marginTop: 10,
+    paddingLeft: 16,
+    borderColor: '#F9F9F9',
+    borderWidth: 1,
+  },
+  dropdownText: {
+    fontSize: 14,
+    fontFamily: 'Poppins-Regular',
+    color: '#4F4F4F',
+  },
+  dropdownContainer: {
+    width: '100%',
+    marginTop: 10,
+    paddingLeft: 16,
+    borderColor: '#BDBDBD',
+    borderWidth: 0.5,
   },
 });

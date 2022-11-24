@@ -3,8 +3,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const saveDataUser = data => async dispatch => {
   console.log('data user profile : ', data);
   try {
-    const {email, gender} = data;
-    if (email === '' && gender === '') {
+    const {email, gender, fullname} = data;
+    if (email === '' && gender === '' && fullname === '') {
       console.log('email dan gender kosong');
     } else {
       AsyncStorage.setItem('dataUser', JSON.stringify(data));
