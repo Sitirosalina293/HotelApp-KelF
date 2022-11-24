@@ -1,8 +1,7 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import NavBack from '../../components/molecules/NavBack';
-import TextHome2 from '../../components/atoms/TextHome2';
-import {Button, Gap} from '../../components';
+import {Button, Gap, TextHome2} from '../../components';
 import {TourDummy1} from '../../assets/Dummy';
 import {Image} from 'react-native';
 
