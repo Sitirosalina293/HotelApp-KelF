@@ -1,4 +1,4 @@
-package com.thamasya.newarchitecture;
+package com.hotelapp.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.thamasya.BuildConfig;
-import com.thamasya.newarchitecture.components.MainComponentsRegistry;
-import com.thamasya.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.hotelapp.BuildConfig;
+import com.hotelapp.newarchitecture.components.MainComponentsRegistry;
+import com.hotelapp.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 
