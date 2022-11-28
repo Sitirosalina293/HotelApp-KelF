@@ -6,39 +6,24 @@ import {
   FlatList,
   Image,
   ScrollView,
+  SafeAreaView,
 } from 'react-native';
 import React, {useState, } from 'react';
-import {BigCardTour, HeaderPrimary} from '../../components';
+import {BigCardTour, HeaderPrimary, Button} from '../../components';
 import tour from './../../assets/data/tour';
+import {useSelector} from 'react-redux';
 
-const Favorite = () => {
+const Favorite = ({navigation}) => {
+  const {isLoggedIn} = useSelector(state => state.auth);
 
   return (
-    <ScrollView>
-      <View style={{backgroundColor: 'white', flex: 1}}>
-        <HeaderPrimary />
-        <View style={{alignItems: 'center',
-        justifyContent: 'center',
-      }}>
-          <Text
-            style={{
-              fontSize: 20,
-              fontFamily: 'Raleway-Bold',
-              color: '#1D2132',
-            }}>
-            Tempat Favoritmu
-          </Text>
-          <Text
-            style={{
-              textAlign: 'center',
-              marginTop: 10,
-              fontFamily: 'Raleway-Regular',
-              color: '#7C7C8C',
-              lineHeight: 24,
-            }}>
-            Berbagai wisata di kota Semarang {'\n'} dan kabupaten Semarang
-          </Text>
-        </View>
+    <SafeAreaView style={styles.container}>
+      <HeaderPrimary
+        type={'header-setting'}
+        Title="Favorit"
+        />
+      {isLoggedIn ? (
+      <ScrollView>
         <View style={{marginHorizontal: 30, marginVertical: 25}}>
           <FlatList
             // data={kategori}
@@ -77,10 +62,26 @@ const Favorite = () => {
             <BigCardTour key={index} tour={dataTour} />
           ))}
         </View>
-      </View>
-    </ScrollView>
+      </ScrollView>
+      ) : (
+        <View style={styles.btn}>
+          <Button text="Login" onPress={() => navigation.navigate('Login')} />
+        </View>
+      )}
+    </SafeAreaView>
   );
 };
 
 export default Favorite;
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  btn: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 20,
+    paddingBottom: 20,
+    backgroundColor: '#fff',
+    margin: 20,
+    borderRadius: 10,
+  },
+});

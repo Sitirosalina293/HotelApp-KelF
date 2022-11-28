@@ -16,7 +16,6 @@ const TourCardMap = ({title, images, onPress}) => {
           }}
         />
         <Text style={styles.text}>{title}</Text>
-        {/* <Text style={styles.contentText}>10k Kunjungan</Text> */}
       </View>
     </TouchableOpacity>
   );

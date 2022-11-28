@@ -13,6 +13,7 @@ const SplashScreen = ({navigation}) => {
   return (
     <View style={styles.container}>
       <Logo />
+      <Text style={styles.title}>HotelApp</Text>
     </View>
   );
 };
@@ -25,5 +26,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  title: {
+    color:'white',
+    fontSize: 20,
+    textAlign: 'center',
+    fontFamily: 'Raleway-Bold',
   },
 });

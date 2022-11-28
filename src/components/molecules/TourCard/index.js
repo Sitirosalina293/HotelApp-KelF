@@ -1,8 +1,7 @@
 import React from 'react';
 import {Image, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
-import {ProfileDummy, TourDummy1} from '../../../assets';
 
-const TourCard = ({title = 'Kota lama', images, onPress}) => {
+const TourCard = ({title, images, onPress}) => {
   return (
     <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
       <View style={styles.container}>
@@ -15,7 +14,6 @@ const TourCard = ({title = 'Kota lama', images, onPress}) => {
           />
         </View>
         <Text style={styles.text}>{title}</Text>
-        <Text style={styles.contentText}>10k Kunjungan</Text>
       </View>
     </TouchableOpacity>
   );

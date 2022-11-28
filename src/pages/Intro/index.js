@@ -7,26 +7,20 @@ const slides = [
   {
     id: 1,
     image: Intro1,
-    nameImage: 'Pantai Marina',
     colorNameImage: '#003C41',
-    title: `Selamat Datang di${'\n'}Tamasya`,
-    desc: `Anda bisa berwisata dimana saja${'\n'}dan kapan saja`,
+    title: `Selamat Datang`,
   },
   {
     id: 2,
     image: Intro2,
-    nameImage: 'Sampokong',
     colorNameImage: '#343434',
-    title: `Wisata Semarangan`,
-    desc: `Berbagai wisata yang ada di${'\n'}Kota dan Kabupaten Semarang`,
+    title: `Mau Staycation?`,
   },
   {
     id: 3,
     image: Intro3,
-    nameImage: 'Kota Lama Semarang',
     colorNameImage: '#783940',
     title: `Langsung beli tiket`,
-    desc: `Gak usah pusing mikir antrian tiket${'\n'}langsung beli tiket di Thamasya`,
   },
 ];
 
@@ -76,7 +70,6 @@ const Intro = ({navigation}) => {
               </ImageBackground>
               <View style={styles.containerContent}>
                 <Text style={styles.title}>{item.title}</Text>
-                <Text style={styles.desc}>{item.desc}</Text>
               </View>
             </View>
           );
@@ -87,7 +80,6 @@ const Intro = ({navigation}) => {
         }}
         renderNextButton={() => buttonLabel('Lanjut')}
         renderDoneButton={() => buttonLabel('Mulai')}
-        // renderPrevButton={() => buttonLabel('Kembali')} / ora iso
         onDone={() => navigation.replace('MainApp')}
       />
     );
@@ -99,7 +91,7 @@ export default Intro;
 const styles = StyleSheet.create({
   image: {
     width: '100%',
-    height: 530,
+    height: 600,
     resizeMode: 'cover',
     position: 'relative',
     // bottom: 0,

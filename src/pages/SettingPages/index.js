@@ -23,13 +23,6 @@ const SettingPages = ({navigation}) => {
       }
     });
   };
-
-  // const onHandleDataUser = () => {
-  //   let data = {
-  //     email: dataUser.email,
-      
-  //   };
-
   const state = useSelector(state => state);
   return (
     <SafeAreaView style={styles.container}>

@@ -1,45 +1,84 @@
-import {StyleSheet, Text, View} from 'react-native';
-import React from 'react';
-import { Button, Gap, SearchBar } from '../../atoms';
-import { ProfileOff } from '../../../assets';
-import { useNavigation } from '@react-navigation/native';
+import {StyleSheet, View} from 'react-native';
+import React, {useState} from 'react';
+import {Button, Gap, SearchBar} from '../../atoms';
+import DatePicker from 'react-native-date-picker';
+import {TextInput} from 'react-native';
 
-const CardSearch = () => {
-
-    const navigation = useNavigation();
+const CardSearch = ({
+  setInputCity,
+  setStartDate,
+  setLastDate,
+  handleConfirmSearch,
+  inputCity,
+  startDate,
+  lastDate,
+}) => {
+  const [open, setOpen] = useState(false);
+  const [open2, setOpen2] = useState(false);
   return (
     <View style={styles.searchBar}>
-      <SearchBar placeholder="Cari destinasimu ?" />
+      <SearchBar
+        placeholder="Cari destinasimu ?"
+        value={inputCity}
+        onChangeText={e => setInputCity(e)}
+        onClear={() => setInputCity('')}
+      />
       <Gap height={16} />
       <View style={styles.inputDate}>
         <Button
           type="checkDate"
-          text="Check in date"
           icon="https://cdn-icons-png.flaticon.com/512/747/747479.png"
+          onPress={() => setOpen(true)}
+        />
+        <DatePicker
+          modal
+          mode="date"
+          format="YYYY-MM-DD"
+          minDate={startDate}
+          open={open}
+          date={startDate}
+          onConfirm={startDate => {
+            setOpen(false);
+            setStartDate(startDate);
+          }}
+          onCancel={() => {
+            setOpen(false);
+          }}
+          type="checkDate"
+          value={startDate}
+        />
+        <TextInput
+          type="text"
+          placeholder="Check In"
+          value={startDate}
+          editable={false}
         />
         <Button
           type="checkDate"
-          text="Check out date"
           icon="https://cdn-icons-png.flaticon.com/512/747/747479.png"
+          onPress={() => setOpen2(true)}
+        />
+        <DatePicker
+          modal
+          mode="date"
+          open={open2}
+          date={lastDate}
+          onConfirm={date => {
+            setOpen2(false);
+            setLastDate(date);
+          }}
+          onCancel={() => {
+            setOpen2(false);
+          }}
+          type="checkDate"
+        />
+        <TextInput
+          placeholder={'Check Out'}
+          value={lastDate}
+          editable={false}
         />
       </View>
-      <Gap height={16} />
-      <View style={styles.countGuest}>
-        <View style={styles.guest}>
-          <ProfileOff />
-          <Gap width={10} />
-          <Text>Guest</Text>
-        </View>
-        <View style={styles.coundDown}>
-          <Button type="CountGuest" text="(+)" />
-          <Gap width={10} />
-          <Button type="CountGuest" text="(-)" />
-        </View>
-      </View>
-      <Gap height={16} />
-      <Button text="Search" 
-        onPress={() => navigation.navigate('Favorite')} />
-      
+      <Button text="Search" onPress={handleConfirmSearch} />
     </View>
   );
 };
@@ -58,6 +97,11 @@ const styles = StyleSheet.create({
   inputDate: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    backgroundColor: '#fff',
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    height: 50,
+    marginBottom: 15,
   },
   guest: {
     flexDirection: 'row',
@@ -75,8 +119,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
   },
-
-  // icon
   iconCheck: {
     width: 20,
     height: 20,
