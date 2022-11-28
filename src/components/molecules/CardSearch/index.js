@@ -1,8 +1,10 @@
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet, TouchableOpacity, View} from 'react-native';
 import React, {useState} from 'react';
 import {Button, Gap, SearchBar} from '../../atoms';
 import DatePicker from 'react-native-date-picker';
 import {TextInput} from 'react-native';
+import {Text} from 'react-native';
+import moment from 'moment/moment';
 
 const CardSearch = ({
   setInputCity,
@@ -28,57 +30,59 @@ const CardSearch = ({
         <Button
           type="checkDate"
           icon="https://cdn-icons-png.flaticon.com/512/747/747479.png"
-          onPress={() => setOpen(true)}
         />
-        <DatePicker
-          modal
-          mode="date"
-          format="YYYY-MM-DD"
-          minDate={startDate}
-          open={open}
-          date={startDate}
-          onConfirm={startDate => {
-            setOpen(false);
-            setStartDate(startDate);
-          }}
-          onCancel={() => {
-            setOpen(false);
-          }}
-          type="checkDate"
-          value={startDate}
-        />
-        <TextInput
-          type="text"
-          placeholder="Check In"
-          value={startDate}
-          editable={false}
-        />
-        <Button
-          type="checkDate"
-          icon="https://cdn-icons-png.flaticon.com/512/747/747479.png"
-          onPress={() => setOpen2(true)}
-        />
-        <DatePicker
-          modal
-          mode="date"
-          open={open2}
-          date={lastDate}
-          onConfirm={date => {
-            setOpen2(false);
-            setLastDate(date);
-          }}
-          onCancel={() => {
-            setOpen2(false);
-          }}
-          type="checkDate"
-        />
-        <TextInput
-          placeholder={'Check Out'}
-          value={lastDate}
-          editable={false}
-        />
+        <TouchableOpacity onPress={() => setOpen(true)}>
+          <Text style={styles.textDate}>
+            {moment(startDate).format('DD') +
+              ' ' +
+              moment(startDate).format('MMM') +
+              ' ' +
+              moment(startDate).format('YYYY')}
+          </Text>
+        </TouchableOpacity>
+        <Text style={styles.textDate}>-</Text>
+        <TouchableOpacity onPress={() => setOpen2(true)}>
+          <Text style={styles.textDate}>
+            {moment(lastDate).format('DD') +
+              ' ' +
+              moment(lastDate).format('MMM') +
+              ' ' +
+              moment(lastDate).format('YYYY')}
+          </Text>
+        </TouchableOpacity>
       </View>
       <Button text="Search" onPress={handleConfirmSearch} />
+      <DatePicker
+        modal
+        mode="date"
+        format="YYYY-MM-DD"
+        minDate={startDate}
+        open={open}
+        date={startDate}
+        onConfirm={startDate => {
+          setOpen(false);
+          setStartDate(startDate);
+        }}
+        onCancel={() => {
+          setOpen(false);
+        }}
+        type="checkDate"
+        value={startDate}
+      />
+      <DatePicker
+        modal
+        mode="date"
+        open={open2}
+        date={lastDate}
+        onConfirm={date => {
+          setOpen2(false);
+          setLastDate(date);
+        }}
+        onCancel={() => {
+          setOpen2(false);
+        }}
+        type="checkDate"
+      />
     </View>
   );
 };
@@ -97,6 +101,7 @@ const styles = StyleSheet.create({
   inputDate: {
     flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
     backgroundColor: '#fff',
     paddingHorizontal: 10,
     borderRadius: 10,

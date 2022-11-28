@@ -9,16 +9,21 @@ import Feed from '../../components/molecules/Feed/feed';
 import {API_HOST} from '../../config/API';
 import Axios from 'axios';
 
-
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
   const {hotel} = useSelector(state => state.productReducer);
 
   const [inputCity, setInputCity] = useState('Yogyakarta');
   const [inputStartDate, setInputStartDate] = useState(new Date());
-  const [inputEndDate, setInputEndDate] = useState(new Date());
-  const [hotels, setHotels] = useState([])
-  const [feeds, setFeeds] = useState([])
+  const [inputEndDate, setInputEndDate] = useState(
+    new Date(
+      inputStartDate.getFullYear(),
+      inputStartDate.getMonth(),
+      inputStartDate.getDate() + 1,
+    ),
+  );
+  const [hotels, setHotels] = useState([]);
+  const [feeds, setFeeds] = useState([]);
 
   const handleConfirmSearch = () => {
     searchCity();
@@ -26,16 +31,20 @@ const Home = ({navigation}) => {
   };
 
   const searchCity = async () => {
-    const response = await Axios.get(`${API_HOST.urlHotelV1}v1/hotels/locations`, {
-      params: {
-        search_type: HOTEL,
-        name: inputCity,
+    const response = await Axios.get(
+      `${API_HOST.urlHotelV1}v1/hotels/locations`,
+      {
+        params: {
+          search_type: HOTEL,
+          name: inputCity,
+        },
+        headers: {
+          'x-rapidapi-key':
+            'a036817ddcmsh0dc2cb755d4902dp1b7f71jsna5991020006e',
+          'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
+        },
       },
-      headers: {
-        'x-rapidapi-key': 'a036817ddcmsh0dc2cb755d4902dp1b7f71jsna5991020006e',
-        'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
-      },
-    });
+    );
 
     if (response.data[0].cityID) {
       searchHotelByCity(response.data[0].cityID);
@@ -66,17 +75,21 @@ const Home = ({navigation}) => {
   };
 
   const getHotelSugestion = async () => {
-    const response = await Axios.get(`${API_HOST.urlHotelV1}v2/hotels/autoSuggest`, {
-      params: {
-        string: inputCity,
-        get_hotels: true,
-        max_results: 7,
+    const response = await Axios.get(
+      `${API_HOST.urlHotelV1}v2/hotels/autoSuggest`,
+      {
+        params: {
+          string: inputCity,
+          get_hotels: true,
+          max_results: 7,
+        },
+        headers: {
+          'x-rapidapi-key':
+            'a036817ddcmsh0dc2cb755d4902dp1b7f71jsna5991020006e',
+          'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
+        },
       },
-      headers: {
-        'x-rapidapi-key': 'a036817ddcmsh0dc2cb755d4902dp1b7f71jsna5991020006e',
-        'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
-      },
-    });
+    );
 
     const sugestionHotels = {
       title: 'POPULAR HOTELS',
@@ -138,28 +151,29 @@ const Home = ({navigation}) => {
               })}
               <Gap width={5} />
             </View>
-            <View style={{ marginBottom: 20 }}>
-                {
-                    feeds && feeds.map((feed, idx) => <Feed key={idx} title={feed.title} items={feed.items} />)
-                }
+            <View style={{marginBottom: 20}}>
+              {feeds &&
+                feeds.map((feed, idx) => (
+                  <Feed key={idx} title={feed.title} items={feed.items} />
+                ))}
             </View>
-            <View style={{ marginBottom: 20 }}>
-                {
-                    hotels && hotels.map((hotel) =>
-                        <ItemCard
-                            key={hotel.hotelId}
-                            id={hotel.hotelId}
-                            hotel={hotel}
-                            name={hotel.name}
-                            rating={hotel.starRating}
-                            price={hotel.ratesSummary.minPrice}
-                            image={hotel.media.url}
-                            city={hotel.location.address.cityName.split(' ').pop()}
-                            isFavorited={isFavorited(hotel.hotelId)}
-                            handleClickItemCard={handleClickItemCard}
-                            handleClickFavorite={handleClickFavorite}
-                        />)
-                }
+            <View style={{marginBottom: 20}}>
+              {hotels &&
+                hotels.map(hotel => (
+                  <ItemCard
+                    key={hotel.hotelId}
+                    id={hotel.hotelId}
+                    hotel={hotel}
+                    name={hotel.name}
+                    rating={hotel.starRating}
+                    price={hotel.ratesSummary.minPrice}
+                    image={hotel.media.url}
+                    city={hotel.location.address.cityName.split(' ').pop()}
+                    isFavorited={isFavorited(hotel.hotelId)}
+                    handleClickItemCard={handleClickItemCard}
+                    handleClickFavorite={handleClickFavorite}
+                  />
+                ))}
             </View>
           </ScrollView>
         </>
