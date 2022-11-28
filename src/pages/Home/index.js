@@ -1,4 +1,4 @@
-import {View, StyleSheet, ScrollView} from 'react-native';
+import {View, StyleSheet, ScrollView, Text} from 'react-native';
 import React from 'react';
 import {CardSearch, Gap, HomeWelcome, TourCard} from '../../components';
 import TextHome2 from '../../components/atoms/TextHome2';
@@ -8,6 +8,7 @@ import {getMetaDataHotel, getMetaDataHotelV2} from '../../redux/action';
 import Feed from '../../components/molecules/Feed/feed';
 import {API_HOST} from '../../config/API';
 import Axios from 'axios';
+import moment from 'moment/moment';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
@@ -26,8 +27,11 @@ const Home = ({navigation}) => {
   const [feeds, setFeeds] = useState([]);
 
   const handleConfirmSearch = () => {
-    searchCity();
+    // searchCity();
     getHotelSugestion();
+    // console.log('inputCity', inputCity);
+    // console.log('inputStartDate', inputStartDate);
+    // console.log('inputEndDate', inputEndDate);
   };
 
   const searchCity = async () => {
@@ -35,7 +39,7 @@ const Home = ({navigation}) => {
       `${API_HOST.urlHotelV1}v1/hotels/locations`,
       {
         params: {
-          search_type: HOTEL,
+          search_type: 'HOTEL',
           name: inputCity,
         },
         headers: {
@@ -48,16 +52,22 @@ const Home = ({navigation}) => {
 
     if (response.data[0].cityID) {
       searchHotelByCity(response.data[0].cityID);
+      console.log('city id if', response.data[0].cityID);
     } else {
       searchCity();
+      console.log('city id else', response.data[0].cityID);
     }
   };
   const searchHotelByCity = async cityId => {
+    const data_checkin = moment(inputStartDate).format('YYYY-MM-DD');
+    const data_checkout = moment(inputEndDate).format('YYYY-MM-DD');
+    // console.log('data_checkin', data_checkin);
+    // console.log('data_checkout', data_checkout);
     const response = await Axios.get(`${API_HOST.urlHotelV1}v1/hotels/search`, {
       params: {
-        date_checkin: inputStartDate,
         location_id: cityId,
-        date_checkout: inputEndDate,
+        date_checkin: data_checkin,
+        date_checkout: data_checkout,
         sort_order: 'STAR',
       },
       headers: {
@@ -65,37 +75,48 @@ const Home = ({navigation}) => {
         'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
       },
     });
-
+    // console.log('response', response.data);
     const hotelData = response.data.hotels.filter((hotel, idx) => {
       if (idx < 10) {
         return hotel.hotelId && hotel.thumbnailUrl && hotel.media.url;
       }
     });
     setHotels(hotelData);
+    console.log('hotelData', hotelData);
+    // console.log('hotelData id', hotelData[0].hotelId);
+    // console.log('hotelData thumbnailUrl', hotelData[0].thumbnailUrl);
   };
 
   const getHotelSugestion = async () => {
+    console.log('city', inputCity);
     const response = await Axios.get(
       `${API_HOST.urlHotelV1}v2/hotels/autoSuggest`,
       {
         params: {
-          string: inputCity,
-          get_hotels: true,
-          max_results: 7,
+          // string: inputCity,
+          string: 'Jakarta',
+          spellcheck: 'true',
+          get_pois: 'true',
+          combine_regions: 'true',
+          get_hotels: 'true',
         },
         headers: {
           'x-rapidapi-key':
-            'a036817ddcmsh0dc2cb755d4902dp1b7f71jsna5991020006e',
+            '94f169d30fmsh4ab8da34c1256bep1354d7jsn393426a2a413',
           'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
         },
       },
     );
+    console.log('response', response.data);
 
     const sugestionHotels = {
       title: 'POPULAR HOTELS',
       items: response.data.getHotelAutoSuggestV2.results.result.hotels,
     };
+
     setFeeds([sugestionHotels]);
+    console.log('sugestionHotels', sugestionHotels);
+    console.log('Items : ', sugestionHotels.items);
   };
 
   const handleClickItemCard = (id, price) => {
@@ -151,14 +172,16 @@ const Home = ({navigation}) => {
               })}
               <Gap width={5} />
             </View>
-            <View style={{marginBottom: 20}}>
-              {feeds &&
-                feeds.map((feed, idx) => (
-                  <Feed key={idx} title={feed.title} items={feed.items} />
-                ))}
-            </View>
-            <View style={{marginBottom: 20}}>
-              {hotels &&
+          </ScrollView>
+        </>
+        <View style={{marginBottom: 20}}>
+          <Text>Hello</Text>
+          {/* disini nampilin feeds */}
+        </View>
+        <Gap height={20} />
+
+        <View style={{marginBottom: 20}}>
+          {/* {hotels &&
                 hotels.map(hotel => (
                   <ItemCard
                     key={hotel.hotelId}
@@ -173,11 +196,19 @@ const Home = ({navigation}) => {
                     handleClickItemCard={handleClickItemCard}
                     handleClickFavorite={handleClickFavorite}
                   />
-                ))}
-            </View>
-          </ScrollView>
-        </>
-        <Gap height={20} />
+                ))} */}
+          {hotels.map((hotel, index) => {
+            return (
+              <View key={index}>
+                <Text>{hotel.hotelId}</Text>
+                <Text>{hotel.name}</Text>
+                <Text>{hotel.starRating}</Text>
+                <Text>{hotel.ratesSummary.minPrice}</Text>
+                <Text>{hotel.thumbnailUrl}</Text>
+              </View>
+            );
+          })}
+        </View>
       </ScrollView>
     </View>
   );

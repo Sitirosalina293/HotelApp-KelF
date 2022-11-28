@@ -19,6 +19,7 @@ export const getMetaDataHotel = () => async dispatch => {
         type: 'GET_HOTEL',
         payload: res.data,
       });
+      console.log('res', res.data);
     }
   } catch (e) {
     dispatch({
