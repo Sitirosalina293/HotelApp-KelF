@@ -1,6 +1,12 @@
 import {View, StyleSheet, ScrollView, Text} from 'react-native';
 import React from 'react';
-import {CardSearch, Gap, HomeWelcome, TourCard} from '../../components';
+import {
+  BigCardTour,
+  CardSearch,
+  Gap,
+  HomeWelcome,
+  TourCard,
+} from '../../components';
 import TextHome2 from '../../components/atoms/TextHome2';
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect, useState} from 'react';
@@ -9,6 +15,8 @@ import Feed from '../../components/molecules/Feed/feed';
 import {API_HOST} from '../../config/API';
 import Axios from 'axios';
 import moment from 'moment/moment';
+import {TouchableOpacity} from 'react-native';
+import {Image} from 'react-native';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
@@ -27,7 +35,7 @@ const Home = ({navigation}) => {
   const [feeds, setFeeds] = useState([]);
 
   const handleConfirmSearch = () => {
-    // searchCity();
+    searchCity();
     getHotelSugestion();
     // console.log('inputCity', inputCity);
     // console.log('inputStartDate', inputStartDate);
@@ -44,7 +52,7 @@ const Home = ({navigation}) => {
         },
         headers: {
           'x-rapidapi-key':
-            'a036817ddcmsh0dc2cb755d4902dp1b7f71jsna5991020006e',
+            'eab1b476ccmshf28baa51f4a8220p18a8e6jsn8ecdbb3ae82d',
           'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
         },
       },
@@ -71,7 +79,7 @@ const Home = ({navigation}) => {
         sort_order: 'STAR',
       },
       headers: {
-        'x-rapidapi-key': 'a036817ddcmsh0dc2cb755d4902dp1b7f71jsna5991020006e',
+        'x-rapidapi-key': 'eab1b476ccmshf28baa51f4a8220p18a8e6jsn8ecdbb3ae82d',
         'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
       },
     });
@@ -102,7 +110,7 @@ const Home = ({navigation}) => {
         },
         headers: {
           'x-rapidapi-key':
-            '94f169d30fmsh4ab8da34c1256bep1354d7jsn393426a2a413',
+            'eab1b476ccmshf28baa51f4a8220p18a8e6jsn8ecdbb3ae82d',
           'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
         },
       },
@@ -176,36 +184,36 @@ const Home = ({navigation}) => {
         </>
         <View style={{marginBottom: 20}}>
           <Text>Hello</Text>
-          {/* disini nampilin feeds */}
         </View>
         <Gap height={20} />
 
-        <View style={{marginBottom: 20}}>
-          {/* {hotels &&
-                hotels.map(hotel => (
-                  <ItemCard
-                    key={hotel.hotelId}
-                    id={hotel.hotelId}
-                    hotel={hotel}
-                    name={hotel.name}
-                    rating={hotel.starRating}
-                    price={hotel.ratesSummary.minPrice}
-                    image={hotel.media.url}
-                    city={hotel.location.address.cityName.split(' ').pop()}
-                    isFavorited={isFavorited(hotel.hotelId)}
-                    handleClickItemCard={handleClickItemCard}
-                    handleClickFavorite={handleClickFavorite}
-                  />
-                ))} */}
+        <View
+          style={{
+            marginBottom: 20,
+            alignItems: 'center',
+            justifyContent: 'center',
+          }}>
+          <BigCardTour
+            Image={{
+              uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_se6ZZSfhaINPRKS0hpJvDorSt7x7iYA5LOzOo1lSHV98Phdiy09scX2-njw-5T2dwjLM7bfq703gdQ-v-wiesQ',
+            }}
+            name="Jakarta Jakarta Jakarta Jakarta "
+            price="Rp. 1.000.000"
+            rating="4.5"
+          />
+
           {hotels.map((hotel, index) => {
             return (
-              <View key={index}>
-                <Text>{hotel.hotelId}</Text>
-                <Text>{hotel.name}</Text>
-                <Text>{hotel.starRating}</Text>
-                <Text>{hotel.ratesSummary.minPrice}</Text>
-                <Text>{hotel.thumbnailUrl}</Text>
-              </View>
+              <BigCardTour
+                key={index}
+                Image={{
+                  uri: hotel.media.url,
+                }}
+                name={hotel.name}
+                rating={hotel.starRating}
+                price={hotel.ratesSummary.minPrice}
+                // onPress={() => console.log('hello')}
+              />
             );
           })}
         </View>

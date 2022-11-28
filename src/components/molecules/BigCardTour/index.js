@@ -3,63 +3,39 @@ import React from 'react';
 import {TourDummy, Star, IcLove} from '../../../assets';
 import {useNavigation} from '@react-navigation/native';
 import {ImageBackground} from 'react-native';
-import { StyleSheet } from 'react-native';
+import {StyleSheet} from 'react-native';
+import {Dimensions} from 'react-native';
 
-const BigCardTour = ({tour}) => {
+const BigCardTour = ({onPress, Image, price, name, rating}) => {
   const navigation = useNavigation();
   return (
-    <TouchableOpacity
-      onPress={() =>
-        navigation.navigate('TourDetail', {
-          data: tour,
-        })
-      }
-      activeOpacity={0.7}>
-      <View
-        style={style.content}>
+    <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
+      <View style={style.content}>
         <View>
           <ImageBackground
             style={{width: 300, height: 280, borderRadius: 10}}
-            source={tour.image}>
+            source={Image}>
             <TouchableOpacity style={style.IcLove}>
               <IcLove />
             </TouchableOpacity>
           </ImageBackground>
-          <View
-            style={{
-              justifyContent: 'space-between',
-              flexDirection: 'row',
-              alignItems: 'center',
-            }}>
-            <Text
-              style={{
-                marginTop: 20,
-                fontSize: 16,
-                fontFamily: 'Raleway-Bold',
-                color: '#1D2132',
-              }}>
-              {tour.name}
-            </Text>
+          <View style={style.card}>
+            <View style={style.name}>
+              <Text
+                style={{
+                  marginTop: 20,
+                  fontSize: 14,
+                  fontFamily: 'Raleway-Bold',
+                  color: '#1D2132',
+                }}>
+                {name}
+              </Text>
+            </View>
 
-            <Text
-              style={{
-                fontSize: 14,
-                marginTop: 20,
-                fontFamily: 'Raleway-Bold',
-                color: '#1D2132',
-              }}>
-              <Star /> {tour.rating}
+            <Text style={style.txtCard}>
+              <Star /> {rating}
             </Text>
           </View>
-          <Text
-            style={{
-              marginTop: 6,
-              fontSize: 12,
-              fontFamily: 'Raleway-Regular',
-              color: '#8A899C',
-            }}>
-            {tour.open}
-          </Text>
           <Text
             style={{
               marginTop: 6,
@@ -67,7 +43,7 @@ const BigCardTour = ({tour}) => {
               fontFamily: 'Raleway-Regular',
               color: '#1D2132',
             }}>
-            <Text style={{fontFamily: 'Raleway-Bold'}}>20K</Text> / org
+            <Text style={{fontFamily: 'Raleway-Bold'}}>{price}</Text> / org
           </Text>
         </View>
       </View>
@@ -86,12 +62,29 @@ const style = StyleSheet.create({
   content: {
     marginHorizontal: 30,
     alignItems: 'center',
+    justifyContent: 'center',
+    alignContent: 'center',
     marginBottom: 30,
-    width: '100%',
+    width: '80%',
     backgroundColor: 'white',
     elevation: 3,
     padding: 10,
     borderRadius: 10,
-  }
-
-})
+  },
+  card: {
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    alignItems: 'center',
+    maxWidth: Dimensions.get('window').width - 100,
+  },
+  txtCard: {
+    fontSize: 14,
+    marginTop: 20,
+    fontFamily: 'Raleway-Bold',
+    color: '#1D2132',
+    maxWidth: 100,
+  },
+  name: {
+    maxWidth: 200,
+  },
+});
