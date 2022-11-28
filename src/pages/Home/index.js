@@ -17,6 +17,7 @@ import Axios from 'axios';
 import moment from 'moment/moment';
 import {TouchableOpacity} from 'react-native';
 import {Image} from 'react-native';
+import { SafeAreaView } from 'react-native';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
@@ -33,9 +34,10 @@ const Home = ({navigation}) => {
   );
   const [hotels, setHotels] = useState([]);
   const [feeds, setFeeds] = useState([]);
+  console.log('feeds', feeds);
 
   const handleConfirmSearch = () => {
-    searchCity();
+    // searchCity();
     getHotelSugestion();
     // console.log('inputCity', inputCity);
     // console.log('inputStartDate', inputStartDate);
@@ -65,12 +67,11 @@ const Home = ({navigation}) => {
       searchCity();
       console.log('city id else', response.data[0].cityID);
     }
+    
   };
   const searchHotelByCity = async cityId => {
     const data_checkin = moment(inputStartDate).format('YYYY-MM-DD');
     const data_checkout = moment(inputEndDate).format('YYYY-MM-DD');
-    // console.log('data_checkin', data_checkin);
-    // console.log('data_checkout', data_checkout);
     const response = await Axios.get(`${API_HOST.urlHotelV1}v1/hotels/search`, {
       params: {
         location_id: cityId,
@@ -83,7 +84,6 @@ const Home = ({navigation}) => {
         'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
       },
     });
-    // console.log('response', response.data);
     const hotelData = response.data.hotels.filter((hotel, idx) => {
       if (idx < 10) {
         return hotel.hotelId && hotel.thumbnailUrl && hotel.media.url;
@@ -91,8 +91,6 @@ const Home = ({navigation}) => {
     });
     setHotels(hotelData);
     console.log('hotelData', hotelData);
-    // console.log('hotelData id', hotelData[0].hotelId);
-    // console.log('hotelData thumbnailUrl', hotelData[0].thumbnailUrl);
   };
 
   const getHotelSugestion = async () => {
@@ -122,7 +120,7 @@ const Home = ({navigation}) => {
       items: response.data.getHotelAutoSuggestV2.results.result.hotels,
     };
 
-    setFeeds([sugestionHotels]);
+    setFeeds(sugestionHotels.items);
     console.log('sugestionHotels', sugestionHotels);
     console.log('Items : ', sugestionHotels.items);
   };
@@ -150,7 +148,7 @@ const Home = ({navigation}) => {
   }, []);
 
   return (
-    <View style={styles.page}>
+    <SafeAreaView style={styles.page}>
       <HomeWelcome navigation={navigation} />
       <ScrollView vertical showsVerticalScrollIndicator={false}>
         <CardSearch
@@ -182,11 +180,7 @@ const Home = ({navigation}) => {
             </View>
           </ScrollView>
         </>
-        <View style={{marginBottom: 20}}>
-          <Text>Hello</Text>
-        </View>
         <Gap height={20} />
-
         <View
           style={{
             marginBottom: 20,
@@ -218,7 +212,7 @@ const Home = ({navigation}) => {
           })}
         </View>
       </ScrollView>
-    </View>
+    </SafeAreaView>
   );
 };
 
