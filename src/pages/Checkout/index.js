@@ -3,8 +3,13 @@ import React from 'react';
 import NavBack from '../../components/molecules/NavBack';
 import {Button, Gap, TextHome2} from '../../components';
 import {Image} from 'react-native';
+import { useSelector } from 'react-redux';
 
 const Checkout = ({navigation}) => {
+
+  const {dataUser} = useSelector(state => state.profileReducer);
+  console.log('data user: ', dataUser);
+
   return (
     <View style={styles.body}>
       <NavBack
@@ -49,15 +54,17 @@ const Checkout = ({navigation}) => {
         </View>
         <View style={styles.content3}>
           <Text style={styles.titleText2}>Nama</Text>
-          <Text style={styles.priceText}>Rizki Darmawan</Text>
+          <Text style={styles.priceText}>
+            {
+              dataUser && dataUser.fullname ? dataUser.fullname : 'Empty'
+            }
+          </Text>
         </View>
         <View style={styles.content3}>
           <Text style={styles.titleText2}>No. Hp</Text>
-          <Text style={styles.priceText}>088988777666</Text>
-        </View>
-        <View style={styles.content3}>
-          <Text style={styles.titleText2}>Alamat Wisata</Text>
-          <Text style={styles.priceText}>Jl. Mawar Melati No.300</Text>
+          <Text style={styles.priceText}>{
+            dataUser && dataUser.phone ? dataUser.phone : 'Empty'
+          }</Text>
         </View>
         <View style={styles.content3}>
           <Text style={styles.titleText2}>Pengunjung</Text>
@@ -73,7 +80,7 @@ const Checkout = ({navigation}) => {
         <Button
           text="Batalkan"
           color="#CCCCCC"
-          onPress={() => navigation.navigate('PesanCheckOut')}
+          onPress={() => navigation.goBack()}
         />
         <Gap height={16} />
         <Button

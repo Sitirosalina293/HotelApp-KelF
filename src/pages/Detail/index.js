@@ -47,9 +47,16 @@ const TourDetail = ({navigation, route}) => {
   };
 
   const {hotelDetail} = useSelector(state => state.productReducer);
-  console.log('hotelData redux detail : ', hotelDetail);
-  console.log('Image', hotelDetail.images[0].imageUrl);
 
+  const {isLoggedIn} = useSelector(state => state.auth);
+  
+  const onHandleCheckOut = () => {
+    if (isLoggedIn) {
+      navigation.navigate('DataPemesan');
+    } else {
+      navigation.navigate('Login');
+    }
+  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -105,7 +112,7 @@ const TourDetail = ({navigation, route}) => {
         </View>
         <Button
           text="Book Now"
-          onPress={() => navigation.navigate('PesanCheckOut')}
+          onPress={onHandleCheckOut}
         />
       </View>
     </SafeAreaView>

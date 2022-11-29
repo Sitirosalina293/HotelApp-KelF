@@ -3,16 +3,34 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 export const saveDataUser = data => async dispatch => {
   console.log('data user profile : ', data);
   try {
-    const {email, gender, fullname} = data;
-    if (email === '' && gender === '' && fullname === '') {
-      console.log('email dan gender kosong');
+    // const {email, gender, fullname} = data;
+    // if (email === '' && gender === '' && fullname === '') {
+    //   console.log('email dan gender kosong');
+    // } else {
+    AsyncStorage.setItem('dataUser', JSON.stringify(data));
+    dispatch({
+      type: 'GET_DATA_USER',
+      payload: data,
+    });
+    console.log('data user profile berhasil disimpan', data);
+    // }
+  } catch (e) {
+    console.log('Error save data :', e);
+  }
+};
+
+export const saveDataPemesanan = data => async dispatch => {
+  try {
+    const {phone} = data;
+    if (phone === '') {
+      console.log('data kosong');
     } else {
-      AsyncStorage.setItem('dataUser', JSON.stringify(data));
+      AsyncStorage.setItem('dataPemesanan', JSON.stringify(data));
       dispatch({
-        type: 'GET_DATA_USER',
+        type: 'GET_DATA_PEMESANAN',
         payload: data,
       });
-      console.log('data user profile berhasil disimpan');
+      console.log('data pemesanan berhasil disimpan');
     }
   } catch (e) {
     console.log('Error save data :', e);

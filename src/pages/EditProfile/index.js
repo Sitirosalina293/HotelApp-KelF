@@ -11,29 +11,46 @@ const EditProfile = ({navigation}) => {
   const dispatch = useDispatch();
   const state = useSelector(state => state);
   const {dataUser} = useSelector(state => state.profileReducer);
-  console.log('data user dari edit profile', dataUser);
 
   const [email, setEmail] = useState();
   const [gender, setGender] = useState();
   const [fullname, setFullname] = useState();
-
-  // const [open, setOpen] = useState(false);
-  // const [value, setValue] = useState(null);
+  const [phone, setPhone] = useState();
 
   const onHandleSubmit = () => {
     let data = {
       email: email,
       gender: gender,
       fullname: fullname,
+      phone: phone,
     };
-    console.log('data yang dikirim', data);
-    if(!data.email && !data.gender && !data.fullname) {
+    // console.log('data yang dikirim', data);
+    if (!data.email && !data.gender && !data.fullname && !data.phone) {
       console.log('data kosong');
-    } else {
-      console.log('data tidak kosong');
-      dispatch(saveDataUser(data));
-      navigation.goBack();
     }
+    if (!data.email) {
+      console.log('email kosong');
+    }
+    if (!data.gender) {
+      console.log('gender kosong');
+    }
+
+    if (!data.fullname) {
+      console.log('fullname kosong');
+    }
+
+    if (!data.phone) {
+      console.log('phone kosong');
+    }
+    else{
+      console.log('data yang dikirim', data);
+        dispatch(saveDataUser(data));
+        navigation.goBack();
+    }
+
+    // else {
+    //   console.log('data tidak kosong');
+    // }
   };
 
   return (
@@ -67,6 +84,13 @@ const EditProfile = ({navigation}) => {
           placeholder="Type your full name"
           value={fullname}
           onChangeText={value => setFullname(value)}
+        />
+        <Gap height={10} />
+        <TextInput
+          label="Phone Number"
+          placeholder="Type your phone number"
+          value={phone}
+          onChangeText={value => setPhone(value)}
         />
       </View>
       <View style={styles.content2}>

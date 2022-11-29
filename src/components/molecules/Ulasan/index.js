@@ -10,27 +10,9 @@ const UlasanDetail = () => {
         <Text style={styles.component}>Ulasan</Text>
       </View>
       <View style={styles.contentPerson}>
-        <Image style={styles.imageProfile} source={ProfileUlasan} />
-        <Gap width={10} />
-        <View style={{flex: 1}}>
-          <Text style={styles.nameProfile}>Lailatul Fitriyah</Text>
-          <View>
-            <Text style={styles.message}>Bagus banget buat foto-foto</Text>
-          </View>
-        </View>
-      </View>
-      <View style={styles.contentPerson}>
-        <Image style={styles.imageProfile} source={ProfileUlasan} />
-        <Gap width={10} />
-        <View style={{flex: 1}}>
-          <Text style={styles.nameProfile}>Lailatul Fitriyah</Text>
-          <View>
-            <Text style={styles.message}>Bagus banget buat foto-foto</Text>
-          </View>
-        </View>
-      </View>
-      <View style={styles.contentPerson}>
-        <Image style={styles.imageProfile} source={ProfileUlasan} />
+        <Image style={styles.imageProfile} source={{
+          uri: 'https://cdn-icons-png.flaticon.com/512/201/201634.png'
+        }} />
         <Gap width={10} />
         <View style={{flex: 1}}>
           <Text style={styles.nameProfile}>Lailatul Fitriyah</Text>

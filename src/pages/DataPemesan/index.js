@@ -3,23 +3,60 @@ import React from 'react';
 import {SafeAreaView} from 'react-native';
 import {Button, Gap, HeaderPrimary, TextInput} from '../../components';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {saveDataPemesanan, saveDataUser} from '../../redux/action';
+import {useState} from 'react';
+import {useEffect} from 'react';
 
 const DataPemesan = () => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const {dataUser} = useSelector(state => state.profileReducer);
+  const [phoneData, setPhoneData] = useState(dataUser.phone);
+  const onHandleSubmit = () => {
+    let data = {
+      email: dataUser.email,
+      gender: dataUser.gender,
+      fullname: dataUser.fullname,
+      phone: phoneData,
+    };
+    console.log('data yang dikirim', data);
+    dispatch(saveDataUser(data));
+    navigation.navigate('Checkout');
+  };
+
+  // useEffect(() => {
+  //   console.log('dataUser', dataUser);
+  // }, [dataUser]);
+
   return (
     <SafeAreaView style={styles.container}>
-      <HeaderPrimary type="header-secondary" />
+      <HeaderPrimary type="header-setting" />
       <View style={styles.content}>
         <View style={styles.user}>
           <Text style={styles.title}>Data Pemesan</Text>
           <TextInput
             title="Nama Lengkap"
             placeholder={'Masukkan Nama Lengkap'}
+            value={dataUser && dataUser.fullname ? dataUser.fullname : 'Empty'}
+            onChangeText={
+              dataUser && dataUser.fullname ? dataUser.fullname : 'Empty'
+            }
+            editable={false}
           />
-          <TextInput title="Email" placeholder={'Masukkan Email'} />
+          <TextInput
+            title="Email"
+            placeholder={'Masukkan Email'}
+            value={dataUser && dataUser.email ? dataUser.email : 'Empty'}
+            onChangeText={dataUser && dataUser.email ? dataUser.email : 'Empty'}
+            editable={false}
+          />
           <TextInput
             title="No. Handphone"
             placeholder={'Masukkan No. Handphone'}
+            value={phoneData}
+            onChangeText={value => setPhoneData(value)}
           />
         </View>
         <View style={styles.price}>
@@ -40,10 +77,7 @@ const DataPemesan = () => {
           </View>
         </View>
         <View style={styles.pesan}>
-          <Button
-            text="Pesan Sekarang"
-            onPress={() => navigation.navigate('Checkout')}
-          />
+          <Button text="Pesan Sekarang" onPress={onHandleSubmit} />
         </View>
       </View>
     </SafeAreaView>
@@ -92,10 +126,10 @@ const styles = StyleSheet.create({
   },
 
   // card content price
-    contentPrice: {
-        backgroundColor: '#F2F2F2',
-        paddingHorizontal: 24,
-        paddingVertical: 24,
-        borderRadius: 10,
-    },
+  contentPrice: {
+    backgroundColor: '#F2F2F2',
+    paddingHorizontal: 24,
+    paddingVertical: 24,
+    borderRadius: 10,
+  },
 });
