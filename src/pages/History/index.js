@@ -7,8 +7,11 @@ import TourListCard from '../../components/molecules/TourListCard';
 import tour from './../../assets/data/tour';
 import {Image} from 'react-native';
 import {TouchableOpacity} from 'react-native';
+import { useSelector } from 'react-redux';
 
 const History = () => {
+  const {dataHistoryCheckOut} = useSelector(state => state.productReducer);
+  console.log('dataHistoryCheckOut', dataHistoryCheckOut);
   return (
     <SafeAreaView style={styles.container}>
       <HeaderPrimary type="header-secondary" />
@@ -23,12 +26,12 @@ const History = () => {
         <Gap height={20} />
         <ItemHistory
           image={
-            'https://asset.kompas.com/crops/6CW7Ulw_xPM9zwlXV1BqaIlYO3c=/101x62:993x657/750x500/data/photo/2021/12/26/61c856e20fa07.png'
+            dataHistoryCheckOut.image
           }
-          name={'Bromo'}
-          location={'Malang'}
-          price={'20K'}
-          rating={4}
+          name={dataHistoryCheckOut.name}
+          location={dataHistoryCheckOut.city}
+          price={'$11'}
+          rating={dataHistoryCheckOut.rating}
         />
       </ScrollView>
     </SafeAreaView>

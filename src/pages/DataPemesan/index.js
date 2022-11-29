@@ -31,7 +31,7 @@ const DataPemesan = ({route}) => {
     };
     console.log('data yang dikirim', data);
     dispatch(saveDataUser(data));
-    navigation.navigate('Checkout');
+    navigation.navigate('Checkout', route.params);
   };
 
   const handleTanggal = () => {

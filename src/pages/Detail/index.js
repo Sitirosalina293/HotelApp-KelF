@@ -34,6 +34,10 @@ const HEIGHT = Dimensions.get('window').height;
 const TourDetail = ({navigation, route}) => {
   const [imgActive, setImageActive] = useState(false);
   console.log('route detail', route.params);
+  
+  const {hotelDetail} = useSelector(state => state.productReducer);
+
+  const {isLoggedIn} = useSelector(state => state.auth);
 
   onchange = nativeEvent => {
     if (nativeEvent) {
@@ -46,9 +50,6 @@ const TourDetail = ({navigation, route}) => {
     }
   };
 
-  const {hotelDetail} = useSelector(state => state.productReducer);
-
-  const {isLoggedIn} = useSelector(state => state.auth);
 
   const onHandleCheckOut = () => {
     if (isLoggedIn) {

@@ -3,13 +3,30 @@ import React from 'react';
 import NavBack from '../../components/molecules/NavBack';
 import {Button, Gap, TextHome2} from '../../components';
 import {Image} from 'react-native';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import { saveDataHistoryCheckOut } from '../../redux/action';
 
-const Checkout = ({navigation}) => {
+const Checkout = ({navigation, route}) => {
+  const dispatch = useDispatch();
   const {dataUser} = useSelector(state => state.profileReducer);
   const {totalMoney} = useSelector(state => state.productReducer);
-  console.log('total money', totalMoney);
-  console.log('data user: ', dataUser);
+  const {hotelDataPesan} = useSelector(state => state.productReducer);
+  const {hotelDetail} = useSelector(state => state.productReducer);
+
+  // console.log('route checkout', route.params);
+  // console.log('total money', totalMoney);
+  // console.log('data user: ', dataUser);
+  const onHandleCheckOut = () => {
+    let data = {
+      name: hotelDetail.name,
+      image: hotelDetail.images[0].imageUrl,
+      city: hotelDetail.location.address.cityName,
+      rating: hotelDetail.starRating,
+    };
+    // console.log('data yang dikirim', data);
+    dispatch(saveDataHistoryCheckOut(data));
+    navigation.navigate('Success');
+  };
 
   return (
     <View style={styles.body}>
@@ -23,15 +40,15 @@ const Checkout = ({navigation}) => {
       <View style={styles.content}>
         <Image
           source={{
-            uri: 'https://cdn-icons-png.flaticon.com/512/201/201634.png',
+            uri: hotelDetail.images[0].imageUrl,
           }}
           style={styles.image}
         />
         <View style={styles.contentText}>
-          <Text style={styles.title}>Kota Lama Semarang</Text>
-          <Text style={styles.price}>Rp10000</Text>
+          <Text style={styles.title}>{hotelDetail.name}</Text>
+          <Text style={styles.price}>isi harga</Text>
         </View>
-        <Text style={styles.total}>2 Person</Text>
+        <Text style={styles.total}>{hotelDataPesan.data_tamu} Person</Text>
       </View>
       <Gap height={24} />
       <View>
@@ -48,7 +65,9 @@ const Checkout = ({navigation}) => {
         </View>
         <View style={styles.content3}>
           <Text style={styles.titleText2}>Total Price</Text>
-          <Text style={[styles.priceText, styles.active]}>${totalMoney.totalBayar}</Text>
+          <Text style={[styles.priceText, styles.active]}>
+            ${totalMoney.totalBayar}
+          </Text>
         </View>
       </View>
       <Gap height={24} />
@@ -74,7 +93,9 @@ const Checkout = ({navigation}) => {
         </View>
         <View style={styles.content3}>
           <Text style={styles.titleText2}>Jadwal Kegiatan</Text>
-          <Text style={styles.priceText}>Minggu, 05 Oktober 2022</Text>
+          <Text style={styles.priceText}>
+            {hotelDataPesan.data_checkin} - {hotelDataPesan.data_checkout}
+          </Text>
         </View>
       </View>
       <Gap height={24} />
@@ -87,7 +108,7 @@ const Checkout = ({navigation}) => {
         <Gap height={16} />
         <Button
           text="Pesan Sekarang"
-          onPress={() => navigation.navigate('Success')}
+          onPress={onHandleCheckOut}
         />
       </View>
     </View>

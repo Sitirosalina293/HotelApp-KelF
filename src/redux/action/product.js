@@ -15,7 +15,7 @@ export const getMetaDataHotel = () => async dispatch => {
         'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
       },
     });
-    if(res){
+    if (res) {
       dispatch({
         type: 'GET_HOTEL',
         payload: res.data,
@@ -30,7 +30,6 @@ export const getMetaDataHotel = () => async dispatch => {
     console.log('Error fetch data :', e);
   }
 };
-
 
 export const getDetailHotel = async hotelId => {
   try {
@@ -48,40 +47,48 @@ export const getDetailHotel = async hotelId => {
       },
     );
     dispatch({type: 'GET_HOTEL_DETAIL', payload: response.data});
-    navigation.navigate('DetailHotel');     
+    navigation.navigate('DetailHotel');
     // navigation.navigate('DetailHotel', response.data);
   } catch (error) {
     console.log('error', error);
   }
 };
 
-export const saveDataPesan = (data) => async dispatch => {
-  try{
+export const saveDataPesan = data => async dispatch => {
+  try {
     AsyncStorage.setItem('dataPesan', JSON.stringify(data));
     dispatch({
       type: 'GET_HOTEL_DATA_PESAN',
       payload: data,
     });
     console.log('Data pesan masuk', data);
-  }
-  catch(e){
+  } catch (e) {
     console.log('Error save data pesan', e);
   }
- 
-}
+};
 
-export const saveDataTotalDataPemesanan = (data) => async dispatch => {
-  try{
+export const saveDataTotalDataPemesanan = data => async dispatch => {
+  try {
     AsyncStorage.setItem('dataTotalPemesanan', JSON.stringify(data));
     dispatch({
       type: 'GET_TOTAL_MONEY',
       payload: data,
     });
     console.log('Data total pesan masuk', data);
-  }
-  catch(e){
+  } catch (e) {
     console.log('Error save data pesan', e);
   }
- 
-}
+};
 
+export const saveDataHistoryCheckOut = data => async dispatch => {
+  try {
+    AsyncStorage.setItem('dataHistoryCheckOut', JSON.stringify(data));
+    dispatch({
+      type: 'GET_HISTORY_CHECKOUT',
+      payload: data,
+    });
+    console.log('Data history checkout masuk', data);
+  } catch (e) {
+    console.log('Error save data pesan', e);
+  }
+};

@@ -10,6 +10,8 @@ const InitStateHotel = {
   hotelDetail: [],
   isLoadingHotelDetail: false,
   totalMoney: [],
+  dataHistoryCheckOut: [],
+  isLoadingDataHistoryCheckOut: false,
 };
 
 export const productReducer = (state = InitStateHotel, action) => {
@@ -68,6 +70,16 @@ export const productReducer = (state = InitStateHotel, action) => {
       return {
         ...state,
         totalMoney: action.payload,
+      };
+    case 'GET_HISTORY_CHECKOUT':
+      return {
+        ...state,
+        dataHistoryCheckOut: action.payload,
+      };
+    case 'GET_LOADING_HISTORY_CHECKOUT':
+      return {
+        ...state,
+        isLoadingDataHistoryCheckOut: action.payload,
       };
 
     default:
