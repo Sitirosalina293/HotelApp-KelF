@@ -1,6 +1,5 @@
 import {View, Text, Image, StyleSheet} from 'react-native';
 import React from 'react';
-import {ProfileDummy} from '../../../assets';
 import {useSelector} from 'react-redux';
 import {TouchableOpacity} from 'react-native';
 const HomeWelcome = ({navigation}) => {
@@ -14,7 +13,9 @@ const HomeWelcome = ({navigation}) => {
             <Text style={styles.desc}>Hi, {state.auth.user}</Text>
             <Text style={styles.appName}>Mau kemana hari ini ?</Text>
           </View>
-          <Image source={ProfileDummy} style={styles.profile} />
+          <Image source={{
+            uri: 'https://cdn-icons-png.flaticon.com/512/201/201634.png'
+          }} style={styles.profile} />
         </>
       ) : (
         <>

@@ -45,9 +45,11 @@ const Profile = ({navigation}) => {
                 justifyContent: 'flex-start',
                 alignItems: 'center',
               }}>
-              <Image source={ProfileDummy} style={styles.profile} />
+              <Image source={{
+                uri: 'https://cdn-icons-png.flaticon.com/512/201/201634.png'
+              }} style={styles.profile} />
               <View style={{marginLeft: 10}}>
-                <Text style={styles.appName}>Rizki Darmawan</Text>
+                <Text style={styles.appName}>HAY</Text>
                 <Text style={styles.desc}>Semarang, Indonesia</Text>
                 <TouchableOpacity
                   onPress={() => navigation.navigate('EditProfile')}>

@@ -2,7 +2,6 @@ import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
 import NavBack from '../../components/molecules/NavBack';
 import {Button, Gap, TextHome2} from '../../components';
-import {TourDummy1} from '../../assets/Dummy';
 import {Image} from 'react-native';
 
 const Checkout = ({navigation}) => {
@@ -16,7 +15,9 @@ const Checkout = ({navigation}) => {
       <Gap height={24} />
       <TextHome2 text="Daftar Pesanan" />
       <View style={styles.content}>
-        <Image source={TourDummy1} style={styles.image} />
+        <Image source={{
+          uri: 'https://cdn-icons-png.flaticon.com/512/201/201634.png',
+        }} style={styles.image} />
         <View style={styles.contentText}>
           <Text style={styles.title}>Kota Lama Semarang</Text>
           <Text style={styles.price}>Rp10000</Text>
