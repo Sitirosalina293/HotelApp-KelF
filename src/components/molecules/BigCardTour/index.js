@@ -5,9 +5,19 @@ import {useNavigation} from '@react-navigation/native';
 import {ImageBackground} from 'react-native';
 import {StyleSheet} from 'react-native';
 import {Dimensions} from 'react-native';
+import { useSelector } from 'react-redux';
 
 const BigCardTour = ({onPress, Image, price, name, rating}) => {
   const navigation = useNavigation();
+  const {isLoggedIn} = useSelector(state => state.auth);
+
+  const onHandleFavorite = () => {
+    if (isLoggedIn) {
+      navigation.navigate('Favorite');
+    } else {
+      navigation.navigate('Login');
+    }
+  };
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
       <View style={style.content}>
@@ -15,7 +25,9 @@ const BigCardTour = ({onPress, Image, price, name, rating}) => {
           <ImageBackground
             style={{width: 300, height: 280, borderRadius: 10}}
             source={Image}>
-            <TouchableOpacity style={style.IcLove}>
+            <TouchableOpacity style={style.IcLove}
+              onPress={onHandleFavorite}
+            >
               <IcLove />
             </TouchableOpacity>
           </ImageBackground>
@@ -43,7 +55,8 @@ const BigCardTour = ({onPress, Image, price, name, rating}) => {
               fontFamily: 'Raleway-Regular',
               color: '#1D2132',
             }}>
-            <Text style={{fontFamily: 'Raleway-Bold'}}>{price}</Text> / org
+            ${price}
+            <Text style={{fontFamily: 'Raleway-Bold'}}> / org</Text>
           </Text>
         </View>
       </View>

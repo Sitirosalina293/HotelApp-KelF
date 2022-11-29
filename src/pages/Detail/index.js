@@ -17,12 +17,15 @@ import {
   Gradasi,
 } from '../../assets';
 import {SafeAreaView} from 'react-native-safe-area-context';
-import {Gap} from '../../components';
+import {Button, Gap} from '../../components';
 import Rating from '../../components/molecules/Rating';
 import Facility from '../../components/molecules/Facilities';
 import TextDesc from '../../components/atoms/TextDesc';
 import UlasanDetail from '../../components/molecules/Ulasan';
 import ButtonDetail from '../../components/atoms/ButtonDetail';
+import {useEffect} from 'react';
+import {getDetailHotel} from '../../redux/action';
+import {useDispatch, useSelector} from 'react-redux';
 
 const images = [DetailDummy, TourDummy, DetailDummy, DetailDummy];
 
@@ -31,6 +34,7 @@ const HEIGHT = Dimensions.get('window').height;
 
 const TourDetail = ({navigation, route}) => {
   const [imgActive, setImageActive] = useState(false);
+  console.log('route detail', route.params);
 
   onchange = nativeEvent => {
     if (nativeEvent) {
@@ -42,6 +46,12 @@ const TourDetail = ({navigation, route}) => {
       }
     }
   };
+
+  const {hotelDetail} = useSelector(state => state.productReducer);
+  console.log('hotelData redux detail : ', hotelDetail);
+  console.log('Image', hotelDetail.images[0].imageUrl);
+
+
   return (
     <SafeAreaView style={styles.container}>
       <ScrollView>
@@ -58,54 +68,44 @@ const TourDetail = ({navigation, route}) => {
             pagingEnabled
             horizontal
             style={styles.wrap}>
-            {route.params.data.galeri.map((image, index) => (
-              <ImageBackground
-                key={index}
-                resizeMode="cover"
-                style={styles.wrap}
-                source={image}>
-                <View style={styles.opacity}>
-                  <Gradasi />
-                </View>
-              </ImageBackground>
-            ))}
+            <ImageBackground
+              resizeMode="cover"
+              style={styles.wrap}
+              source={{
+                // uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_se6ZZSfhaINPRKS0hpJvDorSt7x7iYA5LOzOo1lSHV98Phdiy09scX2-njw-5T2dwjLM7bfq703gdQ-v-wiesQ',
+                uri: hotelDetail.images[0].imageUrl,
+              }}>
+              <View style={styles.opacity}>
+                <Gradasi />
+              </View>
+            </ImageBackground>
           </ScrollView>
-          <View style={styles.wrapDot}>
-            {route.params.data.galeri.map((dot, index2) => (
-              <Text
-                key={index2}
-                style={imgActive == index2 ? styles.dotActive : styles.dot}>
-                ⬤
-              </Text>
-            ))}
-          </View>
         </View>
         <View style={styles.wrap2}>
           <View style={styles.content1}>
-            <Text style={styles.title}>{route.params.data.name}</Text>
-            <Rating rating={route.params.data.rating} />
+            <Text style={styles.title}>{hotelDetail.name}</Text>
+            <Rating rating={hotelDetail.starRating} />
           </View>
           <View style={styles.content2}>
             <IcLocation />
             <Gap width={10} />
-            <Text style={styles.location}>{route.params.data.location}</Text>
+            <Text style={styles.location}>{hotelDetail.location.address.cityName}</Text>
             <Gap width={10} />
-            <Text style={styles.ulasan}>-</Text>
-            <Gap width={10} />
-            <Text style={styles.ulasan}>20 Ulasan</Text>
           </View>
           <Facility />
-          <TextDesc text={route.params.data.description} />
+          <TextDesc text={hotelDetail.description} />
           <UlasanDetail />
         </View>
       </ScrollView>
       <View style={styles.contentPrice}>
         <View>
-          <Text style={styles.price}>{route.params.data.price}</Text>
+          <Text style={styles.price}>
+            ${route.params.priceHotel}
+          </Text>
           <Text>/ Person</Text>
         </View>
-        <ButtonDetail
-          text="Pesan Tiket"
+        <Button
+          text="Book Now"
           onPress={() => navigation.navigate('PesanCheckOut')}
         />
       </View>
@@ -171,11 +171,6 @@ const styles = StyleSheet.create({
     marginVertical: 15,
   },
   location: {
-    fontSize: 14,
-    fontFamily: 'Raleway-Regular',
-    color: '#CBCBCB',
-  },
-  ulasan: {
     fontSize: 14,
     fontFamily: 'Raleway-Regular',
     color: '#CBCBCB',

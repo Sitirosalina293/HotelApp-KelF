@@ -17,11 +17,15 @@ import Axios from 'axios';
 import moment from 'moment/moment';
 import {TouchableOpacity} from 'react-native';
 import {Image} from 'react-native';
-import { SafeAreaView } from 'react-native';
+import {SafeAreaView} from 'react-native';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
   const {hotel} = useSelector(state => state.productReducer);
+  const {hotelData, isLoadingHotelData} = useSelector(
+    state => state.productReducer,
+  );
+  console.log('hotelData redux awal ', hotelData);
 
   const [inputCity, setInputCity] = useState('Yogyakarta');
   const [inputStartDate, setInputStartDate] = useState(new Date());
@@ -34,7 +38,6 @@ const Home = ({navigation}) => {
   );
   const [hotels, setHotels] = useState([]);
   const [feeds, setFeeds] = useState([]);
-  console.log('feeds', feeds);
 
   const handleConfirmSearch = () => {
     // searchCity();
@@ -54,7 +57,7 @@ const Home = ({navigation}) => {
         },
         headers: {
           'x-rapidapi-key':
-            'eab1b476ccmshf28baa51f4a8220p18a8e6jsn8ecdbb3ae82d',
+            'c8f833335cmsh76837598cd508cfp19a8b6jsnd7ddb948f53e',
           'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
         },
       },
@@ -67,7 +70,6 @@ const Home = ({navigation}) => {
       searchCity();
       console.log('city id else', response.data[0].cityID);
     }
-    
   };
   const searchHotelByCity = async cityId => {
     const data_checkin = moment(inputStartDate).format('YYYY-MM-DD');
@@ -80,7 +82,7 @@ const Home = ({navigation}) => {
         sort_order: 'STAR',
       },
       headers: {
-        'x-rapidapi-key': 'eab1b476ccmshf28baa51f4a8220p18a8e6jsn8ecdbb3ae82d',
+        'x-rapidapi-key': 'c8f833335cmsh76837598cd508cfp19a8b6jsnd7ddb948f53e',
         'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
       },
     });
@@ -89,8 +91,7 @@ const Home = ({navigation}) => {
         return hotel.hotelId && hotel.thumbnailUrl && hotel.media.url;
       }
     });
-    setHotels(hotelData);
-    console.log('hotelData', hotelData);
+    dispatch({type: 'GET_HOTEL_DATA', payload: hotelData});
   };
 
   const getHotelSugestion = async () => {
@@ -108,12 +109,12 @@ const Home = ({navigation}) => {
         },
         headers: {
           'x-rapidapi-key':
-            'eab1b476ccmshf28baa51f4a8220p18a8e6jsn8ecdbb3ae82d',
+            'c8f833335cmsh76837598cd508cfp19a8b6jsnd7ddb948f53e',
           'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
         },
       },
     );
-    console.log('response', response.data);
+    // console.log('response', response.data);
 
     const sugestionHotels = {
       title: 'POPULAR HOTELS',
@@ -125,8 +126,35 @@ const Home = ({navigation}) => {
     console.log('Items : ', sugestionHotels.items);
   };
 
+  const {hotelDetail} = useSelector(state => state.productReducer);
+
+  const getDetailHotel = async (hotelId, priceHotel) => {
+    try {
+      const response = await Axios.get(
+        `${API_HOST.urlHotelV1}v1/hotels/details`,
+        {
+          params: {
+            // hotel_id: '49203203',
+            hotel_id: hotelId,
+          },
+          headers: {
+            'X-RapidAPI-Key':
+              'c8f833335cmsh76837598cd508cfp19a8b6jsnd7ddb948f53e',
+            'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com',
+          },
+        },
+      );
+      dispatch({type: 'GET_HOTEL_DETAIL', payload: response.data});
+      console.log('id dan harga', hotelId, priceHotel);
+      navigation.navigate('TourDetail', {hotelId, priceHotel});
+    } catch (error) {
+      console.log('error', error);
+    }
+  };
+
   const handleClickItemCard = (id, price) => {
-    navigation.navigate('Detail', {hotelId: id, price: price});
+    getDetailHotel(id, price);
+
   };
 
   const handleClickFavorite = (hotel, isFavorited) => {
@@ -192,11 +220,11 @@ const Home = ({navigation}) => {
               uri: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_se6ZZSfhaINPRKS0hpJvDorSt7x7iYA5LOzOo1lSHV98Phdiy09scX2-njw-5T2dwjLM7bfq703gdQ-v-wiesQ',
             }}
             name="Jakarta Jakarta Jakarta Jakarta "
-            price="Rp. 1.000.000"
+            price="$100"
             rating="4.5"
           />
 
-          {hotels.map((hotel, index) => {
+          {hotelData.map((hotel, index) => {
             return (
               <BigCardTour
                 key={index}
@@ -206,6 +234,12 @@ const Home = ({navigation}) => {
                 name={hotel.name}
                 rating={hotel.starRating}
                 price={hotel.ratesSummary.minPrice}
+                onPress={() =>
+                  handleClickItemCard(
+                    hotel.hotelId,
+                    hotel.ratesSummary.minPrice,
+                  )
+                }
                 // onPress={() => console.log('hello')}
               />
             );
