@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import Axios from 'axios';
 import {API_HOST} from '../../config/API';
 
@@ -10,7 +11,7 @@ export const getMetaDataHotel = () => async dispatch => {
     const res = await Axios.get(`${API_HOST.urlHotelV1}v1/hotels/locations`, {
       params: {name: 'Indonesia', search_type: 'HOTEL'},
       headers: {
-        'x-rapidapi-key': 'c8f833335cmsh76837598cd508cfp19a8b6jsnd7ddb948f53e',
+        'x-rapidapi-key': '643f43a215msh069d3763f10ab69p11c762jsnce9957255f7f',
         'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
       },
     });
@@ -41,7 +42,7 @@ export const getDetailHotel = async hotelId => {
         },
         headers: {
           'X-RapidAPI-Key':
-            'c8f833335cmsh76837598cd508cfp19a8b6jsnd7ddb948f53e',
+            '643f43a215msh069d3763f10ab69p11c762jsnce9957255f7f',
           'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com',
         },
       },
@@ -53,3 +54,34 @@ export const getDetailHotel = async hotelId => {
     console.log('error', error);
   }
 };
+
+export const saveDataPesan = (data) => async dispatch => {
+  try{
+    AsyncStorage.setItem('dataPesan', JSON.stringify(data));
+    dispatch({
+      type: 'GET_HOTEL_DATA_PESAN',
+      payload: data,
+    });
+    console.log('Data pesan masuk', data);
+  }
+  catch(e){
+    console.log('Error save data pesan', e);
+  }
+ 
+}
+
+export const saveDataTotalDataPemesanan = (data) => async dispatch => {
+  try{
+    AsyncStorage.setItem('dataTotalPemesanan', JSON.stringify(data));
+    dispatch({
+      type: 'GET_TOTAL_MONEY',
+      payload: data,
+    });
+    console.log('Data total pesan masuk', data);
+  }
+  catch(e){
+    console.log('Error save data pesan', e);
+  }
+ 
+}
+

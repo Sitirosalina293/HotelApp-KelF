@@ -17,8 +17,8 @@ const Success = ({navigation}) => {
         </Text>
       </View>
       <Button
-        text="Lihat tiket"
-        onPress={() => navigation.navigate('Ticket')}
+        text="Home"
+        onPress={() => navigation.replace('MainApp')}
       />
     </View>
   );

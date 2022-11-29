@@ -1,7 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const saveDataUser = data => async dispatch => {
-  console.log('data user profile : ', data);
   try {
     // const {email, gender, fullname} = data;
     // if (email === '' && gender === '' && fullname === '') {
@@ -30,9 +29,11 @@ export const saveDataPemesanan = data => async dispatch => {
         type: 'GET_DATA_PEMESANAN',
         payload: data,
       });
-      console.log('data pemesanan berhasil disimpan');
+      console.log('data pemesanan berhasil disimpan', data);
     }
   } catch (e) {
     console.log('Error save data :', e);
   }
 };
+
+

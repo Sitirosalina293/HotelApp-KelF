@@ -3,11 +3,12 @@ import React from 'react';
 import NavBack from '../../components/molecules/NavBack';
 import {Button, Gap, TextHome2} from '../../components';
 import {Image} from 'react-native';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 
 const Checkout = ({navigation}) => {
-
   const {dataUser} = useSelector(state => state.profileReducer);
+  const {totalMoney} = useSelector(state => state.productReducer);
+  console.log('total money', totalMoney);
   console.log('data user: ', dataUser);
 
   return (
@@ -20,9 +21,12 @@ const Checkout = ({navigation}) => {
       <Gap height={24} />
       <TextHome2 text="Daftar Pesanan" />
       <View style={styles.content}>
-        <Image source={{
-          uri: 'https://cdn-icons-png.flaticon.com/512/201/201634.png',
-        }} style={styles.image} />
+        <Image
+          source={{
+            uri: 'https://cdn-icons-png.flaticon.com/512/201/201634.png',
+          }}
+          style={styles.image}
+        />
         <View style={styles.contentText}>
           <Text style={styles.title}>Kota Lama Semarang</Text>
           <Text style={styles.price}>Rp10000</Text>
@@ -36,15 +40,15 @@ const Checkout = ({navigation}) => {
         </View>
         <View style={styles.content3}>
           <Text style={styles.titleText2}>Kota Lama Semarang</Text>
-          <Text style={styles.priceText}>Rp20000</Text>
+          <Text style={styles.priceText}>${totalMoney.total}</Text>
         </View>
         <View style={styles.content3}>
           <Text style={styles.titleText2}>Pajak 10%</Text>
-          <Text style={styles.priceText}>Rp20000</Text>
+          <Text style={styles.priceText}>${totalMoney.pajak}</Text>
         </View>
         <View style={styles.content3}>
           <Text style={styles.titleText2}>Total Price</Text>
-          <Text style={[styles.priceText, styles.active]}>Rp20000</Text>
+          <Text style={[styles.priceText, styles.active]}>${totalMoney.totalBayar}</Text>
         </View>
       </View>
       <Gap height={24} />
@@ -55,16 +59,14 @@ const Checkout = ({navigation}) => {
         <View style={styles.content3}>
           <Text style={styles.titleText2}>Nama</Text>
           <Text style={styles.priceText}>
-            {
-              dataUser && dataUser.fullname ? dataUser.fullname : 'Empty'
-            }
+            {dataUser && dataUser.fullname ? dataUser.fullname : 'Empty'}
           </Text>
         </View>
         <View style={styles.content3}>
           <Text style={styles.titleText2}>No. Hp</Text>
-          <Text style={styles.priceText}>{
-            dataUser && dataUser.phone ? dataUser.phone : 'Empty'
-          }</Text>
+          <Text style={styles.priceText}>
+            {dataUser && dataUser.phone ? dataUser.phone : 'Empty'}
+          </Text>
         </View>
         <View style={styles.content3}>
           <Text style={styles.titleText2}>Pengunjung</Text>

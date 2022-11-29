@@ -1,76 +1,80 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React, {useState} from 'react';
 import NavigationBack from '../../components/molecules/NavigationBack';
-import {Button, Gap, TextInput} from '../../components';
+import {Button, Gap, HeaderPrimary, TextInput} from '../../components';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import {useDispatch, useSelector} from 'react-redux';
+import moment from 'moment/moment';
+import {useEffect} from 'react';
+import {saveDataPesan} from '../../redux/action';
+import {SafeAreaView} from 'react-native';
+import {ScrollView} from 'react-native';
 
-const PesanCheckOut = ({navigation}) => {
-  const [date, setDate] = useState(new Date());
-  const [mode, setMode] = useState('date');
-  const [show, setShow] = useState(false);
-  const [text, setText] = useState('Empty');
+const PesanCheckOut = ({navigation, route}) => {
+  const dispatch = useDispatch();
+  const {hotelDataDate, hotelDataPesan} = useSelector(
+    state => state.productReducer,
+  );
+  // console.log('hotelDataPesan : ', hotelDataPesan);
+  console.log('route pesan co', route.params);
 
-  const onChange = (event, selectedDate) => {
-    const currentDate = selectedDate || date;
-    setShow(Platform.OS === 'ios');
-    setDate(currentDate);
-    setText(currentDate.toString());
+  const [tamu, setTamu] = useState(1);
+  const [room, setRoom] = useState(1);
 
-    let tempDate = new Date(currentDate);
-    let fDate =
-      tempDate.getDate() +
-      '-' +
-      (tempDate.getMonth() + 1) +
-      '-' +
-      tempDate.getFullYear();
-    setText(fDate);
-    console.log(fDate);
+  const onHandleSubmit = () => {
+    let data = {
+      data_checkin: hotelDataDate.data_checkin,
+      data_checkout: hotelDataDate.data_checkout,
+      data_room: room,
+      data_tamu: tamu,
+    };
+    dispatch(saveDataPesan(data));
+    navigation.navigate('DataPemesan', route.params);
   };
 
-  const showMode = currentMode => {
-    setShow(true);
-    setMode(currentMode);
-  };
+  // useEffect(() => {
+  //   console.log('Data Pesan', hotelDataPesan);
+  // }, [hotelDataPesan]);
 
   return (
-    <View style={{backgroundColor: 'white'}}>
-      <NavigationBack onPress={() => navigation.navigate('Home')} />
-      <View style={styles.info}>
-        <Text style={styles.desc}>
-          Informasi yang anda berikan akan digunakan oleh pihak untuk
-          menverifkasi. Harap periksa untuk memastikan data yang anda masukkan
-          sudah benar
-        </Text>
-      </View>
-      <View style={styles.content}>
-        <Text style={styles.title}>Jadwal Kedatangan</Text>
-        <View style={styles.frameDate}>
-          <Text style={styles.tgl}>{text}</Text>
+    <SafeAreaView style={{backgroundColor: 'white'}}>
+      <HeaderPrimary type="header-setting" Title="Pesan" />
+      <ScrollView showsVerticalScrollIndicator={false}>
+        <View style={styles.content}>
+          <Text style={styles.title}>Jadwal Kedatangan</Text>
+          <View style={styles.frameDate}>
+            <Text style={styles.tgl}>
+              {moment(hotelDataDate.data_checkin).format('DD MMM YYYY')} -{' '}
+              {moment(hotelDataDate.data_checkout).format('DD MMM YYYY')}
+            </Text>
+          </View>
         </View>
-        <Gap height={11} />
-        <Button text={'Pilih Jadwal'} onPress={() => showMode('date')} />
-
-        {show && (
-          <DateTimePicker
-            testID="dateTimePicker"
-            value={date}
-            mode={mode}
-            is24Hour={true}
-            display="default"
-            onChange={onChange}
+        <View style={styles.content2}>
+          <Text style={styles.title2}>Jumlah Room</Text>
+          <TextInput
+            placeholder={'Masukkan jumlah Room'}
+            style={styles.TxtInput}
+            value={room}
+            onChangeText={value => setRoom(value)}
           />
-        )}
-      </View>
-      <View style={styles.content2}>
-        <Text style={styles.title2}>Jumlah Pengunjung</Text>
-        <TextInput placeholder={'Jumlah Pengunjung'} style={styles.TxtInput} />
-        <Gap height={11} />
-        <Button text={'Cek Ketersediaan'} />
-      </View>
-      <View style={styles.content3}>
-        <Button text={'Pesan sekarang'} onPress={() => navigation.navigate('DataPemesan')}  />
-      </View>
-    </View>
+          <Gap height={11} />
+        </View>
+        <View style={styles.content2}>
+          <Text style={styles.title2}>Jumlah Tamu</Text>
+          <TextInput
+            placeholder={'Masukkan jumlah tamu'}
+            style={styles.TxtInput}
+            value={tamu}
+            onChangeText={value => setTamu(value)}
+          />
+          <Gap height={11} />
+        </View>
+
+        <View style={styles.content3}>
+          <Button text={'Pesan sekarang'} onPress={onHandleSubmit} />
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
 

@@ -25,7 +25,10 @@ const Home = ({navigation}) => {
   const {hotelData, isLoadingHotelData} = useSelector(
     state => state.productReducer,
   );
-  console.log('hotelData redux awal ', hotelData);
+  console.log('hotelData All ', hotelData);
+
+  const {hotelDataDate} = useSelector(state => state.productReducer);
+  console.log('hotelDataDate : ', hotelDataDate);
 
   const [inputCity, setInputCity] = useState('Yogyakarta');
   const [inputStartDate, setInputStartDate] = useState(new Date());
@@ -40,11 +43,8 @@ const Home = ({navigation}) => {
   const [feeds, setFeeds] = useState([]);
 
   const handleConfirmSearch = () => {
-    // searchCity();
-    getHotelSugestion();
-    // console.log('inputCity', inputCity);
-    // console.log('inputStartDate', inputStartDate);
-    // console.log('inputEndDate', inputEndDate);
+    searchCity();
+    // getHotelSugestion();
   };
 
   const searchCity = async () => {
@@ -57,7 +57,7 @@ const Home = ({navigation}) => {
         },
         headers: {
           'x-rapidapi-key':
-            'c8f833335cmsh76837598cd508cfp19a8b6jsnd7ddb948f53e',
+            '643f43a215msh069d3763f10ab69p11c762jsnce9957255f7f',
           'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
         },
       },
@@ -82,7 +82,7 @@ const Home = ({navigation}) => {
         sort_order: 'STAR',
       },
       headers: {
-        'x-rapidapi-key': 'c8f833335cmsh76837598cd508cfp19a8b6jsnd7ddb948f53e',
+        'x-rapidapi-key': '643f43a215msh069d3763f10ab69p11c762jsnce9957255f7f',
         'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
       },
     });
@@ -92,39 +92,40 @@ const Home = ({navigation}) => {
       }
     });
     dispatch({type: 'GET_HOTEL_DATA', payload: hotelData});
+    dispatch({type: 'GET_HOTEL_DATA_DATE', payload: {data_checkin, data_checkout}});
   };
 
-  const getHotelSugestion = async () => {
-    console.log('city', inputCity);
-    const response = await Axios.get(
-      `${API_HOST.urlHotelV1}v2/hotels/autoSuggest`,
-      {
-        params: {
-          // string: inputCity,
-          string: 'Jakarta',
-          spellcheck: 'true',
-          get_pois: 'true',
-          combine_regions: 'true',
-          get_hotels: 'true',
-        },
-        headers: {
-          'x-rapidapi-key':
-            'c8f833335cmsh76837598cd508cfp19a8b6jsnd7ddb948f53e',
-          'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
-        },
-      },
-    );
-    // console.log('response', response.data);
+  // const getHotelSugestion = async () => {
+  //   console.log('city', inputCity);
+  //   const response = await Axios.get(
+  //     `${API_HOST.urlHotelV1}v2/hotels/autoSuggest`,
+  //     {
+  //       params: {
+  //         // string: inputCity,
+  //         string: 'Jakarta',
+  //         spellcheck: 'true',
+  //         get_pois: 'true',
+  //         combine_regions: 'true',
+  //         get_hotels: 'true',
+  //       },
+  //       headers: {
+  //         'x-rapidapi-key':
+  //           '643f43a215msh069d3763f10ab69p11c762jsnce9957255f7f',
+  //         'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
+  //       },
+  //     },
+  //   );
+  //   // console.log('response', response.data);
 
-    const sugestionHotels = {
-      title: 'POPULAR HOTELS',
-      items: response.data.getHotelAutoSuggestV2.results.result.hotels,
-    };
+  //   const sugestionHotels = {
+  //     title: 'POPULAR HOTELS',
+  //     items: response.data.getHotelAutoSuggestV2.results.result.hotels,
+  //   };
 
-    setFeeds(sugestionHotels.items);
-    console.log('sugestionHotels', sugestionHotels);
-    console.log('Items : ', sugestionHotels.items);
-  };
+  //   setFeeds(sugestionHotels.items);
+  //   console.log('sugestionHotels', sugestionHotels);
+  //   console.log('Items : ', sugestionHotels.items);
+  // };
 
   const {hotelDetail} = useSelector(state => state.productReducer);
 
@@ -139,7 +140,7 @@ const Home = ({navigation}) => {
           },
           headers: {
             'X-RapidAPI-Key':
-              'c8f833335cmsh76837598cd508cfp19a8b6jsnd7ddb948f53e',
+              '643f43a215msh069d3763f10ab69p11c762jsnce9957255f7f',
             'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com',
           },
         },

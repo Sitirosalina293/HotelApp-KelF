@@ -5,8 +5,11 @@ const InitStateHotel = {
   isLoadingPopularHotel: false,
   hotelData: [],
   isLoadingHotelData: false,
+  hotelDataDate: [],
+  hotelDataPesan: [],
   hotelDetail: [],
   isLoadingHotelDetail: false,
+  totalMoney: [],
 };
 
 export const productReducer = (state = InitStateHotel, action) => {
@@ -36,6 +39,16 @@ export const productReducer = (state = InitStateHotel, action) => {
         ...state,
         hotelData: action.payload,
       };
+    case 'GET_HOTEL_DATA_DATE':
+      return {
+        ...state,
+        hotelDataDate: action.payload,
+      };
+    case 'GET_HOTEL_DATA_PESAN':
+      return {
+        ...state,
+        hotelDataPesan: action.payload,
+      };
     case 'SET_LOADING_HOTEL_DATA':
       return {
         ...state,
@@ -50,6 +63,11 @@ export const productReducer = (state = InitStateHotel, action) => {
       return {
         ...state,
         isLoadingHotelDetail: action.payload,
+      };
+    case 'GET_TOTAL_MONEY':
+      return {
+        ...state,
+        totalMoney: action.payload,
       };
 
     default:

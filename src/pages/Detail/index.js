@@ -49,10 +49,10 @@ const TourDetail = ({navigation, route}) => {
   const {hotelDetail} = useSelector(state => state.productReducer);
 
   const {isLoggedIn} = useSelector(state => state.auth);
-  
+
   const onHandleCheckOut = () => {
     if (isLoggedIn) {
-      navigation.navigate('DataPemesan');
+      navigation.navigate('PesanCheckOut', route.params);
     } else {
       navigation.navigate('Login');
     }
@@ -95,7 +95,9 @@ const TourDetail = ({navigation, route}) => {
           <View style={styles.content2}>
             <IcLocation />
             <Gap width={10} />
-            <Text style={styles.location}>{hotelDetail.location.address.cityName}</Text>
+            <Text style={styles.location}>
+              {hotelDetail.location.address.cityName}
+            </Text>
             <Gap width={10} />
           </View>
           <Facility />
@@ -105,15 +107,10 @@ const TourDetail = ({navigation, route}) => {
       </ScrollView>
       <View style={styles.contentPrice}>
         <View>
-          <Text style={styles.price}>
-            ${route.params.priceHotel}
-          </Text>
+          <Text style={styles.price}>${route.params.priceHotel}</Text>
           <Text>/ Person</Text>
         </View>
-        <Button
-          text="Book Now"
-          onPress={onHandleCheckOut}
-        />
+        <Button text="Book Now" onPress={onHandleCheckOut} />
       </View>
     </SafeAreaView>
   );
