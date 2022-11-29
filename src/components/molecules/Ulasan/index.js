@@ -2,7 +2,6 @@ import {StyleSheet, Text, View, Image} from 'react-native';
 import React from 'react';
 import {ProfileUlasan, ProfileDummy, PersonDetail} from '../../../assets';
 import {Button, Gap} from '../../atoms';
-import ButtonDetail from '../../atoms/ButtonDetail';
 
 const UlasanDetail = () => {
   return (
@@ -40,13 +39,6 @@ const UlasanDetail = () => {
           </View>
         </View>
       </View>
-      {/* <View style={styles.UlasanLast}>
-        <View>
-          <Text style={styles.ulasanTotal}>3000</Text>
-          <Text>/ Person</Text>
-        </View>
-        <ButtonDetail text="Book Now" />
-      </View> */}
     </View>
   );
 };

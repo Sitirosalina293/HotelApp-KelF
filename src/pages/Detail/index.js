@@ -22,7 +22,6 @@ import Rating from '../../components/molecules/Rating';
 import Facility from '../../components/molecules/Facilities';
 import TextDesc from '../../components/atoms/TextDesc';
 import UlasanDetail from '../../components/molecules/Ulasan';
-import ButtonDetail from '../../components/atoms/ButtonDetail';
 import {useEffect} from 'react';
 import {getDetailHotel} from '../../redux/action';
 import {useDispatch, useSelector} from 'react-redux';
