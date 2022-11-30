@@ -52,7 +52,7 @@ const PesanCheckOut = ({navigation, route}) => {
         <View style={styles.content2}>
           <Text style={styles.title2}>Jumlah Room</Text>
           <TextInput
-            placeholder={'Masukkan jumlah Room'}
+            placeholder={tamu == 1 ? '1' : tamu + ' Kamar'}
             style={styles.TxtInput}
             value={room}
             onChangeText={value => setRoom(value)}
@@ -62,7 +62,7 @@ const PesanCheckOut = ({navigation, route}) => {
         <View style={styles.content2}>
           <Text style={styles.title2}>Jumlah Tamu</Text>
           <TextInput
-            placeholder={'Masukkan jumlah tamu'}
+            placeholder={tamu == 1 ? '1' : tamu + ' Tamu'}
             style={styles.TxtInput}
             value={tamu}
             onChangeText={value => setTamu(value)}

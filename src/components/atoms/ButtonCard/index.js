@@ -12,7 +12,7 @@ const ButtonCard = ({
     <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
       <View style={styles.container(color)}>
         <Text style={styles.text(textColor)}>
-          {icon} {text}
+          {icon} ${text}
         </Text>
       </View>
     </TouchableOpacity>

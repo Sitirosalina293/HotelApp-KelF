@@ -28,20 +28,7 @@ const DataPemesan = ({route}) => {
   }, []);
 
   const [phoneData, setPhoneData] = useState(dataUser.phone);
-  const onHandleSubmit = () => {
-    let data = {
-      email: dataUser.email,
-      gender: dataUser.gender,
-      fullname: dataUser.fullname,
-      phone: phoneData,
-    };
-    console.log('data yang dikirim', data);
-    dispatch(saveDataUser(data));
-    // const {dataCheckout} = useSelector(state => state.productReducer);
-    // console.log('payload data user', dataCheckout);
-    // dispatch({type: 'GET_CHECKOUT', payload: route.params});
-    navigation.navigate('Checkout');
-  };
+  const onHandleSubmit = () => {};
 
   const handleTanggal = () => {
     let checkin = new Date(hotelDataPesan.data_checkin);
@@ -68,9 +55,35 @@ const DataPemesan = ({route}) => {
       pajak: handlePajak(),
       totalBayar: handleTotal() + handlePajak(),
     };
-    console.log('data total', data);
-    dispatch(saveDataTotalDataPemesanan(data));
-    navigation.navigate('Checkout');
+    let dataUserPesan = {
+      email: dataUser.email,
+      gender: dataUser.gender,
+      fullname: dataUser.fullname,
+      phone: dataUser.phone,
+    };
+    if (
+      !dataUserPesan.email &&
+      !dataUserPesan.gender &&
+      !dataUserPesan.fullname &&
+      !dataUserPesan.phone
+    ) {
+      console.log('dataUserPesan kosong');
+    }
+    if (!dataUserPesan.email) {
+      console.log('email kosong');
+    }
+    if (!dataUserPesan.fullname) {
+      console.log('fullname kosong');
+    }
+    if (!dataUserPesan.phone) {
+      console.log('phone kosong');
+    } else {
+      console.log('dataUserPesan yang dikirim', dataUserPesan);
+      // dispatch(saveDataUser(data));
+      dispatch(saveDataTotalDataPemesanan(data));
+      navigation.navigate('Checkout');
+    }
+    // onHandleSubmit();
   };
 
   // useEffect(() => {
@@ -102,8 +115,9 @@ const DataPemesan = ({route}) => {
           <TextInput
             title="No. Handphone"
             placeholder={'Masukkan No. Handphone'}
-            value={phoneData}
-            onChangeText={value => setPhoneData(value)}
+            value={dataUser && dataUser.phone ? dataUser.phone : 'Empty'}
+            onChangeText={dataUser && dataUser.phone ? dataUser.phone : 'Empty'}
+            editable={false}
           />
         </View>
         <View style={styles.price}>
