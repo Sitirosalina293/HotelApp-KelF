@@ -1,5 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Axios from 'axios';
+import { Alert } from 'react-native';
 import {API_HOST} from '../../config/API';
 
 export const getMetaDataHotel = () => async dispatch => {
@@ -11,7 +12,7 @@ export const getMetaDataHotel = () => async dispatch => {
     const res = await Axios.get(`${API_HOST.urlHotelV1}v1/hotels/locations`, {
       params: {name: 'Indonesia', search_type: 'HOTEL'},
       headers: {
-        'x-rapidapi-key': '643f43a215msh069d3763f10ab69p11c762jsnce9957255f7f',
+        'x-rapidapi-key': '1b7dd0c183mshee645b691cff88fp11ac22jsnd27bfbd8c411',
         'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
       },
     });
@@ -41,7 +42,7 @@ export const getDetailHotel = async hotelId => {
         },
         headers: {
           'X-RapidAPI-Key':
-            '643f43a215msh069d3763f10ab69p11c762jsnce9957255f7f',
+            '1b7dd0c183mshee645b691cff88fp11ac22jsnd27bfbd8c411',
           'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com',
         },
       },
@@ -81,14 +82,36 @@ export const saveDataTotalDataPemesanan = data => async dispatch => {
 };
 
 export const saveDataHistoryCheckOut = data => async dispatch => {
+
   try {
-    AsyncStorage.setItem('dataHistoryCheckOut', JSON.stringify(data));
-    dispatch({
-      type: 'GET_HISTORY_CHECKOUT',
-      payload: data,
+
+    await AsyncStorage.getItem('dataHistoryCheckOut').then(async (dataHistorySource) => {
+
+      dataHistorySource = dataHistorySource ?? "[]";
+      let dataHistory = JSON.parse(dataHistorySource);
+
+      if (Array.isArray(dataHistory)) {
+
+        dataHistory = dataHistory.filter((item) => item && typeof item == "object");
+
+        console.log("TESTING", dataHistory);
+  
+        dataHistory.push(data);
+  
+        return await AsyncStorage.setItem('dataHistoryCheckOut', JSON.stringify(dataHistory)).then(() => {
+  
+          dispatch({
+            type: 'GET_HISTORY_CHECKOUT',
+            payload: dataHistory,
+          });
+        });
+      }
+
+      return null;
     });
-    console.log('Data history checkout masuk', data);
+
   } catch (e) {
+
     console.log('Error save data pesan', e);
   }
 };

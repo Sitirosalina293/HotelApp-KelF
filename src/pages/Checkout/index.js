@@ -6,14 +6,16 @@ import {Image} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import { saveDataHistoryCheckOut } from '../../redux/action';
 
-const Checkout = ({navigation, route}) => {
+const Checkout = ({navigation}) => {
   const dispatch = useDispatch();
   const {dataUser} = useSelector(state => state.profileReducer);
   const {totalMoney} = useSelector(state => state.productReducer);
   const {hotelDataPesan} = useSelector(state => state.productReducer);
   const {hotelDetail} = useSelector(state => state.productReducer);
+  const {dataCheckout} = useSelector(state => state.productReducer);
 
-  // console.log('route checkout', route.params);
+  console.log('data checkout', dataCheckout);
+
   // console.log('total money', totalMoney);
   // console.log('data user: ', dataUser);
   const onHandleCheckOut = () => {
@@ -21,9 +23,10 @@ const Checkout = ({navigation, route}) => {
       name: hotelDetail.name,
       image: hotelDetail.images[0].imageUrl,
       city: hotelDetail.location.address.cityName,
+      price: dataCheckout.priceHotel,
       rating: hotelDetail.starRating,
     };
-    // console.log('data yang dikirim', data);
+    console.log('data yang dikirim', data);
     dispatch(saveDataHistoryCheckOut(data));
     navigation.navigate('Success');
   };
@@ -46,7 +49,7 @@ const Checkout = ({navigation, route}) => {
         />
         <View style={styles.contentText}>
           <Text style={styles.title}>{hotelDetail.name}</Text>
-          <Text style={styles.price}>isi harga</Text>
+          <Text style={styles.price}>${dataCheckout.priceHotel}</Text>
         </View>
         <Text style={styles.total}>{hotelDataPesan.data_tamu} Person</Text>
       </View>

@@ -7,11 +7,19 @@ import TourListCard from '../../components/molecules/TourListCard';
 import tour from './../../assets/data/tour';
 import {Image} from 'react-native';
 import {TouchableOpacity} from 'react-native';
-import { useSelector } from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
+import { saveDataHistoryCheckOut } from '../../redux/action';
+import { useEffect } from 'react';
 
 const History = () => {
+  const dispatch = useDispatch();
   const {dataHistoryCheckOut} = useSelector(state => state.productReducer);
-  console.log('dataHistoryCheckOut', dataHistoryCheckOut);
+  console.log('dataHistoryCheckOut : ', dataHistoryCheckOut);
+
+  useEffect (() => {
+    dispatch(saveDataHistoryCheckOut());
+  }, []);
+
   return (
     <SafeAreaView style={styles.container}>
       <HeaderPrimary type="header-secondary" />
@@ -24,15 +32,19 @@ const History = () => {
           </Text>
         </View>
         <Gap height={20} />
-        <ItemHistory
-          image={
-            dataHistoryCheckOut.image
-          }
-          name={dataHistoryCheckOut.name}
-          location={dataHistoryCheckOut.city}
-          price={'$11'}
-          rating={dataHistoryCheckOut.rating}
-        />
+        {dataHistoryCheckOut &&
+          dataHistoryCheckOut.reverse().map((item, index) => {
+            return (
+              <ItemHistory
+                key={index}
+                image={item.image}
+                name={item.name}
+                location={item.city}
+                price={item.price}
+                rating={item.rating}
+              />
+            );
+          })}
       </ScrollView>
     </SafeAreaView>
   );

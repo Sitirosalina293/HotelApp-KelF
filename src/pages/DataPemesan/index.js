@@ -21,6 +21,12 @@ const DataPemesan = ({route}) => {
   console.log('Data Pesan dari sini ', hotelDataPesan);
   console.log('route data pemesan', route.params);
 
+  useEffect(() => {
+    route.params &&
+      typeof route.params == 'object' &&
+      dispatch({type: 'GET_CHECKOUT', payload: route.params});
+  }, []);
+
   const [phoneData, setPhoneData] = useState(dataUser.phone);
   const onHandleSubmit = () => {
     let data = {
@@ -31,7 +37,10 @@ const DataPemesan = ({route}) => {
     };
     console.log('data yang dikirim', data);
     dispatch(saveDataUser(data));
-    navigation.navigate('Checkout', route.params);
+    // const {dataCheckout} = useSelector(state => state.productReducer);
+    // console.log('payload data user', dataCheckout);
+    // dispatch({type: 'GET_CHECKOUT', payload: route.params});
+    navigation.navigate('Checkout');
   };
 
   const handleTanggal = () => {

@@ -11,6 +11,7 @@ const InitStateHotel = {
   isLoadingHotelDetail: false,
   totalMoney: [],
   dataHistoryCheckOut: [],
+  dataCheckout: null,
   isLoadingDataHistoryCheckOut: false,
 };
 
@@ -74,12 +75,17 @@ export const productReducer = (state = InitStateHotel, action) => {
     case 'GET_HISTORY_CHECKOUT':
       return {
         ...state,
-        dataHistoryCheckOut: action.payload,
+        dataHistoryCheckOut: action.payload && Array.isArray(action.payload) ? action.payload.filter((data) => data && typeof data == "object") : [],
       };
     case 'GET_LOADING_HISTORY_CHECKOUT':
       return {
         ...state,
         isLoadingDataHistoryCheckOut: action.payload,
+      };
+    case 'GET_CHECKOUT':
+      return {
+        ...state,
+        dataCheckout: action.payload,
       };
 
     default:
