@@ -5,11 +5,9 @@ export const saveDataUser = data => async dispatch => {
     await AsyncStorage.getItem('dataUser').then(async dataUserSource => {
       dataUserSource = dataUserSource ?? '[]';
       let dataUser = JSON.parse(dataUserSource);
-      // jika data kosong maka akan di push data
       if(dataUser.length === 0){
         dataUser.push(data);
-        return await AsyncStorage.setItem
-        ('dataUser', JSON.stringify(dataUser)).then(() => {
+        return await AsyncStorage.setItem('dataUser', JSON.stringify(dataUser)).then(() => {
           dispatch({
             type: 'GET_DATA_USER',
             payload: dataUser,

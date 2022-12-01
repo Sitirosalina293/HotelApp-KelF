@@ -5,6 +5,7 @@ import {TextInput, Gap, Button} from '../../components';
 import {Logo, Google} from '../../assets';
 import { login } from '../../redux/action/auth';
 import { useForm } from '../../utils';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
@@ -12,10 +13,7 @@ const Login = ({navigation}) => {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
 
-  
   const onLogin = () => {
-    // console.log('username', username);
-    // console.log('password', password);
     let user = {
       username: username,
       password: password,
@@ -24,6 +22,11 @@ const Login = ({navigation}) => {
     dispatch(login(user))
       .then(response => {
         if (response.status == 'success') {
+          AsyncStorage.getItem('dataUser').then(userDataSource => {
+            console.log('data user:', userDataSource);
+            let userData = JSON.parse(userDataSource);
+            dispatch({type: 'GET_DATA_USER', payload: userData});
+          });
           navigation.replace('MainApp');
         }
       })

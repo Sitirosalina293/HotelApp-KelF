@@ -43,7 +43,7 @@ const ListReview = ({navigation}) => {
           </Text>
         </View>
         <Gap height={20} />
-        {/* {dataSaveHistoryReview &&
+        {dataSaveHistoryReview &&
           dataSaveHistoryReview.reverse().map((item, index) => {
             console.log('item : ', item);
             return (
@@ -56,7 +56,7 @@ const ListReview = ({navigation}) => {
                 onPress={() => onHandleReview(item)}
               />
             );
-          })} */}
+          })}
         {/* <ItemReview
           image="https://digital.ihg.com/is/image/ihg/staybridge-suites-irvine-6723805112-4x3"
           name="Bali"
