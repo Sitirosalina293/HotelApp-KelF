@@ -13,6 +13,7 @@ import {
   History,
   Favorite,
   EditProfile,
+  ListReview,
 } from '../pages';
 
 import {BottomNavigator} from '../components';
@@ -21,6 +22,8 @@ import Checkout from '../pages/Checkout';
 import Success from '../pages/Success';
 import InformationPribadi from '../pages/Information';
 import DataPemesan from '../pages/DataPemesan';
+import Review from '../pages/Review';
+import HistoryReview from '../pages/HistoryReview';
 
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
@@ -127,7 +130,21 @@ const Router = () => {
         component={EditProfile}
         options={{headerShown: false}}
       />
-
+      <Stack.Screen
+        name="Review"
+        component={Review}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="HistoryReview"
+        component={HistoryReview}
+        options={{headerShown: false}}
+      />
+      <Stack.Screen
+        name="ListReview"
+        component={ListReview}
+        options={{headerShown: false}}
+      />
     </Stack.Navigator>
   );
 };

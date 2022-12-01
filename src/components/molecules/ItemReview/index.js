@@ -1,25 +1,21 @@
 import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import React from 'react';
 import Rating from '../Rating';
-import ButtonCard from '../../atoms/ButtonCard';
 
-const ItemHistory = ({image, name, location, rating, price, onPress}) => {
+const ItemReview = ({image, name, location, rating, onPress}) => {
   return (
     <TouchableOpacity activeOpacity={0.7} style={styles.container} onPress={onPress}>
       <Image source={{uri: image}} style={styles.image} />
       <View style={styles.contentText}>
         <Text style={styles.textTitle}>{name}</Text>
         <Text style={styles.textLocation}>{location}</Text>
-        <View style={styles.btnBeli}>
-          <ButtonCard text={price} />
-        </View>
       </View>
       <Rating rating={rating} />
     </TouchableOpacity>
   );
 };
 
-export default ItemHistory;
+export default ItemReview;
 
 const styles = StyleSheet.create({
   container: {
@@ -57,9 +53,5 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     color: '#8A899C',
     marginBottom: 10,
-  },
-  btnBeli: {
-    width: 65,
-    height: 40,
   },
 });

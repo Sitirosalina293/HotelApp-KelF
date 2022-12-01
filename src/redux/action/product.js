@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import Axios from 'axios';
-import { Alert } from 'react-native';
+import {Alert} from 'react-native';
 import {API_HOST} from '../../config/API';
 
 export const getMetaDataHotel = () => async dispatch => {
@@ -12,7 +12,7 @@ export const getMetaDataHotel = () => async dispatch => {
     const res = await Axios.get(`${API_HOST.urlHotelV1}v1/hotels/locations`, {
       params: {name: 'Indonesia', search_type: 'HOTEL'},
       headers: {
-        'x-rapidapi-key': '1b7dd0c183mshee645b691cff88fp11ac22jsnd27bfbd8c411',
+        'x-rapidapi-key': 'b3bab207cdmshf9d5209a9711507p1a58dajsn39a895d8df4f',
         'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
       },
     });
@@ -42,7 +42,7 @@ export const getDetailHotel = async hotelId => {
         },
         headers: {
           'X-RapidAPI-Key':
-            '1b7dd0c183mshee645b691cff88fp11ac22jsnd27bfbd8c411',
+            'b3bab207cdmshf9d5209a9711507p1a58dajsn39a895d8df4f',
           'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com',
         },
       },
@@ -68,50 +68,94 @@ export const saveDataPesan = data => async dispatch => {
   }
 };
 
-export const saveDataTotalDataPemesanan = data => async dispatch => {
+export const saveDataTotalDataPemesanan = (id, data) => async dispatch => {
+  console.log('id', id);
+  console.log('Data total masuk', data);
   try {
-    AsyncStorage.setItem('dataTotalPemesanan', JSON.stringify(data));
-    dispatch({
-      type: 'GET_TOTAL_MONEY',
-      payload: data,
-    });
-    console.log('Data total pesan masuk', data);
+    const res = await Axios.get(
+      `${API_HOST.urlHotelV1}v1/hotels/booking-details`,
+      {
+        params: {
+          date_checkin: data.data_checkin,
+          date_checkout: data.data_checkout,
+          hotel_id: id.hotelId,
+          rooms_number: data.data_room,
+        },
+        headers: {
+          'X-RapidAPI-Key':
+            'b3bab207cdmshf9d5209a9711507p1a58dajsn39a895d8df4f',
+          'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com',
+        },
+      },
+    );
+    console.log('res', res.data);
+    if (res) {
+      AsyncStorage.setItem('dataTotal', JSON.stringify(res.data));
+      dispatch({
+        type: 'GET_HOTEL_DATA_PESAN',
+        payload: res.data,
+      });
+      console.log('Data total masuk', res.data);
+    }
   } catch (e) {
     console.log('Error save data pesan', e);
   }
 };
 
 export const saveDataHistoryCheckOut = data => async dispatch => {
-
   try {
-
-    await AsyncStorage.getItem('dataHistoryCheckOut').then(async (dataHistorySource) => {
-
-      dataHistorySource = dataHistorySource ?? "[]";
-      let dataHistory = JSON.parse(dataHistorySource);
-
-      if (Array.isArray(dataHistory)) {
-
-        dataHistory = dataHistory.filter((item) => item && typeof item == "object");
-
-        console.log("TESTING", dataHistory);
-  
-        dataHistory.push(data);
-  
-        return await AsyncStorage.setItem('dataHistoryCheckOut', JSON.stringify(dataHistory)).then(() => {
-  
-          dispatch({
-            type: 'GET_HISTORY_CHECKOUT',
-            payload: dataHistory,
+    await AsyncStorage.getItem('dataHistoryCheckOut').then(
+      async dataHistorySource => {
+        dataHistorySource = dataHistorySource ?? '[]';
+        let dataHistory = JSON.parse(dataHistorySource);
+        if (Array.isArray(dataHistory)) {
+          dataHistory = dataHistory.filter(
+            item => item && typeof item == 'object',
+          );
+          dataHistory.push(data);
+          return await AsyncStorage.setItem(
+            'dataHistoryCheckOut',
+            JSON.stringify(dataHistory),
+          ).then(() => {
+            dispatch({
+              type: 'GET_HISTORY_CHECKOUT',
+              payload: dataHistory,
+            });
           });
-        });
-      }
-
-      return null;
-    });
-
+        }
+        return null;
+      },
+    );
   } catch (e) {
+    console.log('Error save data pesan', e);
+  }
+};
 
+export const saveDataHistoryReview = data => async dispatch => {
+  try {
+    await AsyncStorage.getItem('dataHistoryReview').then(
+      async dataHistorySource => {
+        dataHistorySource = dataHistorySource ?? '[]';
+        let dataHistory = JSON.parse(dataHistorySource);
+        if (Array.isArray(dataHistory)) {
+          dataHistory = dataHistory.filter(
+            item => item && typeof item == 'object',
+          );
+          dataHistory.push(data);
+          return await AsyncStorage.setItem(
+            'dataHistoryReview',
+            JSON.stringify(dataHistory),
+          ).then(() => {
+            dispatch({
+              type: 'GET_SAVE_HISTORY_REVIEW',
+              payload: dataHistory,
+            });
+          });
+        }
+        return null;
+      },
+    );
+  } catch (e) {
     console.log('Error save data pesan', e);
   }
 };

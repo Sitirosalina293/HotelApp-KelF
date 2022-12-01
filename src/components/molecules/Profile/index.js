@@ -45,9 +45,12 @@ const Profile = ({navigation}) => {
                 justifyContent: 'flex-start',
                 alignItems: 'center',
               }}>
-              <Image source={{
-                uri: 'https://cdn-icons-png.flaticon.com/512/201/201634.png'
-              }} style={styles.profile} />
+              <Image
+                source={{
+                  uri: 'https://cdn-icons-png.flaticon.com/512/201/201634.png',
+                }}
+                style={styles.profile}
+              />
               <View style={{marginLeft: 10}}>
                 <Text style={styles.appName}>HAY</Text>
                 <Text style={styles.desc}>Semarang, Indonesia</Text>
@@ -60,19 +63,23 @@ const Profile = ({navigation}) => {
             <View></View>
           </View>
           <View style={styles.menuProfile}>
-            {dataMenu.map(item => {
-              return (
-                <TouchableOpacity key={item.id} style={styles.menu}>
-                  <Text style={[styles.menuText, styles.title]}>
-                    {item.name}
-                  </Text>
-                  <Gap height={5} />
-                  <Text style={[styles.menuText, styles.desc]}>
-                    {item.total}
-                  </Text>
-                </TouchableOpacity>
-              );
-            })}
+            <TouchableOpacity style={styles.menu}>
+              <Text style={[styles.menuText, styles.title]}>Booking</Text>
+              <Gap height={5} />
+              <Text style={[styles.menuText, styles.desc]}>0</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.menu}
+              onPress={() => navigation.navigate('ListReview')}>
+              <Text style={[styles.menuText, styles.title]}>Review</Text>
+              <Gap height={5} />
+              <Text style={[styles.menuText, styles.desc]}>0</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.menu}>
+              <Text style={[styles.menuText, styles.title]}>Booking</Text>
+              <Gap height={5} />
+              <Text style={[styles.menuText, styles.desc]}>0</Text>
+            </TouchableOpacity>
           </View>
 
           <ListMenu
@@ -89,10 +96,7 @@ const Profile = ({navigation}) => {
       ) : (
         <>
           <View style={styles.btn}>
-            <Button
-              text="Login"
-              onPress={() => navigation.navigate('Login')}
-            />
+            <Button text="Login" onPress={() => navigation.navigate('Login')} />
           </View>
         </>
       )}
@@ -163,5 +167,4 @@ const styles = StyleSheet.create({
     marginHorizontal: 25,
     marginTop: 40,
   },
-  
 });

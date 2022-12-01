@@ -13,6 +13,12 @@ const InitStateHotel = {
   dataHistoryCheckOut: [],
   dataCheckout: null,
   isLoadingDataHistoryCheckOut: false,
+  dataHistoryToReview: [],
+  isLoadingDataHistoryToReview: false,
+  dataSaveHistoryReview: [],
+  isLoadingDataSaveHistoryReview: false,
+  dataSaveHistoryDetailReview: [],
+  isLoadingDataSaveHistoryDetailReview: false,
 };
 
 export const productReducer = (state = InitStateHotel, action) => {
@@ -75,7 +81,10 @@ export const productReducer = (state = InitStateHotel, action) => {
     case 'GET_HISTORY_CHECKOUT':
       return {
         ...state,
-        dataHistoryCheckOut: action.payload && Array.isArray(action.payload) ? action.payload.filter((data) => data && typeof data == "object") : [],
+        dataHistoryCheckOut:
+          action.payload && Array.isArray(action.payload)
+            ? action.payload.filter(data => data && typeof data == 'object')
+            : [],
       };
     case 'GET_LOADING_HISTORY_CHECKOUT':
       return {
@@ -87,6 +96,38 @@ export const productReducer = (state = InitStateHotel, action) => {
         ...state,
         dataCheckout: action.payload,
       };
+    case 'GET_HISTORY_TO_REVIEW':
+      return {
+        ...state,
+        dataHistoryToReview: action.payload,
+      };
+    case 'GET_LOADING_HISTORY_TO_REVIEW':
+      return {
+        ...state,
+        isLoadingDataHistoryToReview: action.payload,
+      };
+    case 'GET_SAVE_HISTORY_REVIEW':
+      return {
+        ...state,
+        dataSaveHistoryReview: action.payload,
+      };
+    case 'GET_LOADING_SAVE_HISTORY_REVIEW':
+      return {
+        ...state,
+        isLoadingDataSaveHistoryReview: action.payload,
+      };
+    case 'GET_SAVE_HISTORY_DETAIL_REVIEW':
+      return {
+        ...state,
+
+        dataSaveHistoryDetailReview: action.payload,
+      };
+    case 'GET_LOADING_SAVE_HISTORY_DETAIL_REVIEW':
+      return {
+        ...state,
+        isLoadingDataSaveHistoryDetailReview: action.payload,
+      };
+      
 
     default:
       return state;

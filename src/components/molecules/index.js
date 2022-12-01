@@ -10,6 +10,7 @@ import TicketTabSection from './TicketTabSection';
 import ItemListWisata from './ItemListWisata';
 import ItemHistory from './ItemHistory';
 import CardSearch from './CardSearch';
+import ItemReview from './ItemReview';
 
 export {
   BottomNavigator,
@@ -24,4 +25,5 @@ export {
   ItemListWisata,
   ItemHistory,
   CardSearch,
+  ItemReview,
 };

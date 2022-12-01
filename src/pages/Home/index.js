@@ -57,7 +57,7 @@ const Home = ({navigation}) => {
         },
         headers: {
           'x-rapidapi-key':
-            '1b7dd0c183mshee645b691cff88fp11ac22jsnd27bfbd8c411',
+            'b3bab207cdmshf9d5209a9711507p1a58dajsn39a895d8df4f',
           'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
         },
       },
@@ -82,7 +82,7 @@ const Home = ({navigation}) => {
         sort_order: 'STAR',
       },
       headers: {
-        'x-rapidapi-key': '1b7dd0c183mshee645b691cff88fp11ac22jsnd27bfbd8c411',
+        'x-rapidapi-key': 'b3bab207cdmshf9d5209a9711507p1a58dajsn39a895d8df4f',
         'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
       },
     });
@@ -110,7 +110,7 @@ const Home = ({navigation}) => {
   //       },
   //       headers: {
   //         'x-rapidapi-key':
-  //           '1b7dd0c183mshee645b691cff88fp11ac22jsnd27bfbd8c411',
+  //           'b3bab207cdmshf9d5209a9711507p1a58dajsn39a895d8df4f',
   //         'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
   //       },
   //     },
@@ -140,7 +140,7 @@ const Home = ({navigation}) => {
           },
           headers: {
             'X-RapidAPI-Key':
-              '1b7dd0c183mshee645b691cff88fp11ac22jsnd27bfbd8c411',
+              'b3bab207cdmshf9d5209a9711507p1a58dajsn39a895d8df4f',
             'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com',
           },
         },

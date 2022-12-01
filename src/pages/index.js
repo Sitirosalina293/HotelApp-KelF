@@ -10,6 +10,9 @@ import InformationPribadi from './Information';
 import History from './History';
 import Favorite from './Favorite';
 import EditProfile from './EditProfile';
+import Review from './Review';
+import HistoryReview from './HistoryReview';
+import ListReview from './ListReview';
 
 export {
   SplashScreen,
@@ -24,4 +27,7 @@ export {
   History,
   Favorite,
   EditProfile,
+  Review,
+  HistoryReview,
+  ListReview,
 };

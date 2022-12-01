@@ -18,8 +18,10 @@ const DataPemesan = ({route}) => {
 
   const {dataUser} = useSelector(state => state.profileReducer);
   const {hotelDataPesan} = useSelector(state => state.productReducer);
+  const {hotelDetail} = useSelector(state => state.productReducer);
   console.log('Data Pesan dari sini ', hotelDataPesan);
   console.log('route data pemesan', route.params);
+  console.log('hotel detail', hotelDetail);
 
   useEffect(() => {
     route.params &&
@@ -78,9 +80,15 @@ const DataPemesan = ({route}) => {
     if (!dataUserPesan.phone) {
       console.log('phone kosong');
     } else {
-      console.log('dataUserPesan yang dikirim', dataUserPesan);
       // dispatch(saveDataUser(data));
-      dispatch(saveDataTotalDataPemesanan(data));
+      let dataFinal = {
+        ...data,
+        ...dataUserPesan,
+        ...hotelDataPesan,
+      };
+      let id = {hotelId: hotelDetail.hotelId};
+      console.log('dataUserPesan yang dikirim', id, dataFinal);
+      dispatch(saveDataTotalDataPemesanan(id, dataFinal));
       navigation.navigate('Checkout');
     }
     // onHandleSubmit();

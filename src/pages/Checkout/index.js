@@ -13,7 +13,7 @@ const Checkout = ({navigation}) => {
   const {hotelDataPesan} = useSelector(state => state.productReducer);
   const {hotelDetail} = useSelector(state => state.productReducer);
   const {dataCheckout} = useSelector(state => state.productReducer);
-
+  console.log('hotel detail', hotelDetail);
   console.log('data checkout', dataCheckout);
 
   // console.log('total money', totalMoney);
