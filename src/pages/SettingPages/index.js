@@ -37,7 +37,9 @@ const SettingPages = ({navigation}) => {
           <View style={styles.content}>
             <Text style={styles.textContent}>MY ACCOUNT</Text>
             <Gap height={10} />
-            <TextInput type="setting-only" Title="Username" Desc={'Rizky'} />
+            <TextInput type="setting-only" Title="Username" Desc={
+              dataUser && dataUser.fullname ? dataUser.fullname : 'Empty'
+            } />
             <Line />
             <TextInput
               type="setting-only"

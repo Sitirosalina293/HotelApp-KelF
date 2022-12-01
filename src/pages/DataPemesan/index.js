@@ -80,15 +80,18 @@ const DataPemesan = ({route}) => {
     if (!dataUserPesan.phone) {
       console.log('phone kosong');
     } else {
-      // dispatch(saveDataUser(data));
       let dataFinal = {
         ...data,
         ...dataUserPesan,
-        ...hotelDataPesan,
       };
       let id = {hotelId: hotelDetail.hotelId};
-      console.log('dataUserPesan yang dikirim', id, dataFinal);
-      dispatch(saveDataTotalDataPemesanan(id, dataFinal));
+      let tanggal = {
+        checkin: hotelDataPesan.data_checkin,
+        checkout: hotelDataPesan.data_checkout,
+      }
+      dispatch(saveDataTotalDataPemesanan(id, dataFinal, tanggal));
+      dispatch({type: 'GET_TOTAL_MONEY', payload: data});
+      dispatch({type: 'GET_SAVE_DATE', payload: tanggal});
       navigation.navigate('Checkout');
     }
     // onHandleSubmit();
@@ -134,7 +137,7 @@ const DataPemesan = ({route}) => {
           <View style={styles.contentPrice}>
             <Text>
               {handleTanggal()}
-              days, {hotelDataPesan.data_room} Room, {hotelDataPesan.data_tamu}{' '}
+              days, {hotelDataPesan.data_room} Room, {hotelDataPesan.data_tamu}
               Guest
             </Text>
             <Gap height={5} />

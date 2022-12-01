@@ -18,15 +18,13 @@ const Review = ({navigation}) => {
   const [ulasan, setUlasan] = useState('');
 
   const onHandleSubmitUlasan = () => {
-    // console.log('dataHistoryToReview : ', dataHistoryToReview);
-    // console.log('ulasan : ', ulasan);
     let dataSubmit = {
         data: dataHistoryToReview,
         ulasan: ulasan,
     }
     console.log('dataSubmit : ', dataSubmit);
     dispatch(saveDataHistoryReview(dataSubmit));
-    navigation.navigate('ListReview');
+    // navigation.navigate('ListReview');
   };
 
   return (

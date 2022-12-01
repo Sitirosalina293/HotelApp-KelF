@@ -13,11 +13,13 @@ const Checkout = ({navigation}) => {
   const {hotelDataPesan} = useSelector(state => state.productReducer);
   const {hotelDetail} = useSelector(state => state.productReducer);
   const {dataCheckout} = useSelector(state => state.productReducer);
-  console.log('hotel detail', hotelDetail);
-  console.log('data checkout', dataCheckout);
+  const {saveDate} = useSelector(state => state.productReducer);
 
-  // console.log('total money', totalMoney);
-  // console.log('data user: ', dataUser);
+  console.log('saveDate : ', saveDate);
+  // console.log('Hotel Data Pesan', hotelDataPesan);
+  // console.log('Data Checkout', dataCheckout);
+  // console.log('Total Money', totalMoney);
+
   const onHandleCheckOut = () => {
     let data = {
       name: hotelDetail.name,
@@ -97,7 +99,7 @@ const Checkout = ({navigation}) => {
         <View style={styles.content3}>
           <Text style={styles.titleText2}>Jadwal Kegiatan</Text>
           <Text style={styles.priceText}>
-            {hotelDataPesan.data_checkin} - {hotelDataPesan.data_checkout}
+            {saveDate.checkin} - {saveDate.checkout}
           </Text>
         </View>
       </View>

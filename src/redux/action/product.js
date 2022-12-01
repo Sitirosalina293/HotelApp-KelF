@@ -12,7 +12,7 @@ export const getMetaDataHotel = () => async dispatch => {
     const res = await Axios.get(`${API_HOST.urlHotelV1}v1/hotels/locations`, {
       params: {name: 'Indonesia', search_type: 'HOTEL'},
       headers: {
-        'x-rapidapi-key': 'b3bab207cdmshf9d5209a9711507p1a58dajsn39a895d8df4f',
+        'x-rapidapi-key': 'acb8af4524msha2c44bf747f3b57p1c41c1jsn56cbc50e7a2b',
         'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
       },
     });
@@ -42,7 +42,7 @@ export const getDetailHotel = async hotelId => {
         },
         headers: {
           'X-RapidAPI-Key':
-            'b3bab207cdmshf9d5209a9711507p1a58dajsn39a895d8df4f',
+            'acb8af4524msha2c44bf747f3b57p1c41c1jsn56cbc50e7a2b',
           'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com',
         },
       },
@@ -68,27 +68,27 @@ export const saveDataPesan = data => async dispatch => {
   }
 };
 
-export const saveDataTotalDataPemesanan = (id, data) => async dispatch => {
+export const saveDataTotalDataPemesanan = (id, data, tanggal) => async dispatch => {
   console.log('id', id);
   console.log('Data total masuk', data);
+  console.log('Tanggal masuk', tanggal);
   try {
     const res = await Axios.get(
       `${API_HOST.urlHotelV1}v1/hotels/booking-details`,
       {
         params: {
-          date_checkin: data.data_checkin,
-          date_checkout: data.data_checkout,
+          date_checkin: tanggal.checkin,
+          date_checkout: tanggal.checkout,
           hotel_id: id.hotelId,
           rooms_number: data.data_room,
         },
         headers: {
           'X-RapidAPI-Key':
-            'b3bab207cdmshf9d5209a9711507p1a58dajsn39a895d8df4f',
+            'acb8af4524msha2c44bf747f3b57p1c41c1jsn56cbc50e7a2b',
           'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com',
         },
       },
     );
-    console.log('res', res.data);
     if (res) {
       AsyncStorage.setItem('dataTotal', JSON.stringify(res.data));
       dispatch({
