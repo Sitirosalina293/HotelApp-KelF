@@ -4,7 +4,7 @@ import {View, StyleSheet, Text} from 'react-native';
 import {TextInput, Gap, Button} from '../../components';
 import {Logo, Google} from '../../assets';
 import { login } from '../../redux/action/auth';
-import { useForm } from '../../utils';
+import { showMessage, useForm } from '../../utils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const Login = ({navigation}) => {
@@ -28,10 +28,12 @@ const Login = ({navigation}) => {
             dispatch({type: 'GET_DATA_USER', payload: userData});
           });
           navigation.replace('MainApp');
+          showMessage('Login Success', 'success');
         }
       })
       .catch(error => {
         console.log('Error: ', error);
+        showMessage('Login Failed', 'danger');
       });
   };
 

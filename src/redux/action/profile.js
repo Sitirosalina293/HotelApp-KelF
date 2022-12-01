@@ -1,4 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { showMessage } from '../../utils';
 
 export const saveDataUser = data => async dispatch => {
   try {
@@ -24,6 +25,7 @@ export const saveDataUser = data => async dispatch => {
           });
         });
       }
+      showMessage('Data User Berhasil Disimpan', 'success');
     });
   } catch (e) {
     console.log('Error save data pesan', e);

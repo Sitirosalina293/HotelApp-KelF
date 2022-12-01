@@ -18,6 +18,7 @@ import moment from 'moment/moment';
 import {TouchableOpacity} from 'react-native';
 import {Image} from 'react-native';
 import {SafeAreaView} from 'react-native';
+import { showMessage } from '../../utils';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
@@ -44,6 +45,7 @@ const Home = ({navigation}) => {
 
   const handleConfirmSearch = () => {
     searchCity();
+    showMessage('Search Success', 'success');
     // getHotelSugestion();
   };
 

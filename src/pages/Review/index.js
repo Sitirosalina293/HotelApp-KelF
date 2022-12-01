@@ -24,7 +24,7 @@ const Review = ({navigation}) => {
     }
     console.log('dataSubmit : ', dataSubmit);
     dispatch(saveDataHistoryReview(dataSubmit));
-    // navigation.navigate('ListReview');
+    navigation.navigate('ListReview');
   };
 
   return (

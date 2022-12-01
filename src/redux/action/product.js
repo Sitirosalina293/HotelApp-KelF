@@ -2,6 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Axios from 'axios';
 import {Alert} from 'react-native';
 import {API_HOST} from '../../config/API';
+import { showMessage } from '../../utils';
 
 export const getMetaDataHotel = () => async dispatch => {
   try {
@@ -62,9 +63,9 @@ export const saveDataPesan = data => async dispatch => {
       type: 'GET_HOTEL_DATA_PESAN',
       payload: data,
     });
-    console.log('Data pesan masuk', data);
+    showMessage('Data berhasil disimpan', 'success');
   } catch (e) {
-    console.log('Error save data pesan', e);
+    showMessage('Data gagal disimpan', 'danger');
   }
 };
 
@@ -95,10 +96,10 @@ export const saveDataTotalDataPemesanan = (id, data, tanggal) => async dispatch 
         type: 'GET_HOTEL_DATA_PESAN',
         payload: res.data,
       });
-      console.log('Data total masuk', res.data);
+      showMessage('Data berhasil disimpan', 'success');
     }
   } catch (e) {
-    console.log('Error save data pesan', e);
+    showMessage('Data gagal disimpan');
   }
 };
 
@@ -150,6 +151,7 @@ export const saveDataHistoryReview = data => async dispatch => {
               type: 'GET_SAVE_HISTORY_REVIEW',
               payload: dataHistory,
             });
+            showMessage('Data review berhasil disimpan', 'success');
           });
         }
         return null;

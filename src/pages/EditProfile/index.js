@@ -6,6 +6,7 @@ import {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
 import {saveDataUser} from '../../redux/action';
 import DropDownPicker from 'react-native-dropdown-picker';
+import { showMessage } from '../../utils';
 
 const EditProfile = ({navigation}) => {
   const dispatch = useDispatch();
@@ -24,33 +25,32 @@ const EditProfile = ({navigation}) => {
       fullname: fullname,
       phone: phone,
     };
-    // console.log('data yang dikirim', data);
-    if (!data.email && !data.gender && !data.fullname && !data.phone) {
+    if (!data?.email && !data?.gender && !data?.fullname && !data?.phone) {
       console.log('data kosong');
+      showMessage('Data tidak boleh kosong', 'danger');
     }
-    if (!data.email) {
+    if (!data?.email) {
       console.log('email kosong');
+      showMessage('Email tidak boleh kosong', 'danger');
     }
-    if (!data.gender) {
+    if (!data?.gender) {
       console.log('gender kosong');
+      showMessage('Gender tidak boleh kosong', 'danger');
     }
 
-    if (!data.fullname) {
+    if (!data?.fullname) {
       console.log('fullname kosong');
+      showMessage('Fullname tidak boleh kosong', 'danger');
     }
 
-    if (!data.phone) {
+    if (!data?.phone) {
       console.log('phone kosong');
-    }
-    else{
+      showMessage('Phone tidak boleh kosong', 'danger');
+    } else {
       console.log('data yang dikirim', data);
-        dispatch(saveDataUser(data));
-        navigation.goBack();
+      dispatch(saveDataUser(data));
+      navigation.goBack();
     }
-
-    // else {
-    //   console.log('data tidak kosong');
-    // }
   };
 
   return (

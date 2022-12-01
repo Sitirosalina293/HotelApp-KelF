@@ -11,6 +11,7 @@ import {
 } from '../../redux/action';
 import {useState} from 'react';
 import {useEffect} from 'react';
+import { showMessage } from '../../utils';
 
 const DataPemesan = ({route}) => {
   const navigation = useNavigation();
@@ -29,7 +30,6 @@ const DataPemesan = ({route}) => {
       dispatch({type: 'GET_CHECKOUT', payload: route.params});
   }, []);
 
-  const [phoneData, setPhoneData] = useState(dataUser.phone);
   const onHandleSubmit = () => {};
 
   const handleTanggal = () => {
@@ -58,43 +58,42 @@ const DataPemesan = ({route}) => {
       totalBayar: handleTotal() + handlePajak(),
     };
     let dataUserPesan = {
-      email: dataUser.email,
-      gender: dataUser.gender,
-      fullname: dataUser.fullname,
-      phone: dataUser.phone,
+      email: dataUser?.email,
+      gender: dataUser?.gender,
+      fullname: dataUser?.fullname,
+      phone: dataUser?.phone,
     };
     if (
-      !dataUserPesan.email &&
-      !dataUserPesan.gender &&
-      !dataUserPesan.fullname &&
-      !dataUserPesan.phone
+      !dataUserPesan?.email &&
+      !dataUserPesan?.gender &&
+      !dataUserPesan?.fullname &&
+      !dataUserPesan?.phone
     ) {
-      console.log('dataUserPesan kosong');
+      showMessage('Data Pemesan Belum Lengkap', 'danger');
     }
-    if (!dataUserPesan.email) {
-      console.log('email kosong');
+    if (!dataUserPesan?.email) {
+      showMessage('Data Belum Lengkap', 'danger');
     }
-    if (!dataUserPesan.fullname) {
-      console.log('fullname kosong');
+    if (!dataUserPesan?.fullname) {
+      showMessage('Data Belum Lengkap', 'danger');
     }
-    if (!dataUserPesan.phone) {
-      console.log('phone kosong');
+    if (!dataUserPesan?.phone) {
+      showMessage('Data Belum Lengkap', 'danger');
     } else {
       let dataFinal = {
         ...data,
         ...dataUserPesan,
       };
-      let id = {hotelId: hotelDetail.hotelId};
+      let id = {hotelId: hotelDetail?.hotelId};
       let tanggal = {
-        checkin: hotelDataPesan.data_checkin,
-        checkout: hotelDataPesan.data_checkout,
-      }
+        checkin: hotelDataPesan?.data_checkin,
+        checkout: hotelDataPesan?.data_checkout,
+      };
       dispatch(saveDataTotalDataPemesanan(id, dataFinal, tanggal));
       dispatch({type: 'GET_TOTAL_MONEY', payload: data});
       dispatch({type: 'GET_SAVE_DATE', payload: tanggal});
       navigation.navigate('Checkout');
     }
-    // onHandleSubmit();
   };
 
   // useEffect(() => {

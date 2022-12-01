@@ -5,6 +5,7 @@ import {Button, Gap, TextHome2} from '../../components';
 import {Image} from 'react-native';
 import {useDispatch, useSelector} from 'react-redux';
 import { saveDataHistoryCheckOut } from '../../redux/action';
+import { showMessage } from '../../utils';
 
 const Checkout = ({navigation}) => {
   const dispatch = useDispatch();
@@ -14,11 +15,6 @@ const Checkout = ({navigation}) => {
   const {hotelDetail} = useSelector(state => state.productReducer);
   const {dataCheckout} = useSelector(state => state.productReducer);
   const {saveDate} = useSelector(state => state.productReducer);
-
-  console.log('saveDate : ', saveDate);
-  // console.log('Hotel Data Pesan', hotelDataPesan);
-  // console.log('Data Checkout', dataCheckout);
-  // console.log('Total Money', totalMoney);
 
   const onHandleCheckOut = () => {
     let data = {
@@ -30,6 +26,7 @@ const Checkout = ({navigation}) => {
     };
     console.log('data yang dikirim', data);
     dispatch(saveDataHistoryCheckOut(data));
+    showMessage('Checkout Success', 'success');
     navigation.navigate('Success');
   };
 
@@ -94,7 +91,7 @@ const Checkout = ({navigation}) => {
         </View>
         <View style={styles.content3}>
           <Text style={styles.titleText2}>Pengunjung</Text>
-          <Text style={styles.priceText}>2 Orang</Text>
+          <Text style={styles.priceText}>{hotelDataPesan.data_tamu} Orang</Text>
         </View>
         <View style={styles.content3}>
           <Text style={styles.titleText2}>Jadwal Kegiatan</Text>
