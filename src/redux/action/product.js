@@ -13,7 +13,7 @@ export const getMetaDataHotel = () => async dispatch => {
     const res = await Axios.get(`${API_HOST.urlHotelV1}v1/hotels/locations`, {
       params: {name: 'Indonesia', search_type: 'HOTEL'},
       headers: {
-        'x-rapidapi-key': 'acb8af4524msha2c44bf747f3b57p1c41c1jsn56cbc50e7a2b',
+        'x-rapidapi-key': 'cd67b63605msh1bdeae6089258a4p1ddd35jsn8918e18e3f84',
         'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
       },
     });
@@ -43,7 +43,7 @@ export const getDetailHotel = async hotelId => {
         },
         headers: {
           'X-RapidAPI-Key':
-            'acb8af4524msha2c44bf747f3b57p1c41c1jsn56cbc50e7a2b',
+            'cd67b63605msh1bdeae6089258a4p1ddd35jsn8918e18e3f84',
           'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com',
         },
       },
@@ -85,7 +85,7 @@ export const saveDataTotalDataPemesanan = (id, data, tanggal) => async dispatch 
         },
         headers: {
           'X-RapidAPI-Key':
-            'acb8af4524msha2c44bf747f3b57p1c41c1jsn56cbc50e7a2b',
+            'cd67b63605msh1bdeae6089258a4p1ddd35jsn8918e18e3f84',
           'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com',
         },
       },

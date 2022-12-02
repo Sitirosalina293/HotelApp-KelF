@@ -6,6 +6,7 @@ import {Logo, Google} from '../../assets';
 import { login } from '../../redux/action/auth';
 import { showMessage, useForm } from '../../utils';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import { ScrollView } from 'react-native-gesture-handler';
 
 const Login = ({navigation}) => {
   const dispatch = useDispatch();
@@ -38,7 +39,7 @@ const Login = ({navigation}) => {
   };
 
   return (
-    <View style={{backgroundColor: '#fff', flex: 1}}>
+    <ScrollView style={{backgroundColor: '#fff', flex: 1}}>
       <View style={styles.header}>
         <Logo style={styles.logo}/>
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
@@ -65,7 +66,7 @@ const Login = ({navigation}) => {
         <Button text="Sign In" onPress={() => onLogin()} />
         <Text style={styles.daftar}>Daftar ?</Text>
       </View>
-    </View>
+    </ScrollView>
   );
 };
 

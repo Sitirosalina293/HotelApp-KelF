@@ -194,6 +194,6 @@ const styles = StyleSheet.create({
   text: {
     flex: 1,
     alignItems: 'center',
-    marginRight: 150,
+    marginLeft: 10,
   },
 });

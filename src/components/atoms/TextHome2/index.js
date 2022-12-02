@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
   },
   component: {
     fontFamily: 'Raleway-SemiBold',
-    fontSize: 16,
+    fontSize: 15,
     color: '#1D2132',
     fontStyle: 'normal',
   },

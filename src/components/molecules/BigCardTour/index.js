@@ -7,17 +7,7 @@ import {StyleSheet} from 'react-native';
 import {Dimensions} from 'react-native';
 import { useSelector } from 'react-redux';
 
-const BigCardTour = ({onPress, Image, price, name, rating}) => {
-  const navigation = useNavigation();
-  const {isLoggedIn} = useSelector(state => state.auth);
-
-  const onHandleFavorite = () => {
-    if (isLoggedIn) {
-      navigation.navigate('Favorite');
-    } else {
-      navigation.navigate('Login');
-    }
-  };
+const BigCardTour = ({onHandleFavorite, onPress, Image, price, name, rating}) => {
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
       <View style={style.content}>

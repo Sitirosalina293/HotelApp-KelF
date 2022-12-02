@@ -20,6 +20,7 @@ const InitStateHotel = {
   isLoadingDataSaveHistoryReview: false,
   dataSaveHistoryDetailReview: [],
   isLoadingDataSaveHistoryDetailReview: false,
+  savedNews: [],
 };
 
 export const productReducer = (state = InitStateHotel, action) => {
@@ -133,8 +134,18 @@ export const productReducer = (state = InitStateHotel, action) => {
         ...state,
         isLoadingDataSaveHistoryDetailReview: action.payload,
       };
-      
-
+    case 'addToSaved':
+      return {
+        ...state,
+        savedNews: action.payload,
+      };
+    case 'removeFromSaved':
+      return {
+        ...state,
+        savedNews: savedNews.filter(
+          (hotel) => hotel.name !== action.payload.name,
+        ),
+      };
     default:
       return state;
   }

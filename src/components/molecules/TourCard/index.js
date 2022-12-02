@@ -3,8 +3,8 @@ import {Image, StyleSheet, View, Text, TouchableOpacity} from 'react-native';
 
 const TourCard = ({title, images, onPress}) => {
   return (
-    <TouchableOpacity activeOpacity={0.7} onPress={onPress}>
-      <View style={styles.container}>
+    <TouchableOpacity activeOpacity={0.7}>
+      <View style={styles.container} onPress={onPress}>
         <View style={styles.image}>
           <Image
             source={{
@@ -23,7 +23,7 @@ export default TourCard;
 const styles = StyleSheet.create({
   container: {
     width: 150,
-    height: 210,
+    height: 180,
     padding: 10,
     backgroundColor: 'white',
     borderWidth: 2,

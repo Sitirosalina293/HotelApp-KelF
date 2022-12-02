@@ -8,61 +8,60 @@ import {
   ScrollView,
   SafeAreaView,
 } from 'react-native';
-import React, {useState, } from 'react';
+import React, {useState} from 'react';
 import {BigCardTour, HeaderPrimary, Button} from '../../components';
-import tour from './../../assets/data/tour';
-import {useSelector} from 'react-redux';
+import {useDispatch, useSelector} from 'react-redux';
 
 const Favorite = ({navigation}) => {
   const {isLoggedIn} = useSelector(state => state.auth);
+  const dispatch = useDispatch();
+
+  const {savedNews} = useSelector(state => state.productReducer);
+
+  const handleAddToSaved = item => {
+    dispatch(addToSaved(item));
+  };
+  const handleRemoveFromSaved = item => {
+    dispatch(removeFromSaved(item));
+  };
 
   return (
     <SafeAreaView style={styles.container}>
-      <HeaderPrimary
-        type={'header-setting'}
-        Title="Favorit"
-        />
+      <HeaderPrimary type={'header-setting'} Title="Favorit" />
       {isLoggedIn ? (
-      <ScrollView>
-        <View style={{marginHorizontal: 30, marginVertical: 25}}>
-          <FlatList
-            // data={kategori}
-            horizontal
-            showsHorizontalScrollIndicator={false}
-            renderItem={({item}) => (
-              <TouchableOpacity
-                activeOpacity={0.7}
-                style={{
-                  marginRight: 5,
-                  backgroundColor:
-                    kategoriSeleksi.nama == item.nama ? '#44CFCB' : '#F6F6F6',
-                  paddingHorizontal: 30,
-                  paddingVertical: 2,
-                  borderRadius: 100,
-                }}
-                onPress={() => setKategoriSeleksi(item)}>
-                <Text
-                  style={{
-                    color:
-                      kategoriSeleksi.nama == item.nama ? '#fff' : '#8A899C',
-                  }}>
-                  {item.nama}
-                </Text>
-              </TouchableOpacity>
-            )}
-          />
-        </View>
-        <View
-          style={{
-            justifyContent: 'center',
-            alignItems: 'center',
-          }}
-        >
-          {tour.data.map((dataTour, index) => (
-            <BigCardTour key={index} tour={dataTour} />
-          ))}
-        </View>
-      </ScrollView>
+        <ScrollView>
+          {savedNews.length === 0 ? (
+            <View style={styles.btn}>
+              <Text>No Items</Text>
+            </View>
+          ) : (
+            <View
+              style={{
+                marginBottom: 20,
+                alignItems: 'center',
+                justifyContent: 'center',
+              }}>
+              {savedNews.map((hotel, index) => {
+                return (
+                  <BigCardTour
+                    key={index}
+                    Image={{
+                      uri: hotel.media.url,
+                    }}
+                    name={hotel.name}
+                    rating={hotel.starRating}
+                    price={hotel.ratesSummary.minPrice}
+                    onHandleFavorite={() => {
+                      savedNews.find(hotel => hotel.name === hotel.name)
+                        ? handleRemoveFromSaved(hotel)
+                        : handleAddToSaved(hotel)
+                    }}
+                  />
+                );
+              })}
+            </View>
+          )}
+        </ScrollView>
       ) : (
         <View style={styles.btn}>
           <Button text="Login" onPress={() => navigation.navigate('Login')} />
