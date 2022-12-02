@@ -2,7 +2,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import Axios from 'axios';
 import {Alert} from 'react-native';
 import {API_HOST} from '../../config/API';
-import { showMessage } from '../../utils';
+import {showMessage} from '../../utils';
 
 export const getMetaDataHotel = () => async dispatch => {
   try {
@@ -13,7 +13,7 @@ export const getMetaDataHotel = () => async dispatch => {
     const res = await Axios.get(`${API_HOST.urlHotelV1}v1/hotels/locations`, {
       params: {name: 'Indonesia', search_type: 'HOTEL'},
       headers: {
-        'x-rapidapi-key': '154295c785msh502d8213c3181a4p19c184jsne4d156d3f2c4',
+        'x-rapidapi-key': 'cd67b63605msh1bdeae6089258a4p1ddd35jsn8918e18e3f84',
         'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
       },
     });
@@ -43,7 +43,7 @@ export const getDetailHotel = async hotelId => {
         },
         headers: {
           'X-RapidAPI-Key':
-            '154295c785msh502d8213c3181a4p19c184jsne4d156d3f2c4',
+            'cd67b63605msh1bdeae6089258a4p1ddd35jsn8918e18e3f84',
           'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com',
         },
       },
@@ -85,23 +85,22 @@ export const saveDataTotalDataPemesanan = (id, data, tanggal) => async dispatch 
         },
         headers: {
           'X-RapidAPI-Key':
-            '154295c785msh502d8213c3181a4p19c184jsne4d156d3f2c4',
+            'cd67b63605msh1bdeae6089258a4p1ddd35jsn8918e18e3f84',
           'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com',
         },
-      },
-    );
-    if (res) {
-      AsyncStorage.setItem('dataTotal', JSON.stringify(res.data));
-      dispatch({
-        type: 'GET_HOTEL_DATA_PESAN',
-        payload: res.data,
-      });
-      showMessage('Data berhasil disimpan', 'success');
+      );
+      if (res) {
+        AsyncStorage.setItem('dataTotal', JSON.stringify(res.data));
+        dispatch({
+          type: 'GET_HOTEL_DATA_PESAN',
+          payload: res.data,
+        });
+        showMessage('Data berhasil disimpan', 'success');
+      }
+    } catch (e) {
+      showMessage('Data gagal disimpan');
     }
-  } catch (e) {
-    showMessage('Data gagal disimpan');
-  }
-};
+  };
 
 export const saveDataHistoryCheckOut = data => async dispatch => {
   try {
@@ -180,6 +179,67 @@ export const savedNews = data => async dispatch => {
               type: 'addToSaved',
               payload: addToSaved,
             });
+          });
+        }
+        return null;
+      },
+    );
+  } catch (e) {
+    console.log('Error save data pesan', e);
+  }
+};
+
+export const saveDataFavorite = hotel => async dispatch => {
+  try {
+    await AsyncStorage.getItem('dataFavorite').then(
+      async dataFavoriteSource => {
+        dataFavoriteSource = dataFavoriteSource ?? '[]';
+        let dataFavorite = JSON.parse(dataFavoriteSource);
+        if (Array.isArray(dataFavorite)) {
+          dataFavorite = dataFavorite.filter(
+            item => item && typeof item == 'object',
+          );
+          dataFavorite.push(hotel);
+          return await AsyncStorage.setItem(
+            'dataFavorite',
+            JSON.stringify(dataFavorite),
+          ).then(() => {
+            dispatch({
+              type: 'addToSaved',
+              payload: dataFavorite,
+            });
+            showMessage('Data berhasil disimpan', 'success');
+          });
+        }
+        return null;
+      },
+    );
+  } catch (e) {
+    console.log('Error save data pesan', e);
+  }
+};
+
+export const saveUnFavorite = hotel => async dispatch => {
+  try {
+    // delete data from array favorite
+    await AsyncStorage.getItem('dataFavorite').then(
+      async dataFavoriteSource => {
+        dataFavoriteSource = dataFavoriteSource ?? '[]';
+        let dataFavorite = JSON.parse(dataFavoriteSource);
+        if (Array.isArray(dataFavorite)) {
+          dataFavorite = dataFavorite.filter(
+            item => item && typeof item == 'object',
+          );
+          dataFavorite.pop(hotel);
+          return await AsyncStorage.setItem(
+            'dataFavorite',
+            JSON.stringify(newDataFavorite),
+          ).then(() => {
+            dispatch({
+              type: 'addToSaved',
+              payload: newDataFavorite,
+            });
+            showMessage('Data berhasil dihapus', 'success');
           });
         }
         return null;

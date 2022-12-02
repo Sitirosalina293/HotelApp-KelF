@@ -6,8 +6,9 @@ import {
   SafeAreaView,
 } from 'react-native';
 import React, {useState} from 'react';
-import {BigCardTour, HeaderPrimary, Button} from '../../components';
+import {BigCardTour, HeaderPrimary, Button, Gap} from '../../components';
 import { useSelector } from 'react-redux';
+import { IcLove2 } from '../../assets';
 
 const Favorite = ({navigation}) => {
   const {isLoggedIn} = useSelector(state => state.auth);
@@ -17,6 +18,7 @@ const Favorite = ({navigation}) => {
   return (
     <SafeAreaView style={styles.container}>
       <HeaderPrimary type={'header-setting'} Title="Favorit" />
+      <Gap height={20} />
       {isLoggedIn ? (
         <ScrollView>
           {savedNews.length === 0 ? (
@@ -40,11 +42,13 @@ const Favorite = ({navigation}) => {
                     name={hotel.name}
                     rating={hotel.starRating}
                     price={hotel.ratesSummary.minPrice}
+                    Icon={<IcLove2 />}
                   />
                 );
               })}
             </View>
           )}
+          <Gap height={100} />
         </ScrollView>
       ) : (
         <View style={styles.btn}>

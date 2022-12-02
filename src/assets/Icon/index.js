@@ -14,6 +14,7 @@ import Shield from './Shield.svg';
 import ArrowRight from './ArrowRight.svg';
 import IcLocation from './location.svg';
 import IcLove from './IcLove.svg';
+import IcLove2 from './IcLove2.svg';
 import IcBack from './IcBack.svg';
 import IcBack2 from './IcBack2.svg';
 import IcBack3 from './Back3.svg';
@@ -49,6 +50,7 @@ export {
   ArrowRight,
   IcLocation,
   IcLove,
+  IcLove2,
   IcBack,
   IcBack2,
   IcBack3,

@@ -6,7 +6,7 @@ import {StyleSheet} from 'react-native';
 import {Dimensions} from 'react-native';
 import { useSelector } from 'react-redux';
 
-const BigCardTour = ({onHandleFavorite, onPress, Image, price, name, rating}) => {
+const BigCardTour = ({onHandleFavorite, onPress, Image, price, name, rating, Icon}) => {
   return (
     <TouchableOpacity onPress={onPress} activeOpacity={0.7}>
       <View style={style.content}>
@@ -17,7 +17,7 @@ const BigCardTour = ({onHandleFavorite, onPress, Image, price, name, rating}) =>
             <TouchableOpacity style={style.IcLove}
               onPress={onHandleFavorite}
             >
-              <IcLove />
+              {Icon}
             </TouchableOpacity>
           </ImageBackground>
           <View style={style.card}>

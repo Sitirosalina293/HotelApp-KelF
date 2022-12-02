@@ -10,12 +10,13 @@ import {
 import TextHome2 from '../../components/atoms/TextHome2';
 import {useDispatch, useSelector} from 'react-redux';
 import {useEffect, useState} from 'react';
-import {getMetaDataHotel} from '../../redux/action';
+import {getMetaDataHotel, saveDataFavorite} from '../../redux/action';
 import {API_HOST} from '../../config/API';
 import Axios from 'axios';
 import moment from 'moment/moment';
 import {SafeAreaView} from 'react-native';
 import {showMessage} from '../../utils';
+import {IcLove} from '../../assets';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
@@ -53,7 +54,7 @@ const Home = ({navigation}) => {
         },
         headers: {
           'x-rapidapi-key':
-            '154295c785msh502d8213c3181a4p19c184jsne4d156d3f2c4',
+            'cd67b63605msh1bdeae6089258a4p1ddd35jsn8918e18e3f84',
           'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
         },
       },
@@ -67,7 +68,7 @@ const Home = ({navigation}) => {
       console.log('city id else', response.data[0].cityID);
     }
   };
-  const searchHotelonCity = async (inputCity) => {
+  const searchHotelonCity = async inputCity => {
     const response = await Axios.get(
       `${API_HOST.urlHotelV1}v1/hotels/locations`,
       {
@@ -77,7 +78,7 @@ const Home = ({navigation}) => {
         },
         headers: {
           'x-rapidapi-key':
-            '154295c785msh502d8213c3181a4p19c184jsne4d156d3f2c4',
+            'cd67b63605msh1bdeae6089258a4p1ddd35jsn8918e18e3f84',
           'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
         },
       },
@@ -102,7 +103,7 @@ const Home = ({navigation}) => {
         sort_order: 'STAR',
       },
       headers: {
-        'x-rapidapi-key': '154295c785msh502d8213c3181a4p19c184jsne4d156d3f2c4',
+        'x-rapidapi-key': 'cd67b63605msh1bdeae6089258a4p1ddd35jsn8918e18e3f84',
         'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
       },
     });
@@ -128,7 +129,7 @@ const Home = ({navigation}) => {
           },
           headers: {
             'X-RapidAPI-Key':
-              '154295c785msh502d8213c3181a4p19c184jsne4d156d3f2c4',
+              'cd67b63605msh1bdeae6089258a4p1ddd35jsn8918e18e3f84',
             'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com',
           },
         },
@@ -144,14 +145,19 @@ const Home = ({navigation}) => {
   const handleClickItemCard = (id, price) => {
     getDetailHotel(id, price);
   };
-  const handleClickCity=(name) => {
+  const handleClickCity = name => {
     searchHotelonCity(name);
     setInputCity(name);
   };
-  const handleSave=(hotel)=>{
-    isLoggedIn ? (dispatch({type: 'addToSaved', payload: hotel}))
-    : (navigation.navigate('Login'))
+  const handleSave = hotel => {
+    if (isLoggedIn) {
+      dispatch(saveDataFavorite(hotel));
+      showMessage('Success Add To Favorite', 'success');
+    } else {
+      navigation.navigate('Login');
+    }
   };
+
   useEffect(() => {
     dispatch(getMetaDataHotel());
     searchCity();
@@ -210,13 +216,16 @@ const Home = ({navigation}) => {
                 name={hotel.name}
                 rating={hotel.starRating}
                 price={hotel.ratesSummary.minPrice}
+                Icon={<IcLove />}
                 onPress={() =>
                   handleClickItemCard(
                     hotel.hotelId,
                     hotel.ratesSummary.minPrice,
                   )
                 }
-                onHandleFavorite={() => {handleSave(hotel)}}
+                onHandleFavorite={() => {
+                  handleSave(hotel);
+                }}
               />
             );
           })}
