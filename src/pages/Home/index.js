@@ -23,9 +23,6 @@ const Home = ({navigation}) => {
   const {hotelData} = useSelector(state => state.productReducer);
   const {savedNews} = useSelector(state => state.productReducer);
 
-  const {hotelDataDate} = useSelector(state => state.productReducer);
-  console.log('hotelDataDate : ', hotelDataDate);
-
   const [inputCity, setInputCity] = useState('Yogyakarta');
   const [inputStartDate, setInputStartDate] = useState(new Date());
   const [inputEndDate, setInputEndDate] = useState(
@@ -37,18 +34,39 @@ const Home = ({navigation}) => {
   );
 
   const handleConfirmSearch = () => {
-    searchCity(inputCity);
+    searchCity();
     showMessage('Search Success', 'success');
   };
 
   const handleAddToSaved = item => {
     dispatch({type: 'addToSaved', payload: savedNews});
   };
-  const handleRemoveFromSaved = item => {
-    dispatch(removeFromSaved(item));
-  };
 
-  const searchCity = async (inputCity) => {
+  const searchCity = async () => {
+    const response = await Axios.get(
+      `${API_HOST.urlHotelV1}v1/hotels/locations`,
+      {
+        params: {
+          search_type: 'HOTEL',
+          name: inputCity,
+        },
+        headers: {
+          'x-rapidapi-key':
+            'cd67b63605msh1bdeae6089258a4p1ddd35jsn8918e18e3f84',
+          'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
+        },
+      },
+    );
+
+    if (response.data[0].cityID) {
+      searchHotelByCity(response.data[0].cityID);
+      console.log('city id if', response.data[0].cityID);
+    } else {
+      searchCity();
+      console.log('city id else', response.data[0].cityID);
+    }
+  };
+  const searchHotelonCity = async (inputCity) => {
     const response = await Axios.get(
       `${API_HOST.urlHotelV1}v1/hotels/locations`,
       {
@@ -125,7 +143,10 @@ const Home = ({navigation}) => {
   const handleClickItemCard = (id, price) => {
     getDetailHotel(id, price);
   };
-
+  const handleClickCity=(name) => {
+    searchHotelonCity(name);
+    setInputCity(name);
+  };
   useEffect(() => {
     dispatch(getMetaDataHotel());
     searchCity();
@@ -157,7 +178,7 @@ const Home = ({navigation}) => {
                       'https://images.trvl-media.com/mobiata/mobile/apps/ExpediaBooking/TabletDestinations/images/par.jpg'
                     }
                     title={item.cityName}
-                    onPress={() => searchCity(item.cityName)}
+                    onPress={() => handleClickCity(item.cityName)}
                   />
                 );
               })}
@@ -192,8 +213,7 @@ const Home = ({navigation}) => {
                 }
                 onHandleFavorite={() => {
                   savedNews.find(hotel => hotel.name === hotel.name)
-                    ? handleRemoveFromSaved(hotel)
-                    : handleAddToSaved(hotel);
+                  handleRemoveFromSaved(hotel)
                 }}
               />
             );

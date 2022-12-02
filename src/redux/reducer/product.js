@@ -139,13 +139,7 @@ export const productReducer = (state = InitStateHotel, action) => {
         ...state,
         savedNews: action.payload,
       };
-    case 'removeFromSaved':
-      return {
-        ...state,
-        savedNews: savedNews.filter(
-          (hotel) => hotel.name !== action.payload.name,
-        ),
-      };
+    
     default:
       return state;
   }
