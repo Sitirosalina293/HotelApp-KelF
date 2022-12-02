@@ -2,28 +2,17 @@ import {
   View,
   Text,
   StyleSheet,
-  TouchableOpacity,
-  FlatList,
-  Image,
   ScrollView,
   SafeAreaView,
 } from 'react-native';
 import React, {useState} from 'react';
 import {BigCardTour, HeaderPrimary, Button} from '../../components';
-import {useDispatch, useSelector} from 'react-redux';
+import { useSelector } from 'react-redux';
 
 const Favorite = ({navigation}) => {
   const {isLoggedIn} = useSelector(state => state.auth);
-  const dispatch = useDispatch();
 
   const {savedNews} = useSelector(state => state.productReducer);
-
-  const handleAddToSaved = item => {
-    dispatch(addToSaved(item));
-  };
-  const handleRemoveFromSaved = item => {
-    dispatch(removeFromSaved(item));
-  };
 
   return (
     <SafeAreaView style={styles.container}>
@@ -41,7 +30,7 @@ const Favorite = ({navigation}) => {
                 alignItems: 'center',
                 justifyContent: 'center',
               }}>
-              {savedNews.map((hotel, index) => {
+              {savedNews?.map((hotel, index) => {
                 return (
                   <BigCardTour
                     key={index}
@@ -51,11 +40,6 @@ const Favorite = ({navigation}) => {
                     name={hotel.name}
                     rating={hotel.starRating}
                     price={hotel.ratesSummary.minPrice}
-                    onHandleFavorite={() => {
-                      savedNews.find(hotel => hotel.name === hotel.name)
-                        ? handleRemoveFromSaved(hotel)
-                        : handleAddToSaved(hotel)
-                    }}
                   />
                 );
               })}

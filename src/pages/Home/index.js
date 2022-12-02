@@ -19,6 +19,7 @@ import {showMessage} from '../../utils';
 
 const Home = ({navigation}) => {
   const dispatch = useDispatch();
+  const {isLoggedIn} = useSelector(state => state.auth);
   const {hotel} = useSelector(state => state.productReducer);
   const {hotelData} = useSelector(state => state.productReducer);
   const {savedNews} = useSelector(state => state.productReducer);
@@ -147,6 +148,10 @@ const Home = ({navigation}) => {
     searchHotelonCity(name);
     setInputCity(name);
   };
+  const handleSave=(hotel)=>{
+    isLoggedIn ? (dispatch({type: 'addToSaved', payload: hotel}))
+    : (navigation.navigate('Login'))
+  };
   useEffect(() => {
     dispatch(getMetaDataHotel());
     searchCity();
@@ -211,10 +216,7 @@ const Home = ({navigation}) => {
                     hotel.ratesSummary.minPrice,
                   )
                 }
-                onHandleFavorite={() => {
-                  savedNews.find(hotel => hotel.name === hotel.name)
-                  handleRemoveFromSaved(hotel)
-                }}
+                onHandleFavorite={() => {handleSave(hotel)}}
               />
             );
           })}
