@@ -157,6 +157,7 @@ const Home = ({navigation}) => {
                       'https://images.trvl-media.com/mobiata/mobile/apps/ExpediaBooking/TabletDestinations/images/par.jpg'
                     }
                     title={item.cityName}
+                    onPress={() => searchCity(item.cityName)}
                   />
                 );
               })}
