@@ -13,7 +13,7 @@ export const getMetaDataHotel = () => async dispatch => {
     const res = await Axios.get(`${API_HOST.urlHotelV1}v1/hotels/locations`, {
       params: {name: 'Indonesia', search_type: 'HOTEL'},
       headers: {
-        'x-rapidapi-key': 'cd67b63605msh1bdeae6089258a4p1ddd35jsn8918e18e3f84',
+        'x-rapidapi-key': '154295c785msh502d8213c3181a4p19c184jsne4d156d3f2c4',
         'x-rapidapi-host': 'priceline-com-provider.p.rapidapi.com',
       },
     });
@@ -43,7 +43,7 @@ export const getDetailHotel = async hotelId => {
         },
         headers: {
           'X-RapidAPI-Key':
-            'cd67b63605msh1bdeae6089258a4p1ddd35jsn8918e18e3f84',
+            '154295c785msh502d8213c3181a4p19c184jsne4d156d3f2c4',
           'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com',
         },
       },
@@ -85,7 +85,7 @@ export const saveDataTotalDataPemesanan = (id, data, tanggal) => async dispatch 
         },
         headers: {
           'X-RapidAPI-Key':
-            'cd67b63605msh1bdeae6089258a4p1ddd35jsn8918e18e3f84',
+            '154295c785msh502d8213c3181a4p19c184jsne4d156d3f2c4',
           'X-RapidAPI-Host': 'priceline-com-provider.p.rapidapi.com',
         },
       },
@@ -152,6 +152,34 @@ export const saveDataHistoryReview = data => async dispatch => {
               payload: dataHistory,
             });
             showMessage('Data review berhasil disimpan', 'success');
+          });
+        }
+        return null;
+      },
+    );
+  } catch (e) {
+    console.log('Error save data pesan', e);
+  }
+};
+export const savedNews = data => async dispatch => {
+  try {
+    await AsyncStorage.getItem('savedNews').then(
+      async dataFav => {
+        dataFav = dataFav ?? '[]';
+        let dataHistory = JSON.parse(dataFav);
+        if (Array.isArray(dataFav)) {
+          dataFav = dataFav.filter(
+            item => item && typeof item == 'object',
+          );
+          dataFav.push(data);
+          return await AsyncStorage.setItem(
+            'data Fav',
+            JSON.stringify(dataFav),
+          ).then(() => {
+            dispatch({
+              type: 'addToSaved',
+              payload: addToSaved,
+            });
           });
         }
         return null;
